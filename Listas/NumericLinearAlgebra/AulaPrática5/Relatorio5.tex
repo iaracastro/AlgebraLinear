@@ -1,0 +1,863 @@
+\documentclass[leqno]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+\usepackage[brazil]{babel} %\usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\usepackage{mathtools}
+\usepackage{nccmath}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\definecolor{codegray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{mystyle}{
+	language=Scilab,
+	backgroundcolor=\color{codegray},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	emph={testfunc,print,src},
+	emphstyle=\color{codeyellow},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol} 
+	{
+		\vspace{4mm}
+		\noindent\textbf{{\large Código:}}
+		\strut
+		\smallskip
+		\hspace{-3.5mm} 
+	} 
+	% Objetos que aparecem *após* o ambiente. 
+	% (você pode, por exemplo, modificar, 
+	% ou remover, a barra horizontal} 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Aula Prática 5}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle 
+	
+		\noindent\textbf{{\large MÉTODO DE GRAM-SCHMIDT}}\\
+		
+		\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+			Escreva uma função Scilab function [Q,R] = qr\_GS(A) que implementa o Método de Gram-Schmidt para determinar a decomposição QR de uma matriz A com colunas linearmente independentes.
+			Testar a sua função com algumas matrizes de ordens diferentes. Para cada uma delas, testar a precisão do método (por exemplo, teste a ortogonalidade da matriz Q obtida calculando QTQ).
+		\end{tcolorbox}
+	
+		\noindent A decomposição QR pelo método de Gram-Schmidt funciona da seguinte forma: 
+		$$A_{m x n} =  Q_{m x n}R_{n x m}$$
+		$$\begin{bmatrix}
+			a_1 & a_2 & \cdots & a_n
+		\end{bmatrix} = \begin{bmatrix}
+			q_1 & q_2 & \cdots & q_n
+		\end{bmatrix}\begin{bmatrix}
+			r_{11} & r_{12} & r_{13} & \cdots & r_{1m} \\
+			0 & r_{22} & r_{23} & \cdots & r_{2m} \\
+			0 & 0 & r_{33} & \cdots & r_{3m} \\
+			0 & 0 & 0 & \cdots & r_{mm}
+		\end{bmatrix}$$\\
+		
+		\vspace{0.3cm}
+		\noindent Sabendo que $r_{ij}$:\\
+		$0$, se $i>j$\\
+		$||v_{j}||$, se $i = j$\\
+		$q_{i}^T a_j$, se $i < j$
+		
+		\vspace{0.3cm}
+		\noindent Então:\\
+		$a_1 = r_{11} q_{1}$\\
+		$a_2 = r_{12} q_{1} + r_{22} q_{2}$\\
+		$a_n = r_{1m} q_{1} + r_{2m} q_{2} + r_{3m} q_{3} + \cdots + r_{mm} q_{n}$
+		
+		\vspace{0.3cm}
+		\noindent É o mesmo que:\\
+		$a_1 = ||v_1||q_1$\\
+		$a_2 = (q_{1}^T a_2) q_1 + ||v_2||q_2$\\
+		$a_3 = (q_{1}^T a_3) q_1 + (q_{2}^T a_3)q_2 + ||v_3||q_3$
+
+		\begin{sol}
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+			function [Q,R] = qr_GS(A)
+			[m,n] = size(A); // le dim de A
+			// inicializa as matrizes Q e R
+			Q = zeros(m,n);
+			R = zeros(n,m);
+			for j = 1:n 
+				v = A(:,j);
+				for i = 1:(j-1)
+					R(i,j) = Q(:,i)' * A(:,j); // r_ij caso i < j
+					v = v - R(i,j)*Q(:,i);
+				end
+				R(j,j) = norm(v, 2); // r_ij, quando i = j
+				Q(:,j) = v/(R(j,j));
+			end
+			endfunction
+		\end{lstlisting}	
+	
+	\vspace{0.3cm}	
+	\end{sol}
+
+	Para os testes, criei uma função que gera uma matriz aleatória quadrada de ordem n, e uma que gera uma matriz aleatória (m,n):
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+		function [A] = matriz_aleat(n) //quadrada
+		//para gerar um numero aleatorio entre [a,b]
+		//  r = a + (b-a)*rand();
+		
+		//matriz A(m,n)) com numeros aleatorios entre [1 e n^3]
+		A = floor(1 + ((n^3 - 1)*rand(n,n,'uniform')))
+		endfunction
+		
+		function [A] = matriz_aleat2(n,m) 
+		//para gerar um numero aleatorio entre [a,b]
+		//  r = a + (b-a)*rand();
+		
+		//matriz A(m,n)) com numeros aleatorios entre [1 e n^3]
+		A = floor(1 + ((n^3 - 1)*rand(n,m,'uniform')))
+		endfunction		
+	\end{lstlisting}
+
+	\noindent Testando com o \textbf{Método de Gram-Schmidt}:\\
+
+	\noindent \textbf{{\large ORDEM 5}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_gs}		
+	\end{figure}
+
+	Sabendo que Q é uma matriz ortogonal, logo, $Q^TQ = I$. Então podemos testar sua ortogonalidade vendo o quão próximo esse produto com nosso Q se aproxima da matriz identidade.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_gs_orto}		
+	\end{figure}
+
+	A diagonal é composta por 1's, e os demais índices estão muito próximos de 0 em cerca de 15 e 16 casas decimais.
+
+
+	Observação: Vale ressaltar que mesmo os números inteiros do produto QR sendo os mesmos, o produto não necessariamente é igual. Isso fica evidente ao realizar $Q*R - A$, que deveria ser 0, mas ao testar em um exemplo qualquer não é totalmente nulo.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a5_gsm}		
+	\end{figure}
+
+	
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a2_gs}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a2_gs_orto}		
+	\end{figure}
+
+	A diagonal é composta por 1's, e os demais índices estão muito próximos de 0 em cerca de 16 e 17 casas decimais.
+
+	
+	--------------------------------------------------------------------------------------------------------------------------------------\\
+	
+	\textbf{{\large ORDEM 10}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a3_gs}		
+	\end{figure}
+
+	
+	Testando sua ortogonalidade:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/a3_gs_orto}		
+	\end{figure}
+	\newpage
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a4_gs}		
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a4_gs_orto}		
+	\end{figure}
+
+
+		--------------------------------------------------------------------------------------------------------------------------------------\\
+		\newpage
+		\noindent \textbf{{\large Matrizes Não-Quadradas}}
+		
+		Exemplo 1: A(m,n), onde $n > m$ Mais colunas do que linhas.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\linewidth]{figures/gs_nao_quadradas_1}		
+		\end{figure}
+	
+		Como esperado, a matriz Q tem tamanho (m,n) e a matriz R tem tamanho (n,n).
+	
+		Exemplo 2: A(m,n), onde $m > n$ Mais linhas do que colunas.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\linewidth]{figures/gs_nao_quadradas_2}		
+		\end{figure}
+	
+		Como esperado, a matriz Q tem tamanho (m,n) e a matriz R tem tamanho (n,n).
+		
+		--------------------------------------------------------------------------------------------------------------------------------------\\
+	
+		\noindent\textbf{{\large	2) MÉTODO DE GRAM-SCHMIDT MODIFICADO}}
+		
+	\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+		Escreva uma função Scilab function [Q,R] = qr\_GSM(A) que implementa o Método de Gram-Schmidt Modificado.
+		Testar a sua função com as mesmas matrizes usadas nos testes do item anterior. Comparar a precisão dos dois Métodos.
+	\end{tcolorbox}
+
+	\noindent Para o método modificado, vamos usar v em vez de $a_j$ para $r_ij$ quando i < j:
+	
+	\begin{sol}			
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+			function [Q,R] = qr_GSM(A)
+			[m,n] = size(A); // le dim de A
+			//inicializa as matrizes Q e R
+			Q = zeros(m,n);
+			R = zeros(n,n);
+			//loop
+			for j = 1:n
+				v = A(:,j);
+				for i = 1:(j-1)
+					R(i,j) = Q(:,i)' * v; // r_ij caso i < j
+					v = v - R(i,j)*Q(:,i);
+				end
+				R(j,j) = norm(v, 2); // r_ij, quando i = j
+				Q(:,j) = v/(R(j,j));
+			end
+			endfunction
+		\end{lstlisting}
+	\end{sol}
+
+	\noindent Agora a função é mais estável em relação a ortogonalidade.
+	\vspace{3mm}
+	
+	Testando com o \textbf{Método de Gram-Schmidt Modificado}:\\
+	
+	\textbf{{\large ORDEM 5}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_gsm}		
+	\end{figure}
+	
+	Assim como antes, podemos testar sua ortogonalidade vendo o quão próximo $Q^TQ = I$ com nosso Q se aproxima da matriz identidade.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_gsm_orto}		
+	\end{figure}
+
+	Observação: Vale ressaltar que aqui também, mesmo os números inteiros sendo os mesmos, o produto não necessariamente é igual. Isso fica evidente ao realizar $Q*R - A$, que deveria ser 0, mas assim como na GS, não é totalmente.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a5_gsm}		
+	\end{figure}
+	
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/a2_gsm}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a2_gsm_orto}		
+	\end{figure}
+
+	\textbf{{\large ORDEM 10}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a3_gsm}		
+	\end{figure}
+	
+	
+	Testando sua ortogonalidade:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a3_gsm_orto}		
+	\end{figure}
+	\newpage
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a4_gsm}		
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a4_gsm_orto}		
+	\end{figure}
+
+	--------------------------------------------------------------------------------------------------------------------------------------\\
+	\newpage
+	\noindent \textbf{{\large Matrizes Não-Quadradas}}
+	
+	Exemplo 1: A(m,n), onde $n > m$ Mais colunas do que linhas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/gsm_nao_quadradas_1}		
+	\end{figure}
+	
+	Como esperado, a matriz Q tem tamanho (m,n) e a matriz R tem tamanho (n,n).
+	
+	Exemplo 2: A(m,n), onde $m > n$ Mais linhas do que colunas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/gsm_nao_quadradas_2}		
+	\end{figure}
+	
+	Como esperado, a matriz Q tem tamanho (m,n) e a matriz R tem tamanho (n,n).
+	\newpage
+	\noindent \textbf{{\large	4) MÉTODO DE HOUSEHOLDER}}
+	
+	\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+	Escreva uma função Scilab function [U,R] = qr\_House(A) que implementa o Método de Householder para determinar a decomposição QR de uma matriz A. A matriz U, triangular inferior, deve conter em suas colunas os vetores unitários que geraram as matrizes dos refletores de Householder usadas para gerar a decomposição QR.
+	Escreva também uma função Scilab function [Q] = constroi\_Q\_House(U) que constrói a matriz ortogonal Q da decomposição A = QR a partir da matriz U retornada pela função function [U,R] = qr\_House(A).
+	\end{tcolorbox}
+		
+	No método de Householder, vamos decompor A, mas nossa função inicialmente retornará as matrizes U, R em vez de Q e R.
+	
+	Basicamente, vamos criar um loop para transformar A na matriz R da seguinte forma: \\
+	$$A = R_0$$
+	$$Q_1 A = Q_1 R = R_1$$
+	$$Q_2 Q_1 A = Q_2 R_1 = R_2$$
+	$$\vdots$$
+	$$Q_j Q_{j-1} \cdots Q_1 A = Q_j R_{j-1} = R_j$$
+	$$\vdots$$
+	$$Q_k \cdots Q_1 A = R$$
+	
+	Para a reconstrução de Q, basta lembrar que:
+	
+	$$Q_k \cdots Q_2 Q_1 A = R$$
+	$$= Q^TA = R$$
+	$$A = QR$$
+	$$Q = (Q_k \cdots Q_2 Q_1)^T$$
+	$$Q = Q_1^T Q_2^T \cdots Q_k^T$$
+	$$Q = Q_1 Q_2 \cdots Q_k$$
+	
+	\noindent Então vamos criar um loop para multiplicar as matrizes Q pelo refletor de Householder: $I - 2uu^T$\\	
+	Juntando as duas funções:
+	
+	\begin{sol}			
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+			function [Q, U, R] = Householder(A)
+			[m,n] = size(A);  //Ler dim de A
+			k = min(m-1, n); //Tamanho de U depende do tamanho de A
+			for j = 1:k
+				x = A(j:m, j); //Coluna j da linha j ate a final
+				if x(1) > 0 then
+					x(1) = x(1) + norm(x, 2);
+				else
+					x(1) = x(1) - norm(x,2);
+				end
+			
+				u = x/norm(x,2);
+				U(j:m, j) = u; //Guarda o vetor u em U
+			
+				I = eye(m - j + 1);
+				H = I - 2*u*u';
+				A(j:m, j:m) = A(j:m, j:m) - 2*u*u'*A(j:m, j:m);
+			end
+			
+			R = triu(A) // R e a matriz A alterana apos varias iteracoes
+			//limpa os zeros
+			Q = constroi_Q(U); // Constroi Q a partir de U
+			endfunction
+			
+			function Q = constroi_Q(U) 
+			[m,k] = size(U);
+			Q = eye(m,m);
+			for j = 1:k
+				u = U(1:m, j)
+				//Q = Q(I - 2uu^T)
+				Q = Q - 2*(Q*u)*u'; 
+			end
+			endfunction
+		\end{lstlisting}
+	\end{sol}
+
+	Testando com o \textbf{Método de Householder}:
+	
+	
+	\textbf{{\large ORDEM 5}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_house_1}		
+	\end{figure}
+
+	Curiosamente, ao usar a função qr(A) do próprio scilab, é possível observar que a decomposição retorna as matrizes exatamente iguais às da nossa função de Householder.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_house_2}		
+	\end{figure}
+
+	Observação: Vale ressaltar que mesmo os números inteiros sendo os mesmos, o produto não necessariamente é igual. Isso fica evidente ao realizar $Q*R - A$, que deveria ser 0, mas assim como nos outros casos, não é totalmente.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a5_house}		
+	\end{figure}
+	
+	Assim como antes, podemos testar sua ortogonalidade vendo o quão próximo $Q^TQ = I$ com nosso Q se aproxima da matriz identidade.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a1_house_orto}		
+	\end{figure}
+	
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a2_house_1}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a2_house_2}
+	\end{figure}
+	
+	\newpage
+	\textbf{{\large ORDEM 10}}
+	
+	Exemplo 1:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a3_house}		
+	\end{figure}
+	
+	
+	Testando sua ortogonalidade:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a3_house_orto}		
+	\end{figure}
+
+	Exemplo 2:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/a4_house}		
+	\end{figure}
+	
+	
+	Testando sua ortogonalidade:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/a4_house_orto}		
+	\end{figure}
+
+	\newpage
+	\noindent \textbf{{\large Matrizes Não-Quadradas}}
+	
+	Exemplo 1: A(m,n), onde $n > m$ Mais colunas do que linhas, então k = m - 1;
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/house_nao_quadradas_1}		
+	\end{figure}
+	
+	Como esperado, a matriz Q é (m,m), (4,4). U é (m, m-1), (4,3). R tem tamanho (m,n), ou seja, (4,5).
+	
+	Exemplo 2: A(m,n), onde $m > n$ Mais linhas do que colunas, então k = n.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/house_nao_quadradas_2}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\linewidth]{figures/house_nao_quadradas_3}		
+	\end{figure}
+	
+	Como esperado, a matriz Q é (m,m), (5,5). U é (m, n), (5,4). R tem tamanho (m,n), ou seja, (5,4).
+	
+	--------------------------------------------------------------------------------------------------------------------------------------\\
+
+	\noindent \textbf{{\large 4.1) Testar as suas funções com as mesmas matrizes usadas nos testes dos itens
+	anteriores. Comparar a precisão dos Métodos.}}
+	
+	
+	
+	Para comparar as funções é mais conveniente o uso de matrizes com ordem grande, e podemos conferir sem precisar abrir as matrizes. Criei uma função que faz a a norma dos erros para $$Q*R - A$$
+	
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+		function erro = media_erro_qr(A) //QR - A -> 0
+		[m,n] = size(A);
+		erro = abs(norm(A,2))/ (m*n)
+		endfunction
+	\end{lstlisting}
+	
+	Analogamente, podemos calcular a média dos erros de $$Q'*Q - I$$ com:
+	
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+		function erro = media_erro_qq(A) //Q'Q - I -> 0
+		[m,n] = size(A);
+		A = A - eye(m,n);
+		erro = abs(norm(A),2)/ (m*n)
+		endfunction
+	\end{lstlisting}
+	
+	Primeiro subtraímos A da matriz identidade para obter os resíduos, e então calculamos a média dividindo sua soma pelo total de índices $m*n$.\\
+	
+	\noindent \textbf{{\large ORDEM 50}}
+	
+	
+	\noindent Erro QR\\ \noindent Exemplo 1:	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/erros1}		
+	\end{figure}
+
+	\noindent Erro QR\\ \noindent Exemplo 2:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/erros1.2}		
+	\end{figure}
+
+	\noindent Erro QR\\ \noindent Exemplo 3:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/erros1.3}		
+	\end{figure}
+
+	\noindent \textbf{{\large ORDEM 100}}
+	
+	
+	\noindent Erro QR\\ \noindent Exemplo 1:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/erros1.4}		
+	\end{figure}
+
+	\newpage
+	\noindent \textbf{{\large ORDEM 50}}
+
+	
+	\noindent Erro QQ\\ \noindent Exemplo 1:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.55\linewidth]{figures/erros2}		
+	\end{figure}	
+
+	\noindent Exemplo 2:
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/erros3}		
+	\end{figure}
+
+	\noindent \textbf{{\large ORDEM 100}}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/erros4}		
+	\end{figure}
+	
+	Todos os exemplos tiveram boa precisão. O método de Householder obtém um Q com maior ortogonalidade, visto que tem menor erro para $Q'Q - I$ mas o método de Gram-Smitch se mostra superior para o produto $Q*R$ que se aproxima mais de A.\\
+
+	\newpage
+	\textbf{{\large 4.2) Testar as suas funções com a matriz A = [0,70000 0,70711; 0,70001 0,70711].
+	Comparar a ortogonalidade das matrizes Q produzidas pelos Métodos.}}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/4.21}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/4.21}		
+	\end{figure}
+
+	Tanto a função GS quando a GSM tiveram o mesmo erro de 11 casas decimais.
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{figures/4.23}		
+	\end{figure}
+
+	A função de Householder teve o melhor desempenho, alcançando uma ortogonalidade perfeita neste exemplo.
+
+
+	\noindent \textbf{{\large 4.3) Seja a matriz $$A = \begin{bmatrix}
+				1 & 2 & 3 \\
+				4 & 5 & 6 \\
+				7 & 8 & 7 \\
+				4 & 2 & 3 \\
+				4 & 2 & 2
+			\end{bmatrix}$$ Calcule a decomposição QR (reduzida) usando os
+	métodos de Gram-Schmidt, Householder e a função “qr” do Scilab. Compare os três
+	resultados. Comente.}}
+	
+	\noindent \textbf{{\large Testando a função de Gram-Schmidt:}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/4.31}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{figures/4.32}		
+	\end{figure}
+
+	\noindent \textbf{{\large Testando a função de Gram-Schmidt Modificada:}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/4.33}		
+	\end{figure}
+
+	\begin{flushleft}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{figures/4.34}		
+	\end{figure}
+	\end{flushleft}
+	\newpage
+	\textbf{{\large Testando a função de Householder:}} 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\linewidth]{figures/4.35}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/4.36}		
+	\end{figure}
+	\newpage
+	\textbf{{\large Testando a função qr do Scilab:}}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/4.37}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/4.38}		
+	\end{figure}
+
+	\textbf{{\large Comentários: }}
+	
+	Assim como nos testes, a função de Grand-Smitch modificada teve uma leve melhora de desempenho na ortogonalidade de Q em comparação com o método original. Visto que o erro se encontra em cerca de 17 e até 18 casas decimais. Além disso, também mostramos novamente que a função QR do Scilab utiliza o método de Householder, visto que as matrizes obtidas na decomposição são exatamente iguais, e consequentemente sua precisão em ortogonalidade também.\\
+	
+	\textbf{{\large	5) ALGORITMO QR para AUTOVALORES}}
+	
+	\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+		Escreva uma função Scilab function [S] = espectro(A, tol) que calcula os autovalores
+		de uma matriz simétrica A usando o Algoritmo QR. Os autovalores calculados devem
+		ser devolvidos no vetor S. Use como critério de parada a norma infinito da diferença
+		entre dois espectros consecutivos menor do que uma tolerância tol dada ($10^{-3}$, $10^{-4}$,
+		$10^{-5}$, ...). Teste a sua função com matrizes simétricas das quais você saiba quais são
+		os autovalores.
+	\end{tcolorbox}
+
+	Para essa função, vamos usar a função de HouseHolder para encontrar a decomposição QR da nossa matriz A.
+	Depois, vamos ter um $A_1$, tal que $A_1 = R*Q$. Essa troca ocorre pois:
+	
+	$$A = QR$$
+	$$R = Q^T A$$
+	$$A_1 = Q^T A Q$$
+	
+	Feito isso, podemos concluir que $A_1$ e $A$ são semelhantes, ou seja, tem os mesmos autovalores. A partir daí iremos continuar gerando matrizes A com $RQ$ de decomposições $QR$ até obter um $R_{k-1}$ que converge para uma matriz triangular superior, cujo os autovalores serão a diagonal de $A_k$.
+
+	\begin{sol}			
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+			function [S] = espectro(A, tol)
+			
+			erro = 1;
+			while erro > tol
+			[Q, U, R] = Householder(A);
+			A1 = R*Q;
+			[Q1, U1, R1] = Householder(A1);
+			A = R1*Q1;
+			
+			//definir erro baseado nas diagonais convergindo para os autovalores
+			erro = abs(norm(diag(A), 'inf') - norm(diag(A1),'inf'));
+			end
+			S = diag(A1);
+			endfunction
+		\end{lstlisting}
+	\end{sol}
+
+	Para os testes, vou usar uma função de gerar matrizes simétricas aleatórias usada na AP3:
+	
+	\begin{lstlisting}
+		function A = Matriz_Simetrica_Aleat(n)
+		// gera numeros aleatorios entre -n^2 e n^2  
+		A = floor(-((n^2)*rand(n,n,'uniform')) + ((n^2)*rand(n,n,'uniform')))
+		// define a simetria da matriz
+		A = tril(A) + triu(A', 1)
+		endfunction
+	\end{lstlisting}
+
+	\textbf{{\large Ordem 5:}}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/5.1}		
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{figures/5.2}		
+	\end{figure}
+
+	Com essa tolerância os autovalores já alcançam seus respectivos valores. Note que a função retorna eles de acordo com sua posição na matriz, enquanto o spec() do scilab retorna eles em ordem crescente.\\
+
+
+	\textbf{{\large Ordem 10:}}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/5.3}		
+	\end{figure}
+	
+	Mas sabendo que a função spec() do scilab ordena os autovalores, podemos compará-los lado a lado ordenando nossos autovalores com a função gsort()
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\linewidth]{figures/5.4}		
+	\end{figure}
+
+	Confirmamos que a precisão da função está boa, sendo igual em todas as casas decimais da visualização.	
+	
+	\textbf{{\large Ordem 15:}}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/5.5}		
+	\end{figure}
+
+	\textbf{{\large Ordem 50:}}
+	Para confirmar a precisão em uma ordem maior, sem ter que abrir as matrizes, basta utilizar a mesma lógica dos testes anteriores e pegar o módulo da subtração de ambos para verificar a diferença.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\linewidth]{figures/5.6}		
+	\end{figure}
+
+	O erro foi relativamente baixo.
+
+\end{document}
