@@ -1,0 +1,10 @@
+Vídeo sobre bases ortonormais: https://www.youtube.com/watch?v=7BFx8pt2aTQ
+Vídeo sobre mínimos quadrados: https://www.youtube.com/watch?v=AmQcoopBUTk
+Vídeo sobre determinantes: https://www.youtube.com/watch?v=55AoWKZZtww
+Vídeo sobre decomposição LU: https://www.youtube.com/watch?v=-eA2D_rIcNA
+Vídeo sobre autovalores e autovetores: https://www.youtube.com/watch?v=DzqE7tj7eIM
+Vídeo sobre decomposição SVD: https://www.youtube.com/watch?v=mBcLRGuAFUk&t=3s
+Vídeo sobre método de Gauss-Seidel: https://www.youtube.com/watch?v=pQVqaiFBvoU
+Vídeo sobre exemplo de Gauss-Seidel: https://www.youtube.com/watch?v=qd4jXumIy9E
+Vídeo sobre processo de Gram-Schmidt: https://www.youtube.com/watch?v=rHonltF77zI
+Vídeo sobre método de Jacobi: https://www.youtube.com/watch?v=bR2SEe8W3Ig
