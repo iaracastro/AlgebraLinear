@@ -1,0 +1,885 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel} % \usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage[inline]{enumitem}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol}
+	{
+		\vspace{4mm}
+		\noindent\textbf{Resolução:}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm}
+	}
+	% Objetos que aparecem *após* o ambiente; 
+	% nestas configurações, estamos desenhando uma 
+	% linha horizontal. 
+	% (você pode, por exemplo, modificar 
+	% ou remover este elemento gráfico) 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Lista de Exercícios 10}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja $A = \begin{bmatrix}
+			1 & b \\
+			b & 1
+		\end{bmatrix}$.
+		
+		\begin{enumerate}
+			
+			\item Ache $b$ tal que $A$ tenha um autovalor negativo.
+			
+			\begin{sol} 
+				   $P(\leftthreetimes) = \det\begin{bmatrix}
+				   	1 - \leftthreetimes & b \\
+				   	b & 1 - \leftthreetimes
+				   \end{bmatrix}$
+			   
+			$(1 - \leftthreetimes)^2 - b^2 = 0$
+			
+			$\leftthreetimes^2 - 2\leftthreetimes + (1 - b^2) = 0$ 
+			
+			$ \leftthreetimes = \frac{2 \pm \sqrt{4 - 4(1-b^2)}}{2}$
+			
+			Então para ter um autovalor negativo:\\
+			$4 - 4(1-b^2) > 2^2$\\
+			$-4(1-b^2) > 0$\\
+			$1 - b^2 < 0$\\
+			$b^2 > 1$
+			
+			Resposta:
+			$b > 1$ ou $b < -1$
+			\end{sol} 
+			
+			\item Como podemos concluir que $A$ precisa ter um pivô negativo?
+			
+			\begin{sol} 
+				Os pivôs têm os mesmos sinais que os autovalores. Visto que a matriz $A$ tem um autovalor negativo, então podemos concluir que $A$ precisa ter um pivô negativo.
+			\end{sol} 
+			
+			\item Como podemos concluir que $A$ não pode ter dois autovalores negativos?
+			
+			\begin{sol} 
+				Como dito anteriormente, para um autovalor negativo: $b > 1$ ou $b < -1$
+				Se escolhermos $b > 1$, então $\leftthreetimes_1$ será
+				positivo enquanto $\leftthreetimes_2$ será negativo. Alternativamente, se escolhermos
+				$b <$$-1$, então $\leftthreetimes_1$ será negativo enquanto $\leftthreetimes_2$ será
+				positivo. Portanto, essa matriz não pode ter dois autovalores negativos.    
+			\end{sol} 
+			
+		\end{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Em quais das seguintes classes as matrizes $A$ e $B$ abaixo pertencem: invertível, ortogonal, projeção, permutação, diagonalizável, Markov?
+		$$A = \begin{bmatrix}
+			0 & 0 & 1 \\
+			0 & 1 & 0 \\
+			1 & 0 & 0
+		\end{bmatrix} \mbox{ e } B = \frac{1}{3}\begin{bmatrix}
+			1 & 1 & 1 \\
+			1 & 1 & 1 \\
+			1 & 1 & 1
+		\end{bmatrix}.$$
+		Quais das seguintes fatorações são possíveis para $A$ e $B$? $LU$, $QR$, $S\Lambda S^{-1}$ ou $Q\Lambda Q^T$?
+		
+		\begin{sol} 
+			$A$ é uma matriz de permutação, invertível, ortogonal, diagonalizável e de Markov.
+			
+			$A$ é uma matriz de permutação, pois é uma matriz quadrada obtida da mesma matriz de identidade de tamanho por uma permutação de linhas, nesse caso: $L_1 \longleftrightarrow L_3$.
+			
+			$A$ é uma matriz invertível, pois toda matriz de permutação elementar é invertível.
+			
+			$A$ é uma matriz ortogonal, pois toda matriz de permutação elementar é ortogonal.
+			
+			$A$ é uma matriz diagonalizável, pois é simétrica ($A = A^T$) e toda matriz simétrica é diagonalizável.
+			
+			$A$ é uma matriz de Markov, pois ao somar cada coluna você terá 1 como resultado. ($1 + 0 + 0$)
+			
+			-----------------------------------------------------------------------------------------------------------------------------------
+			
+			$B$ é uma matriz diagonalizável e de Markov.
+			
+			$B$ é uma matriz diagonalizável, pois é simétrica ($A = A^T$) e toda matriz simétrica é diagonalizável.
+			
+			$B$ é uma matriz de Markov, pois ao somar cada coluna você terá 1 como resultado. ($1/3 + 1/3 + 1/3$)
+			
+			-----------------------------------------------------------------------------------------------------------------------------------
+			
+			$A$ não pode ser escrito na forma LU, pois é preciso permutar suas linhas para ser fatorável.
+			
+			$B$ pode ser escrito na forma LU:
+			$B = \frac{1}{3}\begin{bmatrix}
+				1 & 0 & 0 \\
+				1 & 1 & 0 \\
+				1 & 0 & 1
+			\end{bmatrix}\begin{bmatrix}
+				1 & 1 & 1 \\
+				0 & 0 & 0 \\
+				0 & 0 & 0
+			\end{bmatrix}$
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 3 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Complete a matriz $A$ abaixo para que seja de Markov e ache o autovetor estacionário. Sua conclusão é válida para qualquer matriz simétrica de Markov $A$? Por quê?
+		$$A = \begin{bmatrix}
+			0.7 & 0.1 & 0.2 \\
+			0.1 & 0.6 & 0.3 \\
+			* & * & *
+		\end{bmatrix}$$
+		
+		\begin{sol} 
+			$$A = \begin{bmatrix}
+				0.7 & 0.1 & 0.2 \\
+				0.1 & 0.6 & 0.3 \\
+				0.2 & 0.3 & 0.5
+			\end{bmatrix} $$
+		
+		
+		Encontrando os autovalores de A:
+		
+		$$\det(A - \leftthreetimes I) \begin{bmatrix}
+			0.7 - \leftthreetimes & 0.1 & 0.2 \\
+			0.1 & 0.6 - \leftthreetimes & 0.3 \\
+			0.2 & 0.3 & 0.5 - \leftthreetimes
+		\end{bmatrix}$$
+	
+		Um vetor estacionário tem autovalor $\leftthreetimes = 1$, então:
+		
+		$$\det(A - \leftthreetimes I) \begin{bmatrix}
+			0.7 - 1 & 0.1 & 0.2 \\
+			0.1 & 0.6 - 1 & 0.3 \\
+			0.2 & 0.3 & 0.5 - 1
+		\end{bmatrix} = \begin{bmatrix}
+			-0.3 & 0.1 & 0.2 \\
+			0.1 & -0.4 & 0.3 \\
+			0.2 & 0.3 & -0.5
+		\end{bmatrix}$$
+	
+		Calculando os autovetores:
+		
+		$\begin{bmatrix}
+			-0.3 & 0.1 & 0.2 \\
+			0.1 & -0.4 & 0.3 \\
+			0.2 & 0.3 & -0.5
+		\end{bmatrix}v = 0$
+	
+		$
+		\left\{
+		\begin {array}{l}
+		-0.3x +0.1y + 0.2z = 0\\
+		0.1x -0.4y + 0.3z = 0\\
+		0.2x + 0.3y - 0.5z = 0
+		\end{array}
+		\right.$\\
+		
+		$x = y = z$
+		
+		$v = (1, 1, 1)$
+		
+		
+		O vetor estacionário pra uma matriz simétrica de Markov sempre será $v = (1, 1, 1)$, pois as Matrizes de Markov sempre tem um autovalor igual a 1, e por ela ser simétrica ao resolver o sistema, você terá $x = y = z$ com um vetor estacionário $v = (1, 1, 1)$.
+		
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Dizemos que $\cM$ é um grupo de matrizes invertíveis se $A, B \in \cM$ implica $AB \in \cM$ e $A^{-1} \in \cM$. Quais dos conjuntos abaixo é um grupo?  
+		
+		\begin{enumerate}
+			
+			\item O conjunto das matrizes positivas definidas;
+			
+			\item o conjunto das matrizes ortogonais;
+			
+			\item o conjunto $\{e^{tC} \ ; \ t \in \bR\}$, para uma matriz $C$ fixa;
+			
+			\item o conjunto das matrizes com determinante igual a 1.
+			
+		\end{enumerate}
+		
+		\begin{sol} 
+			\vspace{-\baselineskip}  
+			\begin{enumerate} 
+				\item Não é um grupo.
+				
+				Contra-exemplo:
+				
+				$$A = \begin{bmatrix}
+					2 & -1 \\
+					-1 & 2
+				\end{bmatrix}$$
+				
+					Tem autovalores $(1, 3)$ e $\det{A} = 3 > 0$
+				
+				$$B = \begin{bmatrix}
+					10 & 3 \\
+					3 & 1
+				\end{bmatrix}$$
+			
+				Tem autovalores $(11, 1)$ e $\det{B} = 11 > 0$
+				
+				$$AB = \begin{bmatrix}
+					17 & 5 \\
+					-4 & -1
+				\end{bmatrix}$$
+			
+				Supondo que $x^T = \begin{bmatrix}
+					0 & 1
+				\end{bmatrix}$ 
+			
+				e $x = \begin{bmatrix}
+					0 \\
+					1
+				\end{bmatrix}$
+			
+				Então $x^T \cdot AB \cdot x$ deveria ser maior que 0, mas:
+				
+				$$\begin{bmatrix}
+					0 & 1
+				\end{bmatrix}\begin{bmatrix}
+					17 & 5 \\
+					-4 & -1
+				\end{bmatrix}\begin{bmatrix}
+					0 \\
+					1
+				\end{bmatrix} = -1$$
+			
+				É negativo então AB não é positiva-definida.
+				
+				---------------------------------------------------------------------------------------------------------------------------------
+				
+				\item É um grupo.
+				
+				Se $A$ e $B$ são ortogonais, então:
+				
+				$A^TB = I_n$ e $B^TB = I_n$
+				
+				Temos que mostrar que $AB$ é ortogonal, ou seja: $(AB)^T(AB) = I_n$
+				
+				Começamos com:
+				
+				$(AB)^T = B^T A^T$
+				
+				Multiplicando toda a equação por $AB$:
+				
+				$(AB)^T(AB) = B^T A^T AB$
+				
+				$(AB)^T(AB) = B^T (A^T A)B$
+				
+				$(AB)^T(AB) = B^T I B$
+				
+				$(AB)^T(AB) = B^T B$
+				
+				$(AB)^T(AB) = I$
+				
+				Agora temos que mostrar que $A^{-1}$ é ortogonal, ou seja: $(A^{-1})^T(A^{-1}) = I_n$
+				
+				Sabendo que $A$ é uma matriz ortogonal, então:
+				
+				$A^{-1} = A^T$
+				
+				Fazendo a transposta de toda a equação:
+				
+				$(A^{-1})^T = (A^T)^T = A$
+				
+				Substituindo $(A^{-1})^T = A$ na equação:
+				
+				$(A^{-1})^T(A^{-1}) = I_n$
+				
+				$A (A^{-1}) = I_n$ que é verdade.
+				
+				---------------------------------------------------------------------------------------------------------------------------------
+				\item É um grupo.
+				
+				$e^{tC} \cdot e^{tB} = e^{t(C + B)}$
+				
+				---------------------------------------------------------------------------------------------------------------------------------
+				\item É um grupo.
+				
+				Se $\det{A} = 1$ e $\det{B} = 1$, então $\det{AB} = \det{A} \times \det{B} = 1$.
+				
+				Se $\det{A} = 1$ então $\det{A^{-1}} = \frac{1}{\det{A}} = 1$
+			\end{enumerate} 
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Sejam $A$ e $B$ matrizes simétricas e positivas definidas. Prove que os autovalores de $AB$ são positivos. Podemos dizer que $AB$ é simétrica e positiva definida?
+		
+		\begin{sol} 
+			Supondo que $A\ast$ seja a transposta conjugada de A. De acordo com a definição, uma matriz definida positiva é necessariamente hermitiana. 
+			
+			Como A é positiva definida, existe invertível $\sqrt{A}$ tal que $A = \sqrt{A}\sqrt{A}$
+			
+			Como B é definida positiva, existe B invertível $\sqrt{B}$ tal que $B = \sqrt{B}\sqrt{B}$
+			
+			Visto que, $(\sqrt{A})\ast = \sqrt{A}$ e $(\sqrt{B})\ast = \sqrt{B}$
+			
+			Seja $\leftthreetimes$ um autovalor de $AB$ e $v$ um autovetor de $AB$. Seja $u = \sqrt{A}^{-1}v$. (Então, $v = \sqrt{A}u$)
+			
+			$ABv = \leftthreetimes v \Longleftrightarrow (\sqrt{A}\sqrt{A})B(\sqrt{A}u) = \leftthreetimes \sqrt{A} u$
+			
+			Multiplicando toda a equação por $\sqrt{A}^{-1}$:
+			
+			$ \sqrt{A}^{-1}(\sqrt{A}\sqrt{A}B\sqrt{A}u) = \sqrt{A}^{-1}(\sqrt{A} \leftthreetimes u) \Longleftrightarrow \sqrt{A}B\sqrt{A}u = \leftthreetimes u$
+			
+			Portanto, $AB$ e $\sqrt{A}B\sqrt{A}$ têm os mesmos autovalores.
+			
+			Agora vamos provar que os autovalores de $\sqrt{A}B\sqrt{A}$ são positivos (e por isso, os autovalores de $AB$ também são):
+			
+			Usando propriedades de produto interno:
+			
+			$\leftthreetimes \langle\ u, u \rangle = \langle\ \leftthreetimes u, u \rangle = \langle\ \sqrt{A}B\sqrt{A}u, u \rangle = \langle\ (\sqrt{A}\sqrt{B})(\sqrt{B}\sqrt{A})u, u) \rangle $
+			 
+			$=\langle\ (\sqrt{B}\sqrt{A})u, (\sqrt{A}\sqrt{B})\ast u) \rangle  $
+			
+			$= \langle\ \sqrt{B}\sqrt{A}u, \sqrt{B}\ast\sqrt{A}\ast u \rangle $ 
+			
+			$= \langle\ \sqrt{B}\sqrt{A}u, \sqrt{B}\sqrt{A}u \rangle > 0$
+			
+			Então, $\leftthreetimes \langle\ u, u \rangle 0 \Rightarrow \leftthreetimes > 0$
+			
+			-----------------------------------------------------------------------------------------------------------------------------------
+				
+			Não é possível dizer que $AB$ é simétrica e positiva definida. Na questão anterior (letra a)) há um contra-exemplo demostrando que nem toda matriz positiva definida e simétrica A e B tem um produto AB positivo definido.
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache a forma quadrática associada à matriz $A = \begin{bmatrix}
+			1 & 5 \\
+			7 & 9
+		\end{bmatrix}$. Qual o sinal dessa forma quadrática? Positivo, negativo ou ambos?
+		
+		\begin{sol} 
+			$$\begin{bmatrix}
+				x & y 
+			\end{bmatrix}\begin{bmatrix}
+				1 & 5 \\
+				7 & 9
+			\end{bmatrix}\begin{bmatrix}
+				x  \\
+				y 
+			\end{bmatrix} = \begin{bmatrix}
+				x & y 
+			\end{bmatrix} \begin{bmatrix}
+				x + 5y \\
+				7x + 9y
+			\end{bmatrix}$$
+		
+		$$= x^2 + 12xy + 9y^2 $$  
+		
+		Ambos, a função quadrática é positiva e negativa dependendo do valor de x e y.
+		Por exemplo, se $x = 1$ e $y = 1$ a função é igual a $22$.
+		Já se $x = 1$ e $y = -1$, a função é igual a $-2$.
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 7 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Prove os seguintes fatos:
+		
+		\begin{enumerate}
+			
+			\item Se $A$ e $B$ são similares, então $A^2$ e $B^2$ também o são.
+			
+			\begin{sol} 
+				Se $A$ e $B$ são similares:
+				
+				$A = PBP^{-1}$  
+				
+				$A^2 = (PBP^{-1})(PBP^{-1})$
+				
+				$A^2 = (PB)(P^{-1}P)(BP^{-1})$
+				
+				$A^2 = PBIBP^{-1}$
+				
+				$A^2 = PB^2P^{-1}$
+				
+				Então $A^2$ e $B^2$ também são similares.
+				
+				---------------------------------------------------------------------------------------------------------------------------------
+			\end{sol} 
+			
+			\item $A^2$ e $B^2$ podem ser similares sem $A$ e $B$ serem similares.
+			
+			Contra-exemplo para "Se $A^2$ e $B^2$ são similares, então $A$ e $B$ são similares":
+			
+			Supondo que $A = \begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}$ e $B = \begin{bmatrix}
+				-1 & 0 \\
+				0 & 1
+			\end{bmatrix}$
+			
+			$A^2$ e $B^2$ são similares, pois:
+			
+			$A^2 = PB^2P^{-1} \longrightarrow A^2P = PB^2$
+			
+			$A^2 = \begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}$ e $B^2 = \begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}$
+		
+			Visto que $A^2 = B^2 = I$, 
+			
+			$A^2 = PB^2P^{-1} \longrightarrow I = PIP^{-1}$  é satisfeito, e P pode ser qualquer matriz invertível.
+			
+			Por outro lado, A e B:
+			
+			$A = \begin{bmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}$ e $B = \begin{bmatrix}
+				-1 & 0 \\
+				0 & 1
+			\end{bmatrix}$
+			
+			Não são similares, pois $\det{A} = 1$ e $\det{B} = -1$.
+			
+			Por isso, $A^2$ e $B^2$ podem ser similares sem $A$ e $B$ serem similares.
+			
+			---------------------------------------------------------------------------------------------------------------------------------
+			
+			\item $\begin{bmatrix}
+				3 & 0 \\
+				0 & 4
+			\end{bmatrix}$ é similar à $\begin{bmatrix}
+				3 & 1 \\
+				0 & 4
+			\end{bmatrix}$.
+		
+			\begin{sol} 
+				Sabendo que $A = PBP^{-1}$, ao multiplicar tudo por P: $AP = PB$
+				
+				$P = \begin{bmatrix}
+					a & b \\
+					c & d
+				\end{bmatrix}$			
+				
+				$$AP = \begin{bmatrix}
+					3 & 0 \\
+					0 & 4
+				\end{bmatrix}\begin{bmatrix}
+					a & b \\
+					c & d
+				\end{bmatrix} = \begin{bmatrix}
+					3a & 3b \\
+					4c & 4d
+				\end{bmatrix}$$ 
+			
+				$$PB = \begin{bmatrix}
+					a & b \\
+					c & d
+				\end{bmatrix}\begin{bmatrix}
+					3 & 1 \\
+					0 & 4
+				\end{bmatrix} = \begin{bmatrix}
+					3a & a + 4b \\
+					3c & c + 4d
+				\end{bmatrix}$$
+			
+			Igualando:
+			
+			$
+			\left\{
+			\begin {array}{l}
+			3a = 3a \longrightarrow a = 1\\
+			3b = a + 4b \longrightarrow b = -1\\
+			4c = 3c \longrightarrow c = 0\\
+			4d = c + 4d \longrightarrow d = 1\\
+			\end{array}
+			\right.
+			$\\ 
+		
+			ps: $a$ poderia ser 0, mas colocamos 1 pois P precisa ser uma matriz invertível, então a determinante não pode ser 0.
+			
+			Logo: $$P = \begin{bmatrix}
+				1 & -1 \\
+				0 & 1
+			\end{bmatrix}$$
+			
+			P satisfaz $A = PBP^{-1}$:
+		
+			$$\begin{bmatrix}
+				3 & 0 \\
+				0 & 4
+			\end{bmatrix} = \begin{bmatrix}
+				1 & -1 \\
+				0 & 1
+			\end{bmatrix}\begin{bmatrix}
+				3 & 1 \\
+				0 & 4
+			\end{bmatrix}\begin{bmatrix}
+				1 & 1 \\
+				0 & 1
+			\end{bmatrix}$$
+		
+			$$\begin{bmatrix}
+				3 & 0 \\
+				0 & 4
+			\end{bmatrix} = \begin{bmatrix}
+				1 & -1 \\
+				0 & 1
+			\end{bmatrix}\begin{bmatrix}
+				3 & 4 \\
+				0 & 4
+			\end{bmatrix}$$
+			
+			Sendo assim, $A$ e $B$ são similares.\\
+			---------------------------------------------------------------------------------------------------------------------------------
+			\end{sol}
+		
+			\item $\begin{bmatrix}
+				3 & 0 \\
+				0 & 3
+			\end{bmatrix}$ não é similar à $\begin{bmatrix}
+				3 & 1 \\
+				0 & 3
+			\end{bmatrix}$.
+			
+			\begin{sol} 
+				   
+			\end{sol} 
+			
+		\end{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 8 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache os valores singulares (como na decomposição SVD) da matriz $A = \begin{bmatrix}
+			1 & 1 \\
+			1 & 0
+		\end{bmatrix}$.
+		
+		\begin{sol} 
+		$A^T A = \begin{bmatrix}
+			1 & 1 \\
+			1 & 0
+		\end{bmatrix}\begin{bmatrix}
+			1 & 1 \\
+			1 & 0
+		\end{bmatrix} = \begin{bmatrix}
+		2 & 1 \\
+		1 & 1
+		\end{bmatrix}$ 
+	
+		$$\det(A^T A - \leftthreetimes I) = \det \begin{bmatrix}
+			2 - \leftthreetimes & 1 \\
+			1 & 1 - \leftthreetimes
+		\end{bmatrix} = (2 - \leftthreetimes)(1 - \leftthreetimes) - 1 = 0$$
+	
+		$= 2 - 2\leftthreetimes - \leftthreetimes + \leftthreetimes^2 - 1 = 0$\\
+		$= \leftthreetimes^2 - 3\leftthreetimes + 1 = 0$
+		
+		$\bigtriangleup = 9 - 4 = 5$
+		
+		$\leftthreetimes = \frac{3 \pm \sqrt{5}}{2}$
+		
+		$\leftthreetimes_1 = \frac{3 + \sqrt{5}}{2}$
+		
+		$\leftthreetimes_2 = \frac{3 - \sqrt{5}}{2}$
+		
+		Então os valores singulares serão:
+		
+		$\sigma_1 = \sqrt{\frac{3 + \sqrt{5}}{2}}$
+		
+		$\sigma_2 = \sqrt{\frac{3 - \sqrt{5}}{2}}$
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 9 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Suponha que as colunas de $A$ sejam $\bfw_1, \ldots, \bfw_n$ que são vetores ortogonais com comprimentos $\sigma_1, \ldots, \sigma_n$. Calcule $A^TA$. Ache a decomposição SVD de $A$.
+		
+		\begin{sol} 
+			 Usando um caso particular para visualizar essa situação:
+			 $w_1 = (2, 0, 0)$ e $w_2 = (0, 3, 0)$
+			 
+			 $w_1$ e $w_2$ representam os vetores ortogonais, com comprimentos $\sigma_1 = 2$ e $\sigma_2 = 3$
+			 
+			 $AA^T = \begin{bmatrix}
+			 	2 & 0 \\
+			 	0 & 3 \\
+			 	0 & 0
+			 \end{bmatrix}\begin{bmatrix}
+				 2 & 0 & 0\\
+				 0 & 3 & 0
+			 \end{bmatrix} = \begin{bmatrix}
+				 4 & 0 & 0\\
+				 0 & 9 & 0\\
+				 0 & 0 & 0
+			 \end{bmatrix}$
+		 
+			 $\det(AA^T - \leftthreetimes I) = \begin{bmatrix}
+			 	4 - \leftthreetimes & 0 & 0\\
+			 	0 & 9 - \leftthreetimes& 0\\
+			 	0 & 0 & - \leftthreetimes
+			 \end{bmatrix} = -\leftthreetimes(4 - \leftthreetimes)(9 - \leftthreetimes) = 0$
+		 
+		$ \leftthreetimes_1 = 4, \leftthreetimes_2 = 9, \leftthreetimes_3 = 0$
+		
+		$(A - \leftthreetimes I)x = \begin{bmatrix}
+			4 - \leftthreetimes_1 & 0 & 0\\
+			0 & 9 - \leftthreetimes_1 & 0\\
+			0 & 0 & - \leftthreetimes_1
+		\end{bmatrix}\begin{bmatrix}
+			x\\
+			y\\
+			z
+		\end{bmatrix} = \begin{bmatrix}
+			0 & 0 & 0\\
+			0 & 5 & 0\\
+			0 & 0 & -4
+		\end{bmatrix}\begin{bmatrix}
+			x\\
+			y\\
+			z
+		\end{bmatrix} = \begin{bmatrix}
+			0\\
+			0\\
+			0
+		\end{bmatrix}$
+	
+		$v_1 = (1, 0, 0)$, $v_2 = (0, 1, 0)$ e $v_3 = (0, 0, 1)$
+		
+		$U = \begin{bmatrix}
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+		\end{bmatrix}$
+	
+		$A^TA = \begin{bmatrix}
+			2 & 0 & 0\\
+			0 & 3 & 0
+		\end{bmatrix}\begin{bmatrix}
+			2 & 0 \\
+			0 & 3 \\
+			0 & 0
+		\end{bmatrix} = \begin{bmatrix}
+			4 & 0 \\
+			0 & 9 
+		\end{bmatrix}$
+	
+		Observa-se que os autovalores não-nulos de de $AA^T$ e $A^TA$ são os mesmos.
+	
+		$\det(A^TA - \leftthreetimes I) = \begin{bmatrix}
+			4 - \leftthreetimes & 0 \\
+			0 & 9 - \leftthreetimes
+		\end{bmatrix} = (4 - \leftthreetimes)(9 - \leftthreetimes) = 0$
+	
+		$ \leftthreetimes_1 = 4, \leftthreetimes_2 = 9$ 
+		
+		Consequentemente, os autovetores são $v_1 = (1, 0)$ e $v_2 = (0, 1)$
+		
+		$V = V^T = \begin{bmatrix}
+			1 & 0 \\
+			0 & 1 
+		\end{bmatrix}$
+	
+		$\Sigma = \begin{bmatrix}
+			\sqrt{4} & 0 \\
+			0 & \sqrt{9} \\
+			0 & 0 
+		\end{bmatrix}$
+	
+		Então, concluímos que a decomposição SVD de A é:
+		
+		$A = \begin{bmatrix}
+			1 & 0 & 0\\
+			0 & 1 & 0\\
+			0 & 0 & 1
+		\end{bmatrix}\begin{bmatrix}
+			\sqrt{4} & 0 \\
+			0 & \sqrt{9} \\
+			0 & 0 
+		\end{bmatrix}\begin{bmatrix}
+			1 & 0 \\
+			0 & 1 
+		\end{bmatrix}$
+		
+		
+		De uma forma mais geral, $w_1$ e $w_2$ podem ter qualquer $\sigma_1$ e $\sigma_2$, além de estar em outra dimensão.
+		
+		Supondo que A é uma matriz $m \times n$:
+		
+		Então $AA^T = \begin{bmatrix}
+			\sigma_1 & 0 & \cdots & 0\\
+			0 & \sigma_2 & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & 0
+		\end{bmatrix}_{m \times n}\begin{bmatrix}
+			\sigma_1 & 0 & \cdots & \cdots& 0\\
+			0 & \sigma_2 & \cdots & \cdots & 0\\
+			\vdots & \vdots & \ddots & \ddots & \vdots \\
+			0 & 0 & 0 & 0 & 0
+		\end{bmatrix}_{n \times m} = \begin{bmatrix}
+			\sigma_1^2 & 0 & \cdots & \cdots & 0\\
+			0 & \sigma_2^2 & \cdots & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			0 & 0 & 0 & 0 & 0
+			
+		\end{bmatrix}_{m \times m}$ 
+		
+		
+		$\det(AA^T - \leftthreetimes I) = \begin{bmatrix}
+			\sigma_1^2 - \leftthreetimes& 0 & \cdots & \cdots & 0\\
+			0 & \sigma_2^2 - \leftthreetimes& \cdots & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			\vdots & \vdots & \ddots & \vdots & \vdots\\
+			0 & 0 & 0 & 0 & -\leftthreetimes \end{bmatrix}$
+		
+		Autovalores: $\leftthreetimes_1 = \sigma_1^2$, $\leftthreetimes_2 = \sigma_2^2$ ... $\leftthreetimes_n = 0$
+		
+		Autovetores: $v_1 = (1, 0, 0 ... 0_m)$, $v_2 = (0, 1, 0 ... 0_m)$, .... $v_n = (0, 0, 0 ... 1_m)$
+		
+		$U = I_{m \times m}$
+		
+		$A^TA = \begin{bmatrix}
+			\sigma_1 & 0 & \cdots & \cdots& 0\\
+			0 & \sigma_2 & \cdots & \cdots & 0\\
+			\vdots & \vdots & \ddots & \ddots & \vdots \\
+			0 & 0 & 0 & 0 & 0
+		\end{bmatrix}_{n \times m}\begin{bmatrix}
+			\sigma_1 & 0 & \cdots & 0\\
+			0 & \sigma_2 & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & 0
+		\end{bmatrix}_{m \times n} = \begin{bmatrix}
+			\sigma_1^2 & 0 & \cdots  & 0\\
+			0 & \sigma_2^2 & \cdots  & 0\\
+			\vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & 0 & 0 		
+		\end{bmatrix}_{n \times n}$ 
+	
+		$\det(A^TA - \leftthreetimes I) = \begin{bmatrix}
+			\sigma_1^2 - \leftthreetimes& 0 & \cdots  & 0\\
+			0 & \sigma_2^2 - \leftthreetimes& \cdots  & 0\\
+			\vdots & \vdots & \ddots & \vdots \\
+			0 & 0 & 0 & -\leftthreetimes 
+		\end{bmatrix}_{n \times n}$ 
+	
+		Autovalores: $\leftthreetimes_1 = \sigma_1^2$, $\leftthreetimes_2 = \sigma_2^2$ ... $\leftthreetimes_n = \sigma_n$
+		
+		Autovetores: $v_1 = (1, 0, 0 ... 0_n)$, $v_2 = (0, 1, 0 ... 0_n)$, .... $v_n = (0, 0, 0 ... 1_n)$
+		
+		$V = V^T = I_{n \times n}$
+		
+		Por último:
+		
+		$\Sigma = \begin{bmatrix}
+			\sqrt{\sigma_1^2} & 0 & \cdots & 0\\
+			0 & \sqrt{\sigma_2^2} & \cdots & 0\\
+			\vdots & \vdots & \ddots & \vdots\\
+			\vdots & \vdots & \ddots & \vdots\\
+			0 & 0 & 0 & 0
+		\end{bmatrix}_{m \times n} = \begin{bmatrix}
+		\sigma_1 & 0 & \cdots & 0\\
+		0 & \sigma_2 & \cdots & 0\\
+		\vdots & \vdots & \ddots & \vdots\\
+		\vdots & \vdots & \ddots & \vdots\\
+		0 & 0 & 0 & 0
+		\end{bmatrix}_{m \times n}$
+			
+		\end{sol} 
+		
+	\end{enumerate}
+\end{document} 

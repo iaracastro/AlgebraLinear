@@ -1,0 +1,599 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel}% \usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usepackage{mathtools} 
+\usepackage{hyperref}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+% \input{../preamble}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+
+%% \newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+%% \newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+%% \newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+%% \newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+
+%% \theoremstyle{definition}
+%% \newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+%% \newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+%% \newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+%% \newtheorem*{hipo}{Hipóteses}
+%% \newtheorem*{nota}{Notação}
+
+\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cLN}{\mathcal{LN}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}} 
+\newcommand{\inv}{^{\raisebox{.2ex}{$\scriptscriptstyle-1$}}}
+
+\DeclarePairedDelimiter{\dotprod}{\langle}{\rangle} 
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\bfw}{\mathbf{w}}
+\newcommand{\bfv}{\mathbf{v}}
+\newcommand{\bfu}{\mathbf{u}}
+\newcommand{\bfz}{\mathbf{z}}
+
+\newcommand{\func}[3]{#1 : #2 \rightarrow #3}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\rr}{R_{r}}
+\newcommand{\tq}{ : }
+\newcommand{\mdc}{\text{mdc}}
+\newcommand{\mmc}{\text{mmc}}
+\newcommand{\comp}{\mathscr{C} 
+}
+
+\newcommand{\bvecc}[2]{%
+	\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+}
+\newcommand{\bveccc}[3]{%
+	\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+}
+
+\newcommand{\bvecfour}[4]{%
+	\begin{bmatrix} #1 \\ #2 \\ #3 \\ #4 \end{bmatrix}
+}
+
+\newenvironment{sol}
+{
+	\vspace{4mm}
+	\noindent\textbf{Resolução:}
+	\strut\newline
+	\smallskip
+	\hspace{-3.5mm}
+}
+{} 
+
+\title{Álgebra Linear - Lista de Exercícios 5}
+
+\author{Iara Cristina Mescua Castro}
+\date{06/09/2021} 
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		\item Explique porque essas afirmações são falsas
+		
+		\begin{enumerate}
+			
+			\item A solução completa é qualquer combinação linear de $x_p$ e $x_n$.
+			
+			\begin{sol} 
+				Para ser uma solução completa Ax = b.\\
+				\vspace{0.2cm}
+				$x = x_p + x_n$\\
+				\vspace{0.2cm}
+				Seja x solução completa, onde $x = x_p + x_n$\\
+				\vspace{0.2cm}
+				Isto é,\\
+				\vspace{0.2cm}
+				$A \cdot x_p = b$\\
+				\vspace{0.2cm}
+				$A \cdot x_n = 0$\\
+				\vspace{0.2cm}
+				Com a combinação linear $0 \cdot x_p + \alpha x_n \Rightarrow A (x_n + \alpha \cdot x_p) = A \cdot x_n + \alpha \cdot A \cdot x_p = \alpha \cdot b \neq b$\\
+				\vspace{0.2cm}
+				Logo, $x_n  + \alpha \cdot x_p$ não é solução completa.
+			\end{sol} 
+			
+			\item O sistema $Ax = b$ tem no máximo uma solução particular.
+			
+			\begin{sol} 
+				Seja $x_p$ uma solução particular e $x_n \in N(A)$ tal que, $x_n \neq 0$\\
+				\vspace{0.2cm}
+				$A \cdot x_p = b$\\
+				\vspace{0.2cm}
+				$A \cdot x_n = 0$\\
+				\vspace{0.2cm}
+				Defino $x_{p_2} = x_p + x_n$. Logo, $x_{p_2}$ é outra solução particular: \\
+				\vspace{0.2cm}
+				$A \cdot x_{p_2} = A(x_p + x_n) = b$\\
+				\vspace{0.2cm}
+				
+			\end{sol} 
+			
+			\item Se $A$ é inversível, não existe nenhuma solução $x_n$ no núcleo.
+			
+			\begin{sol} 
+				Se $A$ é inversível $\Rightarrow$ $N(A) = \varnothing$\\
+				\vspace{0.2cm}
+				Seja $x_n \in N(A)$, tal que $A \cdot x_n = 0$\\
+				\vspace{0.2cm}
+				Para $A$ inversível, então:\\
+				\vspace{0.2cm}
+				$A^{-1} \cdot A \cdot x_n = A^{-1} \cdot 0$\\
+				\vspace{0.2cm}
+				$x_n = 0$\\
+				\vspace{0.2cm}
+				0 pertence ao núcleo.\\
+			\end{sol} 
+			
+		\end{enumerate}
+		
+		\item Sejam
+		$$U = \begin{bmatrix} 
+			1 & 2 & 3 \\
+			0 & 0 & 4
+		\end{bmatrix} \mbox{ e } c = \begin{bmatrix} 
+			5 \\
+			8
+		\end{bmatrix}.$$
+		
+		Use a eliminação de Gauss-Jordan para reduzir as matrizes $[U \ 0]$ e $[U \ c]$ para $[R \ 0]$ e $[R \ d]$. Resolva $Rx = 0$ e $Rx = d$
+		
+		\begin{sol} 
+			Primeira Parte:\\
+		$$	[U \ 0] = \begin{pmatrix}
+				1 & 2 & 3 & | & 0 \\
+				0 & 0 & 4 & | & 0 
+			\end{pmatrix}$$\\
+		\vspace{0.2cm}
+		$L_2 \leftrightarrow L_2 \div 4$\\
+		$$[U \ 0] = \begin{pmatrix}
+			1 & 2 & 3 & | & 0 \\
+			0 & 0 & 1 & | & 0 
+		\end{pmatrix}$$\\
+		\vspace{0.2cm}
+		$L_1 \leftrightarrow L_1 - 3 \cdot L_2$\\
+		$$	[U \ 0] = \begin{pmatrix}
+			1 & 2 & 0 & | & 0 \\
+			0 & 0 & 1 & | & 0  
+		\end{pmatrix} = [R \ 0]$$\\
+		\vspace{0.2cm}
+		
+		$
+		\left\{
+		\begin {array}{cl}
+		x_1 = -2\cdot x_2\\
+		x_2 \in R\\
+		x_3 = 0\\
+		\end{array}
+		\right.$\\
+		\vspace{0.2cm}
+		
+		
+		Visto isso $x_2$ é uma variável livre então uma solução especial pode ser:\\
+		$$x= \begin{bmatrix} 
+			-2 \\
+			1 \\
+			0 \end{bmatrix}$$
+		\end{sol} \\
+		$R \cdot x = 0$:\\
+		$$\begin{pmatrix}
+			1 & 2 & 0 & \\
+			0 & 0 & 1 & 
+		\end{pmatrix}
+		\begin{bmatrix} 
+		-2 \\
+		1 \\
+		0 \end{bmatrix} = 
+		\begin{bmatrix} 
+		1 \cdot (-2) + 2 \cdot 1 + 0 \cdot 0 \\
+		0 \cdot (-2) + 0 \cdot 1 + 1 \cdot 0 \end{bmatrix} =
+		\begin{bmatrix} 
+		0\\
+		0\end{bmatrix}$$\\
+		
+		Segunda Parte:\\
+		
+		$$[U \ c] = \begin{pmatrix}
+			1 & 2 & 3 & | & 5 \\
+			0 & 0 & 4 & | & 8 
+		\end{pmatrix}$$ \\
+		$L_2 \leftrightarrow L_2 \div 4$\\
+		$$[U \ c] = \begin{pmatrix}
+			1 & 2 & 3 & | & 5 \\
+			0 & 0 & 1 & | & 2 
+		\end{pmatrix}$$\\
+		\vspace{0.2cm}
+		$L_1 \leftrightarrow L_1 - 3 \cdot L_2$\\
+		$$[U \ c] = \begin{pmatrix}
+			1 & 2 & 0 & | & -1 \\
+			0 & 0 & 1 & | & 2 
+		\end{pmatrix} = [R \ d]$$\\
+		\vspace{0.2cm}
+		
+		$
+		\left\{
+		\begin {array}{cl}
+		x_1 = -1 - 2 \cdot x_2 = -1\\
+		x_2 = 0\\
+		x_3 = 2\\
+		\end{array}
+		\right.$\\
+		\vspace{0.2cm}
+		
+		Então a solução é:\\
+		$$x= \begin{bmatrix} 
+			-1 \\
+			0 \\
+			2 \end{bmatrix}$$\\
+		
+		$R \cdot x = d$:\\
+		$$\begin{pmatrix}
+			1 & 2 & 0 \\
+			0 & 0 & 1  
+		\end{pmatrix}
+		\begin{bmatrix} 
+			-1 \\
+			0 \\
+			2 \end{bmatrix} = 
+		\begin{bmatrix} 
+			1 \cdot (-1) + 2 \cdot 1 + 0 \cdot 2 \\
+			0 \cdot (-1) + 0 \cdot 0 + 1 \cdot 2 \end{bmatrix} =
+		\begin{bmatrix} 
+			-1\\
+			2\end{bmatrix}$$\\
+		
+		
+		\item Suponha que $Ax = b$ e $Cx = b$ tenham as mesmas soluções (completas) para todo $b$. Podemos concluir que $A = C$?
+		
+		\begin{sol} 
+			Sim.\\
+			\vspace{0.2cm}
+			Pelo fato das soluções serem completas então $x \neq 0$,\\
+			\vspace{0.2cm}
+			Para verificar que A = C como matrizes, é suficiente verificar que Ay = Cy pois para todos os vetores y do tamanho correto (ou apenas para os vetores de base padrão, uma vez que a multiplicação por eles “escolhe as colunas ”).\\
+			\vspace{0.2cm}
+			Portanto, seja y qualquer vetor de tamanho correto e definindo b = Ay. Então y é uma solução para $A \cdot x = b$, e assim, também deve ser uma solução para $C \cdot x = b$.\\
+			\vspace{0.2cm}
+			Em outras palavras, Cy = b = Ay e A = C.
+		\end{sol} 
+		
+		\item Ache o maior número possível de vetores linearmente independentes dentre os vetores:
+		
+		$$\bvecfour{1}{-1}{0}{0}, \ \bvecfour{1}{0}{-1}{0}, \ \bvecfour{1}{0}{0}{-1}, \ \bvecfour{0}{1}{-1}{0}, \ \bvecfour{0}{1}{0}{-1} \mbox{ e } \bvecfour{0}{0}{1}{-1}$$
+		
+		\begin{sol} 
+			O maior número possível de vetores linearmente independentes dentre os vetores é 3, pois:\\
+			Checando $v_1$ e $v_2$:\\
+			$$\begin{bmatrix} 
+				1 & 1\\
+				-1 & 0\\
+				0 & -1\\
+				0 & 0\end{bmatrix}
+			\begin{bmatrix} 
+				c_1\\
+				c_2
+			\end{bmatrix} =
+			\begin{bmatrix} 
+				0\\
+				0\\
+				0\\
+				0
+			\end{bmatrix}$$ \\
+		$
+		\left\{
+		\begin {array}{cl}
+		c_1 + c_2 = 0 \\
+		-c_1 = 0 \rightarrow c_1 = 0 \\
+		-c_2 = 0 \rightarrow c_2 = 0 \\
+		\end{array}
+		\right.
+		$\\
+		
+		
+		Já que $c_1 = c_2 = 0$, $v_1$ e $v_2$ são LI.
+		
+		Adicionando $v_3$:\\
+			$$\begin{bmatrix} 
+				1 & 1 & 1\\
+				-1 & 0 & 0\\
+				0 & -1 & 0\\
+				0 & 0 & -1\end{bmatrix}
+			\begin{bmatrix} 
+				c_1\\
+				c_2\\
+				c_3
+			\end{bmatrix} =
+			\begin{bmatrix} 
+				0\\
+				0\\
+				0\\
+				0
+			\end{bmatrix}$$ \\
+		$
+		\left\{
+		\begin {array}{cl}
+		c_1 + c_2 + c_3 = 0 \\
+		-c_1 = 0 \rightarrow c_1 = 0 \\
+		-c_2 = 0 \rightarrow c_2 = 0 \\
+		-c_3 = 0 \rightarrow c_3 = 0
+		\end{array}
+		\right.
+		$\\
+		
+		
+		Já que $c_1 = c_2 = c_3 = 0$, $v_1$, $v_2$ e $v_3$ são LI.
+		
+		Adicionando $v_4$:\\
+			$$\begin{bmatrix} 
+				1 & 1 & 1 & 0\\
+				-1 & 0 & 0 & 1\\
+				0 & -1 & 0 & -1\\
+				0 & 0 & -1 & 0\end{bmatrix}
+			\begin{bmatrix} 
+				c_1\\
+				c_2\\
+				c_3\\
+				c_4
+			\end{bmatrix} =
+			\begin{bmatrix} 
+				0\\
+				0\\
+				0\\
+				0
+			\end{bmatrix}$$ \\
+		$
+		\left\{
+		\begin {array}{cl}
+		c_1 + c_2 + c_3 = 0 \rightarrow c_1 = -c_2\\
+		-c_1 + c_4 = 0 \rightarrow c_1 = c_4 \\
+		-c_2 - c_4 = 0 \rightarrow c_2 = -c_4\\
+		-c_3 = 0 \rightarrow c_3 = 0\\
+		\end{array}
+		\right.
+		$\\
+		
+		Essa solução não é válida \textbf{apenas} para $c_1 = c_2 = c_3 = c_4 = 0$ então podemos concluir que $v_1$, $v_2$, $v_3$ e $v_4$ não são LI.\\
+
+		
+		Adicionando $v_5$ à $v_1$, $v_2$ e $v_3$:
+			$$\begin{bmatrix} 
+			1 & 1 & 1 & 0\\
+			-1 & 0 & 0 & 1\\
+			0 & -1 & 0 & 0\\
+			0 & 0 & -1 & -1\end{bmatrix}
+			\begin{bmatrix} 
+				c_1\\
+				c_2\\
+				c_3\\
+				c_4
+			\end{bmatrix} =
+			\begin{bmatrix} 
+				0\\
+				0\\
+				0\\
+				0
+			\end{bmatrix}$$ \\
+		$
+		\left\{
+		\begin {array}{cl}
+		c_1 + c_2 + c_3 = 0 \rightarrow c_1 = -c_3\\
+		-c_1 + c_4 = 0 \rightarrow c_1 = c_4 \\
+		-c_2 = 0 \rightarrow c_2 = 0\\
+		-c_3 - c_4 = 0 \rightarrow c_3 = c_4\\
+		\end{array}
+		\right.
+		$\\
+		
+		Essa solução não é válida \textbf{apenas} para $c_1 = c_2 = c_3 = c_4 = 0$ então podemos concluir que $v_1$, $v_2$, $v_3$ e $v_5$ não são LI.\\
+		
+		Adicionando $v_6$ à $v_1$, $v_2$ e $v_3$:
+		$$\begin{bmatrix} 
+			1 & 1 & 1 & 0\\
+			-1 & 0 & 0 & 0\\
+			0 & -1 & 0 & 1\\
+			0 & 0 & -1 & -1\end{bmatrix}
+		\begin{bmatrix} 
+			c_1\\
+			c_2\\
+			c_3\\
+			c_4
+		\end{bmatrix} =
+		\begin{bmatrix} 
+			0\\
+			0\\
+			0\\
+			0
+		\end{bmatrix}$$ \\
+		$
+		\left\{
+		\begin {array}{cl}
+		c_1 + c_2 + c_3 = 0 \rightarrow c_2 = -c_3\\
+		-c_1 = 0 \rightarrow c_1 = 0\\
+		-c_2 + c_4 = 0 \rightarrow c_2 = c_4\\
+		-c_3 - c_4 = 0 \rightarrow c_3 = -c_4\\
+		\end{array}
+		\right.
+		$\\
+		
+		Essa solução não é válida \textbf{apenas} para $c_1 = c_2 = c_3 = c_4 = 0$ então podemos concluir que $v_1$, $v_2$, $v_3$ e $v_6$ não são LI.
+		
+		
+		Sendo assim, o maior número de vetores LI entre eles é 3.
+		\end{sol} 
+		
+		\item Ache uma base para o plano $x - 2y + 3z = 0$ em $\bR^3$. Encontre então uma base para a interseção desse plano com o plano $xy$. Ache ainda uma base para todos os vetores perpendiculares a esse plano.
+		
+		\begin{sol} 
+			Vamos chamar:\\
+			\vspace{0.2cm}
+			$P = \{(x, y, z) / x - 2y + 3z = 0\}$\\
+			\vspace{0.2cm}
+			$x = 2y - 3z$, então:\\
+			\vspace{0.2cm}
+			$P = \{(2y - 3z, y, z) / y,z \in R\}$\\
+			\vspace{0.2cm}
+			$P = \{(2y, y, 0) + (-3z, 0, 1) / y, z \in R\}$\\
+			\vspace{0.2cm}
+			$P = \{y(2, 1, 0) + z(-3, 0, 1) / y, z \in R\}$\\
+			\vspace{0.2cm}
+			$P = span\{(2,1,0),(-3,0,1)\}$\\
+			\vspace{0.2cm}
+			$(2, 1, 0), (-3, 0, 1)$\\
+			\vspace{0.2cm}
+			é LI pois:\\
+			\vspace{0.2cm}
+			$\theta (2, 1, 0) + \beta(-3,0,1) = 0$\\
+			\vspace{0.2cm}
+			$\beta = 0$\\
+			\vspace{0.2cm}
+			$\theta = 0$\\
+			$$\begin{bmatrix} 
+				2 \\
+				1  \\
+				0 \end{bmatrix}\begin{bmatrix} 
+				-3  \\
+				0  \\
+				1 \end{bmatrix}$$ 
+			-----------------------------------------------------------------------------------------------------\\
+			\vspace{0.2cm}
+			Uma base para a interseção desse plano com o plano xy:\\
+			\vspace{0.2cm}
+			z = 0, então agora:\\
+			\vspace{0.2cm}
+			$P = \{(x, y) / x - 2y = 0\}$\\
+			\vspace{0.2cm}
+			Por isso, $x = 2y$\\
+			\vspace{0.2cm}
+			$P = \{y (2, 1, 0) / y \in R\}$\\
+			$$\begin{bmatrix} 
+				2  \\
+				1  \\
+				0 \end{bmatrix}$$
+			-----------------------------------------------------------------------------------------------------\\
+			\vspace{0.2cm}
+			Por último, uma base para todos os vetores perpendiculares a esse plano:\\
+			\vspace{0.2cm}
+			Usamos a normal N = (1, -2, 3) como base.\\
+			$$\begin{bmatrix} 
+				1  \\
+				-2 \\
+				3 \end{bmatrix}$$
+			
+		\end{sol} 
+		
+		\item Ache (na sua forma mais simples) a matriz que é o produto das matrizes de posto 1 $\bfu \bfv^T$ e $\bfw \bfz^T$? Qual seu posto?
+		
+		\begin{sol} 
+			Sabendo que A = $\bfu \bfv^T$ e B = $\bfw \bfz^T$\\
+			$(u \cdot v^T)(w \cdot z^T) = u \cdot z^T \cdot \textcolor{red}{v^T \cdot w}$\\
+			E \textcolor{red}{$v^T \cdot w$} é escalar,\\
+			Então vemos que a matriz AB tem posto 1 a menos que o produto interno $v^T \cdot w = 0$ 
+		\end{sol} 
+		
+		\item Suponha que a coluna $j$ de $B$ é uma combinação linear das colunas anteriores de $B$. Mostre que a coluna $j$ de $AB$ é uma combinação linear das colunas anteriores de $AB$. Conclua que posto$(AB) \leq $ posto$(B)$.
+		
+		\begin{sol} 
+			Podemos pensar na matriz AB como:\\
+			$$AB = \begin{bmatrix} 
+			a_1 \cdot B \\
+			a_2 \cdot B \\
+			\vdots \\
+			a_m \cdot B \end{bmatrix}
+			\begin{bmatrix} 
+			A \cdot b_1 & A \cdot b_2 & \cdots & A \cdot b_n \end{bmatrix}
+			$$\\
+			Onde $a_i = 1, ... ,m$ e $a_j = 1, ..., n$
+			Então, toda coluna de AB é combinação linear das colunas de A e toda linha de AB é combinação linear das linhas de B.\\
+			
+			
+			Por isso, a dimensão do espaço feito pela combinação linear de vetores \textbf{coluna} de A não pode ser maior do que a dimensão do espaço feito pela combinação linear desses mesmos vetores em AB, logo: $p(AB) \leq p(A)$\\
+			
+			
+			Paralelamente, a dimensão do espaço feito pela combinação linear de vetores \textbf{linha} de B não pode ser maior do que a dimensão do espaço feito pela combinação linear desses mesmos vetores em AB, logo: $p(AB) \leq p(B)$\\
+		\end{sol} 
+		
+		\item O item anterior nos dá posto$(B^T A^T) \leq $ posto$(A^T)$. É possível concluir que posto$(AB) \leq $ posto$(A)$?
+		
+		\begin{sol} 
+			Sim, se sabemos que $posto(B^T \cdot A^T) \leq posto(A^T)$, sabendo que o posto permanece para as transpostas, temos $posto(AB) \leq posto(A)$.    
+		\end{sol} 
+		
+		\item Suponha que $A$ e $B$ são matrizes quadradas e $AB = I$. Prove que posto$(A) = n$. Conclua que $B$ precisa ser a inversa (de ambos lados) de $A$. Então, $BA = I$.
+		
+		\begin{sol} 
+			$AB = I$, que tem posto n. Então sabendo que $posto(AB) \leq posto (A)$, logo $posto (A) =
+			n$. A é uma matriz n x n então o posto não pode ser maior que n: $posto(A) \leq n$.\\
+			
+			Assim, A é invertível e tem inverso único, e já que AB = I também é válido e o inverso é B. \\
+			O B inverso à direita também é inverso à esquerda: $BA = I$
+			e $B = A\inv$   
+		\end{sol} 
+		
+		\item (\textit{Bônus}) Dado um espaço vetorial real \( V \), definimos o conjunto
+		\begin{equation*}
+			V^{ * } \defeq \left\{ f : V \to \R \mid f \text{ é linear} \right\}
+			.\end{equation*}
+		Ou seja, \( V^{ * } \) é o conjunto de todas as funções lineares entre \( V \) e \( \R \).
+		Relembramos que uma função \( f : E \to F \), onde \( E \) e \( F \) são espaços vetoriais, é dita \textit{linear} se para todos \( \bfv, \bfw \in E \) e \( \alpha \in \R \) temos \( f ( \bfv + \bfw ) = f ( \bfv ) + f ( \bfw ) \) e \( f ( \alpha \bfv ) = \alpha f ( \bfv ) \).
+		Chamamos \( V^{ * } \) de \textit{espaço dual} de \( V \).
+		\begin{enumerate}
+			\item Mostre que \( V^{ * } \) é um espaço vetorial.
+			
+			\begin{sol} 
+				% escreva sua solução aqui.    
+			\end{sol} 
+			
+			\item Agora, seja \( V = \R^{ n } \).
+			Mostre que existe uma bijeção \( \varphi : V^{ * } \to V \) tal que , para toda \( f \in V^{ * } \) e para todo \( \bfv \in V \), tenhamos
+			\begin{equation*}
+				f(\bfv) = \dotprod{\varphi(f), \bfv}
+				.\end{equation*}
+			\textit{Dica}: Utilize a dimensão finita de \( \R^{ n } \) para expandir \( \bfv \) como uma combinação linear dos vetores da base canônica e aplique a linearidade de \( f \).
+			
+			\begin{sol} 
+				% escreva sua solução aqui.    
+			\end{sol} 
+		\end{enumerate}
+		Em dimensão infinita, esse resultado é conhecido como \href{https://en.wikipedia.org/wiki/Riesz_representation_theorem}{Teorema da Representação de Riesz}.
+	\end{enumerate}
+	
+\end{document} 

@@ -1,0 +1,896 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+% \numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	
+	\newenvironment{sol}
+	{
+		\vspace{4mm}
+		\noindent\textbf{Resolução:}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm}
+	}
+	{}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	
+	\title{Álgebra Linear - Lista de Exercícios 2}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		\item Ache a matriz de eliminação $E$ que reduz a matriz de Pascal em uma menor:
+		$$E \begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			1 & 1 & 0 & 0 \\
+			1 & 2 & 1 & 0 \\
+			1 & 3 & 3 & 1
+		\end{bmatrix} = 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 1 & 1 & 0 \\
+			0 & 1 & 2 & 1 
+		\end{bmatrix}.$$
+		Qual matriz $M$ reduz a matriz de Pascal à matriz identidade?
+		
+		\begin{sol} 
+			Para a matriz de Pascal chegar \textbf{em uma menor}, devemos fazer as seguintes operações:\\
+			\newline
+			$L_2 - 1 \cdot L_1$ ou $E_{21(1)}$ \\
+			$$ \begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				1 & 1 & 0 & 0 \\
+				1 & 2 & 1 & 0 \\
+				1 & 3 & 3 & 1
+			\end{bmatrix} \rightarrow 
+			\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				1 & 2 & 1 & 0 \\
+				1 & 3 & 3 & 1 
+			\end{bmatrix}$$
+			$L_3 - 1 \cdot L_1$ ou $E_{31(1)}$ \\
+			$$	\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				1 & 2 & 1 & 0 \\
+				1 & 3 & 3 & 1 
+			\end{bmatrix} \rightarrow 
+			\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				1 & 3 & 3 & 1 
+			\end{bmatrix}$$
+			$L_4 - 1 \cdot L_1$ ou $E_{41(1)}$ \\
+			$$	\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				1 & 3 & 3 & 1 
+			\end{bmatrix} \rightarrow 
+			\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				0 & 3 & 3 & 1 
+			\end{bmatrix}$$
+			$L_4 - 1 \cdot L_3$ ou $E_{43(1)}$ \\
+			$$	\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				0 & 3 & 3 & 1 
+			\end{bmatrix} \rightarrow 
+			\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				0 & 1 & 2 & 1 
+			\end{bmatrix}$$
+			$L_3 - 1 \cdot L_2$ ou $E_{32(1)}$ \\
+			$$	\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 2 & 1 & 0 \\
+				0 & 1 & 2 & 1 
+			\end{bmatrix} \rightarrow 
+			\begin{bmatrix} 
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 1 & 1 & 0 \\
+				0 & 1 & 2 & 1 
+			\end{bmatrix}$$\\
+		Então, $$E = E_{32(1)} \cdot E_{43(1)} \cdot E_{41(1)} \cdot E_{31(1)} \cdot E_{21(1)}$$\\
+		Ou seja:\\
+		$$	\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & -1 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix} 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & -1 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			-1 & 0 & 0 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			-1 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			-1 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix} = E$$ 
+		\newpage
+	%%%
+		$$E_{31(1)} \cdot E_{21(1)}$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix}$$
+	%%%%
+		$$E_{41(1)} \cdot (E_{31(1)} \cdot E_{21(1)})$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix}$$
+	%%%%
+		$$E_{43(1)} \cdot (E_{41(1)} \cdot E_{31(1)} \cdot E_{21(1)})$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			0 & -1 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			0 & 0 & -1 & 1
+		\end{bmatrix}$$
+	%%%
+		$$E_{32(1)} \cdot (E_{43(1)} \cdot E_{41(1)} \cdot E_{31(1)} \cdot E_{21(1)}) = E$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & -1 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			0 & 0 & -1 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			0 & -1 & 1 & 0\\
+			0 & 0 & -1 & 1
+		\end{bmatrix} = E$$\\
+		Para a matriz de Pascal chegar na \textbf{matriz identidade}, repetimos o mesmo procedimento até $E_{41(1)}$:\\
+		\newline
+		$L_2 - 1 \cdot L_1$ ou $M_{21(1)}$ \\
+		$L_3 - 1 \cdot L_1$ ou $M_{31(1)}$ \\
+		$L_4 - 1 \cdot L_1$ ou $M_{41(1)}$ \\
+		\newline
+		E continuamos:
+		$L_3 - 2 \cdot L_2$ ou $M_{32(2)})$ \\
+		$$	\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 2 & 1 & 0 \\
+			0 & 3 & 3 & 1 
+		\end{bmatrix} \rightarrow 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 3 & 3 & 1 
+		\end{bmatrix}$$
+		$L_4 - 3 \cdot L_2$ ou $M_{42(3)}$ \\
+		$$	\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 3 & 3 & 1  
+		\end{bmatrix} \rightarrow 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 3 & 1 
+		\end{bmatrix}$$\\
+		$L_4 - 3 \cdot L_3$ ou $M_{43(3)}$ \\
+		$$	\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 3 & 1 
+		\end{bmatrix} \rightarrow 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1  
+		\end{bmatrix}$$\\	
+	
+		Então, $$M = M_{43(3)} \cdot M_{42(3)} \cdot M_{32(2)} \cdot M_{41(1)} \cdot M_{31(1)} \cdot M_{21(1)}$$\\
+		Ou seja:\\		
+		$$\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & -3 & 1 
+		\end{bmatrix} 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & -3 & 0 & 1 
+		\end{bmatrix} 
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & -2 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			-1 & 0 & 0 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			-1 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix}
+		\begin{bmatrix} 
+			1 & 0 & 0 & 0 \\
+			-1 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1 
+		\end{bmatrix} = M$$
+		\newpage
+		$$M_{32(2)} \cdot (M_{41(1)} \cdot M_{31(1)} \cdot M_{21(1)})$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & -2 & 1 & 0\\
+			0 & 0 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			-1 & 0 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			1 & -2 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix}$$
+		%%%%
+		$$M_{42(3)} \cdot (M_{32(2)} \cdot M_{41(1)} \cdot M_{31(1)} \cdot M_{21(1)})$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			0 & -3 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			1 & -2 & 1 & 0\\
+			-1 & 0 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			1 & -2 & 1 & 0\\
+			2 & -3 & 0 & 1
+		\end{bmatrix}$$
+		%%%
+		$$M_{43(3)} \cdot (M_{42(3)} \cdot M_{32(2)} \cdot M_{41(1)} \cdot M_{31(1)} \cdot M_{21(1)}) = M$$
+		$$\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			0 & 1 & 0 & 0\\
+			0 & 0 & 1 & 0\\
+			0 & 0 & -3 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			1 & -2 & 1 & 0\\
+			2 & -3 & 0 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 & 0 & 0 & 0\\
+			-1 & 1 & 0 & 0\\
+			1 & -2 & 1 & 0\\
+			-1 & 3 & -3 & 1
+		\end{bmatrix} = M$$ 
+		\end{sol} 
+		
+		\item Use o método de Gauss-Jordan para achar a inversa da matriz triangular inferior:
+		$$U = \begin{bmatrix} 1 & a & b  \\
+			0 & 1 & c  \\
+			0 & 0 & 1 
+		\end{bmatrix}.$$
+		
+		\begin{sol} 
+			$$\begin{pmatrix}
+				1 & a & b & | & 1 & 0 & 0\\
+				0 & 1 & c & | & 0 & 1 & 0\\
+				0 & 0 & 1 & | & 0 & 0 & 1\\
+			\end{pmatrix}$$
+		$L_1 - a \cdot L_2$ ou $U_{12(a)}$
+			$$\begin{pmatrix}
+				1 & 0 & b - c \cdot a& | & 1 & -a & 0\\
+				0 & 1 & c & | & 0 & 1 & 0\\
+				0 & 0 & 1 & | & 0 & 0 & 1\\
+			\end{pmatrix}$$
+		$L_1 - (b - c\cdot a) \cdot L_3$ ou $U_{13(b - c \cdot a)}$
+		$$\begin{pmatrix}
+			1 & 0 & 0& | & 1 & -a & -b + c \cdot a\\
+			0 & 1 & c & | & 0 & 1 & 0\\
+			0 & 0 & 1 & | & 0 & 0 & 1\\
+		\end{pmatrix}$$
+		$L_2 - c\cdot L_3$ ou $U_{23(c)}$
+		$$\begin{pmatrix}
+			1 & 0 & 0& | & 1 & -a & -b + c \cdot a\\
+			0 & 1 & 0 & | & 0 & 1 & -c\\
+			0 & 0 & 1 & | & 0 & 0 & 1\\
+		\end{pmatrix}$$\\
+		$$\textbf{Inversa de U} = \begin{pmatrix}
+			 1 & -a & -b + c \cdot a\\
+			 0 & 1 & -c\\
+			 0 & 0 & 1\\
+		\end{pmatrix}$$
+			
+		\end{sol} 
+		\newpage
+		\item Para quais valores de $a$ o método de eliminação não dará 3 pivôs?
+		$$\begin{bmatrix} 
+			a & 2 & 3  \\
+			a & a & 4  \\
+			a & a & a 
+		\end{bmatrix}.$$
+		
+		\begin{sol} 
+			$L_2 - L_1$ e $L_3 - L_1$
+			$$\begin{bmatrix} 
+				a & 2 & 3  \\
+				0 & a-2 & 1  \\
+				0 & a-2 & a-3 
+			\end{bmatrix}$$
+			$L_3 - L_2$
+			$$\begin{bmatrix} 
+				a & 2 & 3  \\
+				0 & a-2 & 1  \\
+				0 & 0 & a-4 
+			\end{bmatrix}$$
+		Se $a = 2$, $a = 0$ ou $a = 4$, não terá 3 pivôs.
+			               
+		\end{sol} 
+		
+		\item Verdadeiro ou falso (prove ou forneça um contra-exemplo):
+		
+		\begin{enumerate}
+			
+			\item Se $A^2$ está bem definida, então $A$ é quadrada.
+			
+			\item Se $AB$ e $BA$ estão bem definidas, então $A$ e $B$ são quadradas.
+			
+			\item Se $AB$ e $BA$ estão bem definidas, então $AB$ e $BA$ são quadradas.
+			
+			\item Se $AB = B$, então $A = I$.
+			
+		\end{enumerate}
+		
+		\begin{sol} 
+			\begin{enumerate} 
+				\item Verdadeiro. O produto de duas matrizes será definido se o número de colunas da primeira matriz for igual ao número de linhas da segunda matriz. Então, se $A^2$ ou $A \cdot A$ está bem definido, o número de colunas da primeira matriz A é igual ao número de linhas da segunda matriz A, então concluímos que o número de colunas de A = o número de linhas de A. Por isso, A é quadrada.
+				
+				\item Falso. $A_{2 \cdot 3}B_{3 \cdot 2}$ e $B_{3 \cdot 2}A_{2 \cdot 3}$, AB e BA são matrizes $2 \cdot 2$ e $3 \cdot 3$, mas A e B não são quadradas.
+				
+				\item Verdadeiro. O produto de duas matrizes será definido se o número de colunas da primeira matriz for igual ao número de linhas da segunda matriz. Então, se $A \cdot B$ está bem definida, o número de colunas de A = o número de linhas de B.
+				Se  $B \cdot A$ está bem definida, o número de colunas de B = o número de linhas de A. Em outras palavras, $A_{m \cdot n}$ e $B_{n \cdot m}$ $\rightarrow$ $A_{m \cdot n} \cdot B_{n \cdot m} = AB_{m \cdot m}$ e $B_{n \cdot m} \cdot A_{m \cdot n} = BA_{n \cdot n}$
+				
+				\item Verdadeiro. Pois $B = BI = IB$, substituindo em $AB = B$, obtemos: $AB = IB \rightarrow A = I$
+			\end{enumerate} 
+		\end{sol} 
+		
+		\item Mostre que se $BA = I$ e $AC = I$, então $B=C$.
+		
+		\begin{sol} 
+			\newline
+			Dados:\\
+			\textbf{I = AC}\\
+			\textbf{BA = I}\\
+			B = BI (Propriedade do elemento neutro da multiplicação de matrizes)\\
+			C = CI (Propriedade do elemento neutro da multiplicação de matrizes)\\
+			Substituindo \textbf{I = AC} em B = BI:\\
+			B = B(AC)\\
+			B = B(AC) = (BA)C\\
+			Substituindo \textbf{BA = I} em (BA)C:\\
+			B = (BA)C = IC = C\\
+			Logo, B = C
+		\end{sol} 
+		\newline
+		\item Ache uma matriz não-zero $A$ tal que $A^2 = 0$ e uma matriz $B$ com $B^2 \neq 0$ e $B^3 = 0$.
+		
+		\begin{sol} 
+			$$ A = \begin{bmatrix} 
+				0 & 1  \\
+				0 & 0  \\
+			\end{bmatrix} $$\\
+		Pois, $A^2 = 0$:\\
+		$$ \begin{bmatrix} 
+			0 & 1  \\
+			0 & 0  \\
+		\end{bmatrix} ×
+			\begin{bmatrix} 
+			0 & 1  \\
+			0 & 0  \\
+		\end{bmatrix} = 
+		\begin{bmatrix} 
+			0 \cdot 0 + 1 \cdot 0 & 0 \cdot 1 + 1 \cdot 0 \\
+			0 \cdot 0 + 0 \cdot 0 & 0 \cdot 1 + 0 \cdot 0 \\
+		\end{bmatrix} =
+		\begin{bmatrix} 
+			0 & 0  \\
+			0 & 0  \\
+		\end{bmatrix}$$ \\
+		$$ B = \begin{bmatrix}
+			0 & 0 & 0\\
+			1 & 0 & 0\\
+			0 & 1 & 0
+		\end{bmatrix}$$\\
+		Pois, $B^2 \neq 0$:\\
+		$$\begin{bmatrix}
+			0 & 0 & 0\\
+			1 & 0 & 0\\
+			0 & 1 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+			0 & 0 & 0\\
+			1 & 0 & 0\\
+			0 & 1 & 0
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 & 0 \cdot 0 + 0 \cdot 0 + 0 \cdot 1 & 0 \cdot 0 + 0 \cdot 0 + 0 \cdot 0\\
+			1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 & 1 \cdot 0 + 0 \cdot 0 + 0 \cdot 1 & 1 \cdot 0 + 0 \cdot 0 + 0 \cdot 0\\
+			0 \cdot 0 + 1 \cdot 1 + 0 \cdot 0 & 0 \cdot 0 + 1 \cdot 0 + 0 \cdot 1 & 0 \cdot 0 + 1 \cdot 0 + 0 \cdot 0
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0 & 0 & 0\\
+			0 & 0 & 0\\
+			1 & 0 & 0
+		\end{bmatrix}$$\\
+		
+		E $B^3 = 0$:\\
+		$$\begin{bmatrix}
+			0 & 0 & 0\\
+			0 & 0 & 0\\
+			1 & 0 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+			0 & 0 & 0\\
+			1 & 0 & 0\\
+			0 & 1 & 0
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 & 0 \cdot 0 + 0 \cdot 0 + 0 \cdot 1 & 0 \cdot 0 + 0 \cdot 0 + 0 \cdot 0\\
+			1 \cdot 0 + 0 \cdot 1 + 0 \cdot 0 & 1 \cdot 0 + 0 \cdot 0 + 0 \cdot 1 & 1 \cdot 0 + 0 \cdot 0 + 0 \cdot 0\\
+			0 \cdot 0 + 1 \cdot 1 + 0 \cdot 0 & 0 \cdot 0 + 1 \cdot 0 + 0 \cdot 1 & 0 \cdot 0 + 1 \cdot 0 + 0 \cdot 0\\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			0 & 0 & 0\\
+			0 & 0 & 0\\
+			0 & 0 & 0
+		\end{bmatrix} $$
+		\end{sol} 
+		\newline
+		\item Ache as inversas de 
+		$$\begin{bmatrix} 
+			3 & 2 & 0 & 0 \\
+			4 & 3 & 0 & 0 \\
+			0 & 0 & 6 & 5 \\
+			0 & 0 & 7 & 6
+		\end{bmatrix} \mbox{ e } 
+		\begin{bmatrix} 
+			0 & 0 & 0 & 2 \\
+			0 & 0 & 3 & 0 \\
+			0 & 5 & 0 & 0 \\
+			1 & 0 & 0 & 0
+		\end{bmatrix}$$
+		
+		\begin{sol} 
+			  $$\begin{pmatrix}
+			  	3 & 2 & 0 & 0 & | & 1 & 0 & 0 & 0\\
+			  	4 & 3 & 0 & 0 & | & 0 & 1 & 0 & 0\\
+			  	0 & 0 & 6 & 5 & | & 0 & 0 & 1 & 0\\
+			  	0 & 0 & 7 & 6 & | & 0 & 0 & 0 & 1
+			  \end{pmatrix}$$ 
+			  $L_1 \longleftrightarrow \frac{L_1}{3}$
+			  $$\begin{pmatrix}
+			  	1 & \frac{2}{3} & 0 & 0 & | & \frac{1}{3} & 0 & 0 & 0\\
+			  	4 & 3 & 0 & 0 & | & 0 & 1 & 0 & 0\\
+			  	0 & 0 & 6 & 5 & | & 0 & 0 & 1 & 0\\
+			  	0 & 0 & 7 & 6 & | & 0 & 0 & 0 & 1
+			  \end{pmatrix}$$
+			  $L_2 - 4 \cdot L_1$
+			  $$\begin{pmatrix}
+			  	1 & \frac{2}{3} & 0 & 0 & | & \frac{1}{3} & 0 & 0 & 0\\
+			  	0 & \frac{1}{3} & 0 & 0 & | & \frac{-4}{3} & 1 & 0 & 0\\
+			  	0 & 0 & 6 & 5 & | & 0 & 0 & 1 & 0\\
+			  	0 & 0 & 7 & 6 & | & 0 & 0 & 0 & 1
+			  \end{pmatrix}$$
+			  $L_3 \longleftrightarrow \frac{L_3}{6}$
+			  $$\begin{pmatrix}
+			  	1 & \frac{2}{3} & 0 & 0 & | & \frac{1}{3} & 0 & 0 & 0\\
+			  	0 & \frac{1}{3} & 0 & 0 & | & \frac{-4}{3} & 1 & 0 & 0\\
+			  	0 & 0 & 1 & \frac{5}{6} & | & 0 & 0 & \frac{1}{6} & 0\\
+			  	0 & 0 & 7 & 6 & | & 0 & 0 & 0 & 1
+			  \end{pmatrix}$$
+		  	  $L_4 - 7 \cdot L_3$
+		  	  $$\begin{pmatrix}
+		  		1 & \frac{2}{3} & 0 & 0 & | & \frac{1}{3} & 0 & 0 & 0\\
+		  		0 & \frac{1}{3} & 0 & 0 & | & \frac{-4}{3} & 1 & 0 & 0\\
+		  		0 & 0 & 1 & \frac{5}{6} & | & 0 & 0 & \frac{1}{6} & 0\\
+		  		0 & 0 & 0 & \frac{1}{6} & | & 0 & 0 & \frac{-7}{6} & 1
+		  	  \end{pmatrix}$$
+	  	  	  $L_1 - 2 \cdot L_2$\\
+	  	  	  $L_3 - 5 \cdot L_4$
+	  	  	  $$\begin{pmatrix}
+	  	  	  	1 & 0 & 0 & 0 & | & 3 & -2 & 0 & 0\\
+	  	  	  	0 & \frac{1}{3} & 0 & 0 & | & \frac{-4}{3} & 1 & 0 & 0\\
+	  	  	  	0 & 0 & 1 & 0 & | & 0 & 0 & 6 & -5\\
+	  	  	  	0 & 0 & 0 & \frac{1}{6} & | & 0 & 0 & \frac{-7}{6} & 1
+	  	  	  \end{pmatrix}$$
+  	  	  	  $L_2 - 2 \cdot L_2$\\
+  	  	  	  $L_3 - 5 \cdot L_4$
+  	  	  	  $$\begin{pmatrix}
+  	  	  	  	1 & 0 & 0 & 0 & | & 3 & -2 & 0 & 0\\
+  	  	  	  	0 & 1 & 0 & 0 & | & -4 & 3 & 0 & 0\\
+  	  	  	  	0 & 0 & 1 & 0 & | & 0 & 0 & 6 & -5\\
+  	  	  	  	0 & 0 & 0 & 1 & | & 0 & 0 & -7 & 6
+  	  	  	  \end{pmatrix}$$
+  	  	  
+			  $$\textbf{Inversa de} \begin{bmatrix} 
+			  	3 & 2 & 0 & 0 \\
+			  	4 & 3 & 0 & 0 \\
+			  	0 & 0 & 6 & 5 \\
+			  	0 & 0 & 7 & 6
+			  \end{bmatrix} = 
+		  	\begin{bmatrix} 
+		  		3 & -2 & 0 & 0 \\
+		  		-4 & 3 & 0 & 0 \\
+		  		0 & 0 & 6 & -5 \\
+		  		0 & 0 & -7 & 6
+		  	\end{bmatrix}$$\\
+	  		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	  		$$\begin{pmatrix}
+	  			0 & 0 & 0 & 2 & | & 1 & 0 & 0 & 0\\
+	  			0 & 0 & 3 & 0 & | & 0 & 1 & 0 & 0\\
+	  			0 & 5 & 0 & 0 & | & 0 & 0 & 1 & 0\\
+	  			1 & 0 & 0 & 0 & | & 0 & 0 & 0 & 1
+	  		\end{pmatrix}$$ 
+	  		$L_1 \longleftrightarrow L_4$\\
+	  		$L_2 \longleftrightarrow L_3$\\
+	  		$$\begin{pmatrix}
+	  			1 & 0 & 0 & 0 & | & 0 & 0 & 0 & 1\\
+	  			0 & 5 & 0 & 0 & | & 0 & 0 & 1 & 0\\
+	  			0 & 0 & 3 & 0 & | & 0 & 1 & 0 & 0\\
+	  			0 & 0 & 0 & 2 & | & 1 & 0 & 0 & 0
+	  		\end{pmatrix}$$
+	  		$L_2 \longleftrightarrow \frac{L_2}{5}$\\
+	  		$L_3 \longleftrightarrow \frac{L_3}{3}$\\
+	  		$L_4 \longleftrightarrow \frac{L_4}{2}$\\
+	  		$$\begin{pmatrix}
+	  			1 & 0 & 0 & 0 & | & 0 & 0 & 0 & 1\\
+	  			0 & 5 & 0 & 0 & | & 0 & 0 & \frac{1}{5} & 0\\
+	  			0 & 0 & 3 & 0 & | & 0 & \frac{1}{3} & 0 & 0\\
+	  			0 & 0 & 0 & 2 & | & \frac{1}{2} & 0 & 0 & 0
+	  		\end{pmatrix}$$\\
+	  		$$\textbf{Inversa de} \begin{bmatrix} 
+	  			0 & 0 & 0 & 2 \\
+	  			0 & 0 & 3 & 0 \\
+	  			0 & 5 & 0 & 0 \\
+	  			1 & 0 & 0 & 0
+	  		 \end{bmatrix} = 
+	  		\begin{bmatrix} 
+	  			0 & 0 & 0 & 1 \\
+	  			0 & 0 & \frac{1}{5} & 0 \\
+	  			0 & \frac{1}{3} & 0 & 0 \\
+	  			\frac{1}{2} & 0 & 0 & 0
+	  		\end{bmatrix}$$
+		\end{sol} 
+		
+		\item Verifique que a inversa de $M = I - \bfu \bfv^T$ é dada por $M^{-1} = I + \frac{\bfu\bfv^T}{1 - \bfv^T\bfu}$. Verifique também que a inversa de $N = A - UW^{-1}V$ é dada por $N^{-1} = A^{-1} + A^{-1}U(W - VA^{-1}U)^{-1}VA^{-1}$.
+		
+		\begin{sol} 
+			Primeira Parte:\\
+			Vamos mostrar isso a partir da propriedade de inversas, que diz que $M \cdot M^{-1} = I$\\
+			\newline
+			$= (I - \bfu \bfv^T)(I + \frac{\bfu\bfv^T}{1 - \bfv^T\bfu})$
+			\newline
+			$ = I + \frac{\bfu\bfv^T}{1 - \bfv^T\bfu} - \bfu \bfv^T - \bfu \bfv^T(\frac{\bfu\bfv^T}{1 - \bfv^T\bfu})$\\
+			\newline
+			$ = I + \frac{\bfu\bfv^T}{1 - \bfv^T\bfu} - \bfu \bfv^T - \frac{\bfu(\bfv^T\bfu)\bfv^T}{1 - \bfv^T\bfu}$, $<v, u> \in \mathbb{R}$\\
+			\newline
+			$ = I + \frac{\bfu\bfv^T}{1 - \bfv^T\bfu} - \bfu \bfv^T - \frac{\bfv^T\bfu}{1 - \bfv^T\bfu}\bfu\bfv^T$\\
+			\newline
+			$ = I + \bfu\bfv^T(\frac{1}{1 - \bfv^T\bfu}I - I - \frac{\bfv^T\bfu}{1 - \bfv^T\bfu}I)$\\
+			\newline
+			$ = I + \bfu\bfv^T(\frac{(1 - \bfv^T\bfu)}{1 - \bfv^T\bfu}I - I)$\\
+			\newline
+			$ = I + \bfu\bfv^T(0)$\\
+			\newline
+			$ M \cdot M^{-1} = I$\\
+			\newline
+			Segunda Parte:\\
+			Vamos mostrar isso a partir da propriedade de inversas, que diz que $N \cdot N^{-1} = I$ ou $N^{-1} \cdot N = I$\\
+			\newline
+			$= [A^{-1} + A^{-1}U(W - VA^{-1}U)^{-1}VA^{-1}](A - UW^{-1}V)$\\
+			\newline
+			$= A^{-1}(A - UW^{-1}V) + A^{-1}U(W - VA^{-1}U)^{-1}VA^{-1}(A - UW^{-1}V)$\\
+			\newline
+			$= I - AUW^{-1}V + A^{-1}U(W - VA^{-1}U)^{-1}\textcolor{red}{V}(\textcolor{olive}{I} - \textcolor{blue}{A^{-1}UW^{-1}}\textcolor{red}{V})$\\
+			\newline
+			Vamos usar: $$\textcolor{red}{B}(\textcolor{olive}{I} - \textcolor{blue}{A}\textcolor{red}{B}) = (\textcolor{olive}{I} - \textcolor{red}{B}\textcolor{blue}{A})\textcolor{red}{B}$$
+			Provamos isso a partir de $B(I - AB) = B - BAB = (I - BA)B$\\
+			\newline
+			Aplicando isso na equação de forma que: $V = B$ e $A^{-1}UW^{-1} = A$\\
+			Formamos:
+			\newline
+			$= (I - AUW^{-1}V) + A^{-1}U(W - VA^{-1}U)^{-1}(\textcolor{olive}{I} - \textcolor{red}{V}\textcolor{blue}{A^{-1}UW^{-1}})\textcolor{red}{V}$\\
+			\newline
+			Tirando o $W^{-1}$:
+			\newline
+			$= (I - AUW^{-1}V) + A^{-1}U(W - VA^{-1}U)^{-1}(W - VA^{-1}U)W^{-1}V$\\
+			\newline
+			Sabendo que: $(W - VA^{-1}U)^{-1}(W - VA^{-1}U) = I$\\
+			\newline
+			$= (I - AUW^{-1}V) + A^{-1}UW^{-1}V$\\
+			\newline
+			$N^{-1} \cdot N = I$
+		\end{sol} 
+		
+		\item Sabemos que a matriz de diferenças tem a seguinte inversa
+		$$L^{-1} = \begin{bmatrix}
+			1 & 0 & 0\\
+			-1 & 1 & 0\\
+			0 & -1 & 1
+		\end{bmatrix}^{-1} = \begin{bmatrix}
+			1 & 0 & 0\\
+			1 & 1 & 0\\
+			0 & 1 & 1
+		\end{bmatrix}.$$
+		Use essa propriedade (e sua versão triangular superior) para achar a inversa de
+		$$T = \begin{bmatrix}
+			1 & -1 & 0\\
+			-1 & 2 & -1\\
+			0 & -1 & 2
+		\end{bmatrix}.$$
+		
+		\textit{Dica: escreva $T$ como produto de duas matrizes.}
+		
+		\begin{sol} 
+			$$L = \begin{bmatrix}
+				1 & 0 & 0\\
+				-1 & 1 & 0\\
+				0 & -1 & 1
+			\end{bmatrix}$$
+		e sua versão triangular superior:
+			$$L^T = \begin{bmatrix}
+				1 & -1 & 0\\
+				0 & 1 & -1\\
+				0 & 0 & 1
+			\end{bmatrix}$$
+		Então:
+			$$(L^T)^{-1} = (L^{-1})^{T} = \begin{bmatrix}
+				1 & 1 & 1\\
+				0 & 1 & 1\\
+				0 & 0 & 1
+			\end{bmatrix}$$
+		\newline
+			$$L^{-1} = \begin{bmatrix}
+				1 & 0 & 0\\
+				1 & 1 & 0\\
+				1 & 1 & 1
+			\end{bmatrix}$$
+		Para encontrar a inversa de T:
+		$$T = L \cdot L^T$$
+		$$T^{-1} = (L^T)^{-1} \cdot L^{-1}$$
+		Ou seja:
+		$$T^{-1} = \begin{bmatrix}
+			1 & 1 & 1\\
+			0 & 1 & 1\\
+			0 & 0 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 0 & 0\\
+			1 & 1 & 0\\
+			1 & 1 & 1
+		\end{bmatrix} =
+		\begin{bmatrix}
+			1 \cdot 1 + 1 \cdot 1 + 1 \cdot 1 & 1 \cdot 0 + 1 \cdot 1 + 1 \cdot 1 & 1 \cdot 0 + 1 \cdot 0 + 1 \cdot 1\\
+			0 \cdot 1 + 1 \cdot 1 + 1 \cdot 1 & 1 \cdot 0 + 1 \cdot 1 + 1 \cdot 1 & 0 \cdot 0 + 1 \cdot 0 + 1 \cdot 1\\
+			0 \cdot 1 + 0 \cdot 1 + 1 \cdot 1 & 0 \cdot 0 + 0 \cdot 1 + 1 \cdot 1 & 0 \cdot 0 + 0 \cdot 0 + 1 \cdot 1
+		\end{bmatrix}$$
+		
+		$$T^{-1} = \begin{bmatrix}
+			3 & 2 & 1\\
+			2 & 2 & 1\\
+			0 & 1 & 1
+		\end{bmatrix}$$
+		
+		
+		\end{sol} 
+		
+		\item Mostre que $I + BA$ e $I + AB$ são ambas invertíveis ou singulares. Relacione a inversa de $I + BA$ com a inversa de $I + AB$, caso elas existam.
+		
+		\begin{sol} 
+			$I + AB$ e $I + BA$\\
+			\newline
+			$B(I + AB) = B + BAB$\\
+			\newline
+			$B(I + AB) = (I + BA)B$\\
+			-------------------------------------------------------------------
+			\newline
+			$M = (I + AB)^{-1} = I - B(I + AB)^{-1}A$\\
+			\newline
+			Sabendo que $B(I + AB) = (I + BA)B$ e $A(I + BA) = (I + AB)A$\\
+			\newline
+			$= (I - B(I + AB)^{-1}A)(I + BA)$\\
+			\newline
+			$= (I + BA) - B(I + AB)^{-1}A(I + BA)$\\
+			\newline
+			$= B(I + AB)^{-1} (I + AB)A = I = BN(I + AB)A$\\
+			--------------------------------------------------------------------
+			\newline
+			$N = (I + BA)^{-1} = (I - BA)^{-1}A =  I - B \cdot M \cdot A$\\
+			\newline
+			$I - A(I + BA)^{-1}B(I + AB) = I + AB - A(I + BA)^{-1}B(I + AB)$
+		\end{sol}
+		\newpage
+		\item (Bônus) Mostre que se $\alpha_kA^k + \alpha_{k-1}A^{k-1} + \cdots + \alpha_1 A + \alpha_0 I = 0$, com $\alpha_0 \neq 0$, então $A$ é invertível
+		
+		\begin{sol} 
+			% escreva sua solução aqui.  
+		\end{sol} 
+	\end{enumerate}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

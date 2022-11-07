@@ -1,0 +1,707 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel} \usepackage[utf8]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage[inline]{enumitem}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\newenvironment{sol}
+{
+	\vspace{4mm}
+	\noindent\textbf{Resolução:}
+	\strut\newline
+	\smallskip
+	\hspace{-3.5mm}
+}
+% Objetos que aparecem *após* o ambiente; 
+% nestas configurações, estamos desenhando uma 
+% linha horizontal. 
+% (você pode, por exemplo, modificar 
+% ou remover este elemento gráfico) 
+%{\noindent\rule{4cm}{.1mm}}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	
+	\title{Álgebra Linear - Lista de Exercícios 11 - Simulado}
+	
+	\author{Iara Cristina Mescua Castro} 
+	
+	\date{}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Verdadeiro ou falso (prove ou dê um contra-exemplo):
+		
+		\begin{enumerate}
+			
+			\item Se $A$ é singular, então $AB$ também é singular. 
+			
+			\item O determinante de $A$ é sempre o produto de seus pivôs.
+			
+			\item O determinante de $A - B$ é $\det A - \det B$.
+			
+			\item $AB$ e $BA$ tem o mesmo determinante. 	
+			 
+		\end{enumerate}
+		
+		\begin{sol} 
+			\vspace{-\baselineskip} 
+			\begin{enumerate} 
+				\item Verdadeiro. 
+				
+				Podemos dividir em duas situações:
+				
+				1) Se A é singular e B também é singular:
+				Para algum $x \neq 0$: $Bx = 0$.
+				Então: $(AB)x = A(Bx) = 0$ e podemos concluir que AB também é singular.
+				
+				2) Se A é singular e B não é singular:
+				Para algum $y \neq 0$: $Ay = 0$
+				
+				Então a partir de $Bz = y$, temos que $z \neq 0$ pois $y \neq 0$.
+				Logo, $(AB)z = A(Bz) = Ay = 0$ e novamente podemos concluir que AB também é singular.
+				
+				\item Falso.
+				
+				Contra-exemplo: $A = \begin{bmatrix}
+					0 & 1 \\
+					1 & 0
+				\end{bmatrix}$
+			
+				$\det{A} = 0 - 1 = -1$
+				
+				Mas seus pivôs são 1 e 1. Então o determinante de $A$ nem sempre é o produto de seus pivôs.
+				
+				\item Falso.
+				
+				Contra-exemplo: $A = \begin{bmatrix}
+					1 & 0 \\
+					0 & 0
+				\end{bmatrix}$ e $B = \begin{bmatrix}
+					0 & 0 \\
+					0 & -1
+				\end{bmatrix}$
+				
+				$A - B = \begin{bmatrix}
+					1 & 0 \\
+					0 & 1
+				\end{bmatrix}$
+				
+				Sabendo que $\det(A) = 0$ e $\det(B) = 0$, então $\det(A) - \det(B) = 0 - 0 = 0$ mas ao calcular $\det(A - B)$ note que seu determinante é 1. Então $\det(A - B) \neq \det(A) - \det(B)$
+				 
+				\item Verdadeiro. Para \textbf{matrizes quadradas} que terão matrizes $AB$ e $BA$, suas determinantes são iguais.
+				
+				$\det(AB) = \det(A) \cdot \det(B) = \det(B) \cdot \det(A) = \det(BA)$
+				
+				Ps: $\det(A) \cdot \det(B) = \det(B) \cdot \det(A)$ são iguais por comutatividade.
+			\end{enumerate}    
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Sejam $u$ e $v$ vetores ortonormais em $\bR^2$ e defina $A = uv^T$. Calcule $A^2$ para descobrir os autovalores de $A$. Verifique que o traço de $A$ é $\lambda_1 + \lambda_2$.
+		
+		\begin{sol} 
+			$A = uv^T = \begin{bmatrix}
+				u_1 \\
+				u_2
+			\end{bmatrix}\begin{bmatrix}
+				v_1 & v_2
+			\end{bmatrix} = \begin{bmatrix}
+			u_1v_1 & u_1v_2 \\
+			u_2v_1 & u_2v_2
+			\end{bmatrix}$\\
+		
+			$A^2 = \begin{bmatrix}
+				u_1v_1 & u_1v_2 \\
+				u_2v_1 & u_2v_2
+			\end{bmatrix}\begin{bmatrix}
+				u_1v_1 & u_1v_2 \\
+				u_2v_1 & u_2v_2
+			\end{bmatrix} = \begin{bmatrix}
+			(u_1v_1)^2 + (u_1v_2)(u_2v_1) & (u_1v_1)(u_1v_2) + (u_1v_2)(u_2v_2)\\
+			(u_2v_1)(u_1v_1) + (u_2v_2)(u_2v_1) & (u_2v_1)(u_1v_2) + (u_2v_2)^2
+			\end{bmatrix}$     
+		
+		= $\begin{bmatrix}
+			(u_1v_1)^2 + u_1u_2v_1v_2 & u_1^2v_1v_2 + u_1u_2v_2^2\\
+			v_1^2u_1u_2 + u_2^2v_1v_2 & u_1u_2v_1v_2 + (u_2v_2)^2
+		\end{bmatrix} = \begin{bmatrix}
+			(u_1v_1)(u_1v_1 + u_2v_2) & u_1v_2(u_1v_1 + u_2v_2)\\
+			u_1v_2(u_1v_1 + u_2v_2) & (u_1v_1 + u_2v_2)(u_2v_2)
+		\end{bmatrix}$
+	
+		Seja $u = \begin{bmatrix}
+			u_1 \\
+			u_2
+		\end{bmatrix}$ e $v = \begin{bmatrix}
+			v_1 \\
+			v_2
+		\end{bmatrix}$ vetores ortonormais, então: $u^Tv = 0 \Longleftrightarrow u_1v_1 + u_2v_2 = 0$, $u_1^2 + u_2^2 = 1$ e $v_1^2 + v_2^2 = 1$.  
+	
+		Então $A^2 = \begin{bmatrix}
+			0 & 0\\
+			0 & 0
+		\end{bmatrix}$
+	
+		Os autovalores de $A^2$ são 0, e por isso os autovalores de $A$ são 0 também. Pois se autovalores de A são $\leftthreetimes$, autovalores de $A^2$ são $\leftthreetimes^2$. 
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 3 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item A matriz $B$ tem autovalores 1 e 2, $C$ tem autovalores 3 e 4 e $D$ tem autovalores 5 e 7 (todas são matrizes $2 \times 2$). Ache os autovalores de $A$:
+		$$A = \begin{bmatrix}
+			B & C \\
+			0 & D
+		\end{bmatrix}.$$
+		
+		\begin{sol} 
+			Sabendo que $B$, $C$ e $D$ são matrizes $2 \times 2$. Podemos supor que:\\
+			$B = \begin{bmatrix}
+				1 & 0 \\
+				0 & 2
+			\end{bmatrix}$ para que seus autovalores sejam 1 e 2.\\
+			$C = \begin{bmatrix}
+				3 & 0 \\
+				0 & 4
+			\end{bmatrix}$ para que seus autovalores sejam 3 e 4.\\
+			$D = \begin{bmatrix}
+				5 & 0 \\
+				0 & 7
+			\end{bmatrix}$ para que seus autovalores sejam 5 e 7.\\
+		
+		Então: $$A = \begin{bmatrix}
+			1 & 0 & 3 & 0\\
+			0 & 2 & 0 & 4\\
+			0 & 0 & 5 & 0\\
+			0 & 0 & 0 & 7
+		\end{bmatrix}$$ 
+	
+	$$\det(A - \leftthreetimes I) = (1 - \leftthreetimes)(2 - \leftthreetimes)(5 - \leftthreetimes)(7 - \leftthreetimes)$$  
+	
+		Note que seus autovalores serão $\leftthreetimes_1 = 1$, $\leftthreetimes_2 = 2, \leftthreetimes_3 = 5$ e $\leftthreetimes_4 = 7$. Em outras palavras, os autovalores de A são os autovalores de B e D.
+	
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja $D$ uma matriz $n \times n$ só com 1's em suas entradas. Procure a inversa da matriz $A = I + D$ dentre as matrizes $I + cD$ e ache o número $c$ correto.
+		
+		\begin{sol} 
+		Supondo que $n = 2$:
+		$$A = \begin{bmatrix}
+				1 & 0 	\\
+				0 & 1 	 \\
+		\end{bmatrix} + \begin{bmatrix}
+			1 & 1	 \\
+			1 & 1 	 \\
+		\end{bmatrix} = \begin{bmatrix}
+			2 & 1 	\\
+			1 & 2 	 \\
+		\end{bmatrix}$$  
+	
+		$$A^{-1} = \begin{bmatrix}
+			\frac{2}{3} & \frac{-1}{3} 	\\
+			\frac{-1}{3} & \frac{2}{3} 	 \\
+		\end{bmatrix}$$
+	
+		$$\begin{bmatrix}
+			\frac{2}{3} & \frac{-1}{3} 	\\
+			\frac{-1}{3} & \frac{2}{3} 	 \\
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 0 	\\
+			0 & 1 	 \\
+		\end{bmatrix} + c\begin{bmatrix}
+			1 & 1	 \\
+			1 & 1 	 \\
+		\end{bmatrix}$$
+	
+		$$c = \frac{-1}{3}$$
+		
+		Supondo que $n = 3$:
+		
+		$$A = \begin{bmatrix}
+			1 & 0 & 0	\\
+			0 & 1 & 0	 \\
+			0 & 0 & 1
+		\end{bmatrix} + \begin{bmatrix}
+			1 & 1 & 1	 \\
+			1 & 1 & 1	 \\
+			1 & 1 & 1
+		\end{bmatrix} = \begin{bmatrix}
+			2 & 1 & 1	\\
+			1 & 2 & 1	 \\
+			1 & 1 & 1
+		\end{bmatrix}$$  
+		
+		$$A^{-1} = \begin{bmatrix}
+			\frac{3}{4} & \frac{-1}{4} & \frac{-1}{4}	\\
+			\frac{-1}{4} & \frac{3}{4} & \frac{-1}{4}	 \\
+			\frac{-1}{4} & \frac{-1}{4} & \frac{3}{4}
+		\end{bmatrix}$$
+	
+		$$\begin{bmatrix}
+			\frac{3}{4} & \frac{-1}{4} & \frac{-1}{4}	\\
+			\frac{-1}{4} & \frac{3}{4} & \frac{-1}{4}	 \\
+			\frac{-1}{4} & \frac{-1}{4} & \frac{3}{4}
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 0 & 0	\\
+			0 & 1 & 0	 \\
+			0 & 0 & 1
+		\end{bmatrix} + c\begin{bmatrix}
+			1 & 1 & 1	 \\
+			1 & 1 & 1	 \\
+			1 & 1 & 1
+		\end{bmatrix}$$
+		
+		$$c = \frac{-1}{4}$$
+		
+		
+	Em outras palavras, note que A sempre será uma matriz de 1's com 2 na sua diagonal. Então, ao calcular a sua inversa, teremos:
+	
+	$$A^{-1} = \begin{bmatrix}
+		\frac{n}{n+1} & \frac{-1}{n+1} & \frac{-1}{n+1}	& \cdots \\
+		\frac{-1}{n+1} & \frac{n}{n+1} & \frac{-1}{n+1}	& \cdots \\
+		\frac{-1}{n+1} & \frac{-1}{n+1} & \frac{n}{n+1}	& \cdots \\
+		\vdots & \vdots & \vdots & \ddots 
+		\end{bmatrix} = \begin{bmatrix}
+		1 & 0 & 0 & \cdots \\
+		0 & 1 & 0 & \cdots \\
+		0 & 0 & 1 & \cdots \\
+		\vdots & \vdots & \vdots & \ddots 
+		\end{bmatrix} + c\begin{bmatrix}
+		1 & 1 & 1 & \cdots	 \\
+		1 & 1 & 1 & \cdots	 \\
+		1 & 1 & 1 & \cdots   \\
+		\vdots & \vdots & \vdots & \ddots 
+		\end{bmatrix}$$
+
+	Então $c = \frac{-1}{n+1}$.
+		
+			\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Vamos resolver uma EDO de segunda ordem usando o que aprendemos. Considere $y'' = 5y' + 4y$ com $y(0) = C_1$ e $y'(0) = C_2$. Defina $u_1 = y$ e $u_2 = y'$. Escreva $\bfu'(t) = A\bfu(t)$ e ache a solução da equação.
+		
+		\begin{sol} 
+			$u_1 = y$\\
+			$u_1' = y'$\\
+			$u_1' = y' = 0u_1 + u_2$\\
+			
+			$u_2 = y'$\\
+			$u_2' = y''$\\
+			$y'' = 5y' + 4y$\\
+			$u_2' = y'' = 5u_2 + 4u_1$\\
+			
+			
+			$u =  \begin{bmatrix}
+				u_1 \\
+				u_2
+			\end{bmatrix} $
+		
+		$u(0) = \begin{bmatrix}
+			C1 \\
+			C2
+		\end{bmatrix}$
+		
+		$u_1(0) = y(0) = C1$\\
+		$u_2(0) = y'(0) = C2$
+		
+		$u' = Au \Rightarrow \begin{bmatrix}
+			u_1' \\
+			u_2'
+		\end{bmatrix} = \begin{bmatrix}
+			0 & 1 \\
+			4 & 5
+		\end{bmatrix}\begin{bmatrix}
+			u_1 \\
+			u_2
+		\end{bmatrix}$
+	
+		$A = \begin{bmatrix}
+			0 & 1 \\
+			4 & 5
+		\end{bmatrix}$
+	
+		Achando os autovalores de A:
+		
+		$$\det(A - \leftthreetimes I) = \det \begin{bmatrix}
+			-\leftthreetimes & 1 \\
+			4 & 5 - \leftthreetimes
+		\end{bmatrix} = (\leftthreetimes^2 - 5\leftthreetimes) - 4 = 0$$
+	
+		$\leftthreetimes^2 - 5\leftthreetimes - 4 = 0$\\
+		
+		$\bigtriangleup = 25 + 16 = 41$\\
+		
+		$\leftthreetimes = \frac{5 \pm \sqrt{41}}{2}$\\
+		
+		Achando os autovetores de A:
+		
+		$$ \begin{bmatrix}
+			\frac{-5 - \sqrt{41}}{2} & 1 \\
+			4 & \frac{5 - \sqrt{41}}{2}
+		\end{bmatrix} \begin{bmatrix}
+			x_1 \\
+			x_2
+		\end{bmatrix} = \begin{bmatrix}
+			0 \\
+			0
+		\end{bmatrix}$$
+	
+		$$-(\frac{5 + \sqrt{41}}{2})x_1 + x_2 = 0$$
+		$$4x_1 + (\frac{5 - \sqrt{41}}{2})x_2 = 0$$
+		
+		$v_1 = \begin{bmatrix}
+			1 \\
+			\frac{5 + \sqrt{41}}{2} 
+		\end{bmatrix}$
+	
+		$$ \begin{bmatrix}
+			\frac{-5 + \sqrt{41}}{2} & 1 \\
+			4 & \frac{5 + \sqrt{41}}{2}
+		\end{bmatrix} \begin{bmatrix}
+			x_1 \\
+			x_2
+		\end{bmatrix} = \begin{bmatrix}
+			0 \\
+			0
+		\end{bmatrix}$$
+	
+		$$-(\frac{5 - \sqrt{41}}{2})x_1 + x_2 = 0$$
+		$$4x_1 + (\frac{5 + \sqrt{41}}{2})x_2 = 0$$
+	
+		$v_2 = \begin{bmatrix}
+			1 \\
+			\frac{5 - \sqrt{41}}{2} 
+		\end{bmatrix}$
+	
+	
+		A solução com as condições: $u(t) = B_1 v_1 e^{\leftthreetimes_1 t} + B_2 v_2 e^{\leftthreetimes_2 t}$
+		
+		$u(0) = B_1 v_1 + B_2 v_2 = \begin{bmatrix}
+			C1 \\
+			C2
+		\end{bmatrix}$
+
+		$u(0) = B_1 \begin{bmatrix}
+			1 \\
+			\frac{5 + \sqrt{41}}{2} 
+		\end{bmatrix} + B_2 \begin{bmatrix}
+			1 \\
+			\frac{5 - \sqrt{41}}{2} 
+		\end{bmatrix} = \begin{bmatrix}
+			C1 \\
+			C2
+		\end{bmatrix}$
+
+		$B_1 + B_2 = C_1$
+		
+		$B_1 \frac{5 + \sqrt{41}}{2} + B_2 \frac{5 - \sqrt{41}}{2}  = C_2$
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Se $A$ é simétrica e todos seus autovalores são iguais a $\lambda$. O que podemos dizer sobre $A$?
+		
+		\begin{sol} 
+			  Se todos seus autovalores são iguais a $\lambda$, então A é uma matriz diagonal, cujo essa diagonal tem suas entradas iguais a $\lambda$. Pois então: $\det(A - \alpha I) = (\leftthreetimes - \alpha)^n = 0$ e $\alpha = \leftthreetimes$.
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 7 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Suponha que $C$ é positiva definida e que $A$ tenha as colunas LI. Mostre que $A^TCA$ é positiva definida.
+		
+		\begin{sol} 
+		Em álgebra linear, uma matriz $A$ é positiva definida se $v^T A v > 0$ para todos $v$ em $R$.
+		Então basta provar que $x^T(A^TCA)x > 0$:
+		
+		$x^T(A^TCA)x = (x^TA^T)C(Ax) = (Ax)^T C (Ax)$ 
+			
+		Visto que A tem colunas independentes, tem classificação completa e logo, é invertível. Para qualquer x, podemos encontrar um $y$ tal que $Ax = y$ tomando $x = A^{-1}y$.
+		
+		Então supondo que $Ax = y$, então: $x^T(A^TCA)x = y^T Cy$  
+		
+		$y^T Cy$ é positiva para qualquer $y$ pois C é positiva definida. Portanto, $A^TCA$ é positiva definida.
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 8 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Quais são os autovalores de $A$ se ela for similar a $A^{-1}$?
+		
+		\begin{sol} 
+			Se $A$ for similar a $A^{-1}$ todos os autovalores de $A$ serão $1$ ou $-1$.   
+			
+			Isso acontece pois, visto que $A$ e $A^{-1}$ são similares, então elas terão os mesmos autovalores. Se um dos autovalores de A é $\leftthreetimes$, o autovalor de seu inverso será $\frac{1}{\leftthreetimes}$. Mas sabemos que eles são iguais, então:
+			
+			$$\leftthreetimes = \frac{1}{\leftthreetimes}$$
+			$$\leftthreetimes^2 = 1$$
+			$$\leftthreetimes = \pm 1$$
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 9 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Suponha que $A$ é quadrada, mostre que $\sigma_1 \geq |\lambda|$, para qualquer autovalor $\lambda$ de $A$, onde $\sigma_1$ é o primeiro valor singular de $A$.
+		
+		\begin{sol} 
+			A norma de uma matriz é definida por $||A|| = max_{x \neq 0} \frac{||Ax||}{||x||}$  
+			
+		1. $||A|| \geq |\leftthreetimes|$, $\leftthreetimes$ é autovalor de A.
+		
+		Prova:
+		
+		Se $\leftthreetimes$ é autovalor de A e $v$ é autovetor de A, $Av = \leftthreetimes v$
+		
+		$||A|| = max_{x \neq 0} \frac{||Ax||}{||x||} \geq \frac{||Av||}{||v||} = \frac{||\leftthreetimes v||}{||v||} = \frac{|\leftthreetimes| ||v||}{||v||} = |\leftthreetimes|$
+		
+		$$||A|| \geq |\leftthreetimes|$$
+		
+		2.  $||AB|| \leq ||A|| ||B||$
+		
+		Prova:
+		
+		$||A|| = max_{x \neq 0} \frac{||Ax||}{||x||} \Rightarrow ||A|| \geq \frac{||Ax||}{||x||}$, para algum $x \neq 0$.
+		
+		$||Ax|| \leq ||A|| ||x||$
+		
+		Por outro lado,  $||A|| \geq \frac{||A(Bx)||}{||Bx||} = \frac{||ABx||}{||Bx||}$
+		
+		$||ABx|| \leq ||A|| ||Bx|| = ||A|| ||B|| ||x||$
+		
+		$\frac{||ABx||}{||x||} = ||A|| ||B||$, $\forall$ todo x.
+		
+		$$\Rightarrow ||AB|| \leqslant ||A||||B||$$
+		
+		3. $\sigma_1 \geq |\lambda|$
+		
+		Prova:
+		
+		$A = U \sum V^T \Rightarrow ||A|| = ||U \sum V^T||$
+		
+		$U$ e $V^T$ são ortogonais e tem norma 1.
+		
+		$$||U|| ||\sum|| ||V^T|| = ||\sum|| = \sigma_1$$
+		
+		$$||A|| = \sigma_1$$
+		
+		Conclusão:
+		
+		Sabendo que $||A|| \geq |\leftthreetimes|$ e $||A|| = \sigma_1$, então: 
+		
+		$$\sigma_1 \geq |\leftthreetimes|$$
+		
+		\end{sol} 
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 10 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache a decomposição SVD da matriz
+		$$A = \begin{bmatrix}
+			1 & 0 & 1 & 0\\
+			0 & 1 & 0 & 1 \\
+		\end{bmatrix}.$$
+		
+		\begin{sol} 
+			$A^T = \begin{bmatrix}
+				1 & 0 \\
+				0 & 1 \\
+				1 & 0 \\
+				0 & 1
+			\end{bmatrix}$  
+		
+		$A^TA = \begin{bmatrix}
+			1 & 0 \\
+			0 & 1 \\
+			1 & 0 \\
+			0 & 1
+		\end{bmatrix}\begin{bmatrix}
+		1 & 0 & 1 & 0\\
+		0 & 1 & 0 & 1 \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			1 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 \\
+			1 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 
+		\end{bmatrix}$
+	
+		Encontrando os autovalores de $A^TA$:
+		
+		$\det(A^TA - \leftthreetimes I) = (\leftthreetimes^2 - 2\leftthreetimes)^2 = (\leftthreetimes(\leftthreetimes - 2))^2 = 0$
+		
+		$\leftthreetimes_1 = 2$, $\leftthreetimes_2 = 2$, $\leftthreetimes_3 = 0$ e $\leftthreetimes_4 = 0$
+		
+		Encontrando os autovetores de $A^TA$:
+		
+		$v_1 = (1,0,1,1)$, $v_2 = (0,1,0,1)$, $v_4 = (-1,0,1,0)$, $v_4 = (0,-1,0,1)$
+		
+		Encontrando as raízes quadradas dos autovalores diferentes de zero $(\sigma i):$
+		
+		$\sigma_1 = \sqrt{2}$
+			
+		$\sigma_2 = \sqrt{2}$
+		
+		Então a matriz $\sum = \begin{bmatrix}
+			\sqrt{2} & 0 & 0 & 0\\
+			0 & \sqrt{2} & 0 & 0 \\
+		\end{bmatrix}$
+	
+		As colunas da matriz V são os vetores normalizados (unitários), então a matriz $V = \begin{bmatrix}
+			\frac{\sqrt{2}}{2} & 0 & \frac{-\sqrt{2}}{2} & 0 \\
+			0 & \frac{\sqrt{2}}{2} & 0 & \frac{-\sqrt{2}}{2} \\
+			\frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0 \\
+			0 & \frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} 
+		\end{bmatrix}$
+	
+		Por último, $$u_1 = \frac{1}{\sigma_1} \cdot A \cdot v_1$$
+		
+		$$u_1 = \frac{1}{\sqrt{2}} \begin{bmatrix}
+			1 & 0 & 1 & 0\\
+			0 & 1 & 0 & 1 \\
+		\end{bmatrix}\begin{bmatrix}
+			\frac{\sqrt{2}}{2} \\
+			0  \\
+			\frac{\sqrt{2}}{2} \\
+			0 
+		\end{bmatrix} = \begin{bmatrix}
+		1 \\
+		0  
+		\end{bmatrix}$$
+	
+		$$u_2 = \frac{1}{\sigma_2} \cdot A \cdot v_2$$
+		
+		$$u_2 = \frac{1}{\sqrt{2}} \begin{bmatrix}
+			1 & 0 & 1 & 0\\
+			0 & 1 & 0 & 1 \\
+		\end{bmatrix}\begin{bmatrix}
+			0 \\
+			\frac{\sqrt{2}}{2}  \\
+			0 \\
+			\frac{\sqrt{2}}{2} 
+		\end{bmatrix} = \begin{bmatrix}
+			0 \\
+			1  
+		\end{bmatrix}$$
+	
+	$U = \begin{bmatrix}
+		1 & 0 \\
+		0 & 1  
+	\end{bmatrix}$ 
+
+		Em síntese, nossa decomposição SVD é dada por:
+		
+		$$A = \begin{bmatrix}
+			1 & 0 \\
+			0 & 1  
+		\end{bmatrix}\begin{bmatrix}
+		\sqrt{2} & 0 & 0 & 0\\
+		0 & \sqrt{2} & 0 & 0 \\
+		\end{bmatrix} \begin{bmatrix}
+		\frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0 \\
+		0 & \frac{\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} \\
+		\frac{-\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} & 0 \\
+		0 & \frac{-\sqrt{2}}{2} & 0 & \frac{\sqrt{2}}{2} 
+	\end{bmatrix}$$
+		
+		\end{sol} 
+	\end{enumerate}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document} 

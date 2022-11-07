@@ -1,0 +1,474 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel} %\usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol} 
+	{
+		\vspace{4mm}
+		\noindent\textbf{Resolução:}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm} 
+	} 
+	% Objetos que aparecem *após* o ambiente. 
+	% (você pode, por exemplo, modificar, 
+	% ou remover, a barra horizontal} 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Lista de Exercícios 8}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Escreva as 3 equações para a reta $b = C + Dt$ passar pelos pontos $(-1,7)$, $(1,7)$, $(2,21)$. Ache a solução de mínimos quadrados $\hat{x}$ e a projeção $p = A\hat{x}$.
+		
+		\begin{sol}
+			
+			$$\begin{bmatrix}
+				1 & -1 \\
+				1 & 1 \\
+				1 & 2
+			\end{bmatrix}\begin{bmatrix}
+			C \\
+			D
+			\end{bmatrix} = \begin{bmatrix}
+			7 \\
+			7 \\
+			21
+			\end{bmatrix}$$
+			
+		$
+		\left\{
+		\begin {array}{cl}
+		C - D = 7\\
+		C + D = 7\\
+		C + 2D = 21
+		\end{array}
+		\right.
+		$\\
+		
+		Para a solução dos mínimos quadrados $\hat{x}$:
+		
+		$$\begin{bmatrix}
+			1 & 1 & 1\\
+			-1 & 1 & 2
+		\end{bmatrix}\begin{bmatrix}
+			1 & -1 \\
+			1 & 1 \\
+			1 & 2
+		\end{bmatrix}\begin{bmatrix}
+		C \\
+		D
+		\end{bmatrix} = \begin{bmatrix}
+		1 & 1 & 1\\
+		-1 & 1 & 2
+		\end{bmatrix} \begin{bmatrix}
+		7 \\
+		7 \\
+		21
+		\end{bmatrix}$$
+	
+		$$\begin{bmatrix}
+			3 & 2\\
+			2 & 6
+		\end{bmatrix}\begin{bmatrix}
+		C \\
+		D
+		\end{bmatrix} = \begin{bmatrix}
+		35\\
+		42
+		\end{bmatrix}$$
+	
+		$
+		\left\{
+		\begin {array}{cl}
+		3C + 2D = 35\\
+		2C + 6D = 42
+		\end{array}
+		\right.
+		$\\
+		
+		$C = 9$ e $D = 4$, então: $\hat{x} = \begin{bmatrix}
+			9\\
+			4
+		\end{bmatrix}$
+	
+		$p = A\hat{x} = \begin{bmatrix}
+			1 & -1 \\
+			1 & 1 \\
+			1 & 2
+		\end{bmatrix}\begin{bmatrix}
+		9\\
+		4
+		\end{bmatrix} = \begin{bmatrix}
+		5\\
+		13\\
+		17
+		\end{bmatrix}$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Dado o problema acima, quais dos quatro subespaços fundamentais contêm o vetor erro $e = b - p$? E o vetor $p$? E o vetor $\hat{x}$? Qual é o núcleo de $A$?
+		
+		\begin{sol}
+			$e = b - p =\begin{bmatrix}
+				2 \\
+				-6 \\
+				4
+			\end{bmatrix}$
+			, uma vez que o vetor de erro $e$ é ortogonal ao espaço da coluna C(A), ele está no
+			o espaço nulo esquerdo $N(A^T)$.\\
+			A projeção $p$ está em $C(A)$, porque é a projeção no espaço coluna.\\
+			Uma vez que o espaço de linha $C(A^T)$ e o espaço nulo $N(A)$ abrangem todo o espaço, e
+			sempre podemos modificar o vetor $\hat{x}$ por um vetor em $N(A)$ (o que não afeta a
+			projeção $A\hat{x}$). Portanto, podemos escolher $\hat{x}$ para estar no espaço de linha $C(A^T)$.\\
+			$N(A) = \{0\}$, contém apenas o vetor nulo.
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 3 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache a melhor reta que se ajusta aos pontos $t = -2, -1, 0, 1, 2$ e $b = 4, 2, -1, 0, 0$.
+		
+		\begin{sol}
+			
+			$$C + Dt = \begin{bmatrix}
+				1 & -2 \\
+				1 & -1 \\
+				1 & 0 \\
+				1 & 1 \\ 
+				1 & 2
+			\end{bmatrix}\begin{bmatrix}
+				C \\
+				D
+			\end{bmatrix} = \begin{bmatrix}
+				4 \\
+				2 \\
+				-1 \\ 
+				0 \\
+				0
+			\end{bmatrix}$$
+		
+		$$\begin{bmatrix}
+			-2 & -1 & 0 & 1 & 2\\
+			1 & 1 & 1 & 1 & 1
+		\end{bmatrix}\begin{bmatrix}
+			1 & -2 \\
+			1 & -1 \\
+			1 & 0 \\
+			1 & 1 \\ 
+			1 & 2
+		\end{bmatrix}\begin{bmatrix}
+			C \\
+			D
+		\end{bmatrix} = \begin{bmatrix}
+		-2 & -1 & 0 & 1 & 2\\
+		1 & 1 & 1 & 1 & 1
+		\end{bmatrix}\begin{bmatrix}
+			4 \\
+			2 \\
+			-1 \\ 
+			0 \\
+			0
+		\end{bmatrix}$$
+	
+		$$\begin{bmatrix}
+			10 & 0 \\
+			0 & 5
+		\end{bmatrix}\begin{bmatrix}
+		C \\
+		D
+		\end{bmatrix} = \begin{bmatrix}
+		-10 \\
+		5
+		\end{bmatrix}$$
+		
+		
+		$
+		\left\{
+		\begin {array}{cl}
+		10C = -10 \rightarrow C = -1\\
+		5D = 5 \rightarrow D = 1
+		\end{array}
+		\right.
+		$\\
+		
+		A melhor reta que se ajusta a esses pontos é: $b = 1 - t$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Dados os vetores
+		$$v_1 = [1 \ -1 \ 0 \ 0], \ v_2 = [0 \ 1 \ -1 \ 0] \mbox{ e } v_3 = [0 \ 0 \ 1 \ -1],$$
+		use o método de Gram-Schmidt para achar uma base ortonormal que gera o mesmo espaço de $v_1, v_2, v_3$.
+		
+		\begin{sol}
+			
+			$u_1 = v_1 = (1 \ -1 \ 0 \ 0)$\\
+			$u_2 = v_2 - \frac{(u_1^Tv_2)}{u_1^Tu_1}u_1 = (0 \ 1 \ -1 \ 0) + \frac{1}{2}(1 \ -1 \ 0 \ 0) = (\frac{1}{2} \ \frac{1}{2} \ -1 \ 0)$\\
+			$u_3 = v_3 - \frac{(u_1^Tv_3)}{u_1^Tu_1}u_1 - \frac{(u_2^Tv_2)}{u_2^Tu_2}u_2 = (0 \ 0 \ 1 \ -1) + \frac{2}{3}(\frac{1}{2} \ \frac{1}{2} \ -1 \ 0) = (\frac{1}{3} \ \frac{1}{3} \ \frac{1}{3} \ 0)$
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Se os elementos de cada linha de uma matriz $A$ somam zero, ache uma solução para $Ax = 0$ e conclua que $\det A = 0$. Se esses elementos somam 1, conclua que $\det(A - I) = 0$.
+		
+		\begin{sol}
+			Supondo que x seja uma matriz:
+			$\begin{bmatrix}
+				1 \\
+				1 \\
+				1 \\
+				\vdots
+			\end{bmatrix}$, ao fazer $Ax$, seus componentes serão a soma das linhas de A. Visto que os elementos de cada linha de uma matriz $A$ somam zero, então Ax = 0. Como A tem espaço nulo diferente de zero, ele não é invertível e $det A = 0$.
+		
+			Se os elementos de cada linha de A somam 1, então os elementos de cada
+			linha de (A - I) soma zero. Portanto, (A - I) tem um espaço nulo diferente de zero e $det (A - I) = 0$.
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Use as propriedades do determinante (e não suas fórmulas) para mostrar que
+		$$\det \begin{bmatrix} 1 & a & a^2 \\ 1 & b & b^2 \\ 1 & c & c^2 \end{bmatrix} = (b-a)(c-a)(c-b).$$
+		
+		\begin{sol}
+			Pela propriedade: $\begin{bmatrix}
+				a & b \\
+				c & d \\
+			\end{bmatrix} =\begin{bmatrix}
+			a - \alpha c & b - \alpha d\\
+			c & d \\
+			\end{bmatrix} $
+			
+			$(L_2 - L_1)$
+			$(L_3 - L_2)$
+			
+		$$\det \begin{bmatrix}
+			 1 & a & a^2 \\
+			  1 & b & b^2 \\
+			   1 & c & c^2 \end{bmatrix} = 
+		   \det \begin{bmatrix}
+		   	1 & a & a^2 \\
+		   	1 & b-a & b^2 - a^2 \\
+		   	1 & c-b & c^2 - b^2
+	   		\end{bmatrix} = 
+	   	1 \begin{bmatrix}
+	   		b-a & b^2 - a^2 \\
+	   		c-b & c^2 - b^2 \\
+		  \end{bmatrix}$$
+	  $$= (b - a)(c^2 - b^2) - (b^2 - a^2)(c-b)$$
+	  $$= (b - a)(c - b)(c + b) - (b - a)(b + a)(c - b)$$
+	  $$= (b - a)((c - b)(c + b)-(b + a)(c - b))$$
+	  $$= (b - a)(c - b)( c + b - b - a)$$
+	  $$= (b - a)(c - b)(c - a)$$
+	  $$= (b-a)(c-a)(c-b)$$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 7 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Calcule
+		$$\det \begin{bmatrix} 0 & 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0  \end{bmatrix}.$$
+		
+		\begin{sol}
+			$DetA = -1$
+			$$DetA = Det\begin{bmatrix}
+			0 & 0 & 0 & 1 \\
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0  
+		    \end{bmatrix}$$ $$= -Det\begin{bmatrix}
+		    1 & 0 & 0 & 0 \\
+		    0 & 0 & 0 & 1 \\
+		    0 & 1 & 0 & 0 \\
+		    0 & 0 & 1 & 0  
+	   		\end{bmatrix} (L_1 \leftrightarrow L_2) = Det\begin{bmatrix}
+	   		1 & 0 & 0 & 0 \\
+	   		0 & 1 & 0 & 0 \\
+	   		0 & 0 & 0 & 1 \\
+	   		0 & 0 & 1 & 0  
+	   		\end{bmatrix} (L_2 \leftrightarrow L_3) = -Det\begin{bmatrix}
+	   		1 & 0 & 0 & 0 \\
+	   		0 & 1 & 0 & 0 \\
+	   		0 & 0 & 1 & 0 \\
+	   		0 & 0 & 0 & 1  
+	   		\end{bmatrix} (L_3 \leftrightarrow L_4) = -1$$
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 8 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Use o fato de que
+		$$\det \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 3 & 4 \\ 1 & 3 & 6 & 10 \\ 1 & 4 & 10 & 20  \end{bmatrix} = 1$$
+		para mostrar que
+		
+		$$\det \begin{bmatrix} 1 & 1 & 1 & 1 \\ 1 & 2 & 3 & 4 \\ 1 & 3 & 6 & 10 \\ 1 & 4 & 10 & \mathbf{19}  \end{bmatrix} = 0.$$
+		
+		\begin{sol}
+			$$\det \begin{bmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 2 & 3 & 4 \\
+			1 & 3 & 6 & 10 \\
+			1 & 4 & 10 & 19
+		  \end{bmatrix} = 1 cof(1) + 4 cof(4) - 10 cof(10) + 19 cof(19)$$
+	   Visto que $20 cof(20) = 20 cof(19)$:
+		$$= 1 cof(1) + 4 cof(4) - 10 cof(10) + 20 cof(20) - 1 cof(20)$$
+		$$\det \begin{bmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 2 & 3 & 4 \\
+			1 & 3 & 6 & 10 \\
+			1 & 4 & 10 & 20 
+		\end{bmatrix} = 1 cof(1) + 4 cof(4) - 10 cof(10) + 20 cof(20) = 1$$
+		Substituindo:
+		$$\det \begin{bmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 2 & 3 & 4 \\
+			1 & 3 & 6 & 10 \\
+			1 & 4 & 10 & 19
+		\end{bmatrix} = 1 - 1 cof(20)$$
+		
+		$$1 cof(20) = \det \begin{bmatrix}
+			1 & 1 & 1  \\
+			1 & 2 & 3  \\
+			1 & 3 & 6 
+		\end{bmatrix}$$
+	
+		Sabendo que essa matriz é uma matriz de Pascal simétrica, ela possui determinante igual a 1, então:
+		$$\det \begin{bmatrix}
+			1 & 1 & 1 & 1 \\
+			1 & 2 & 3 & 4 \\
+			1 & 3 & 6 & 10 \\
+			1 & 4 & 10 & 19
+		\end{bmatrix} = 1 - 1 = 0$$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 9 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache o determinante da seguinte matriz:
+		$$A = \begin{bmatrix} 1 & 1 & 4 \\ 1 & 2 & 2 \\ 1 & 2 & 5   \end{bmatrix}$$
+		usando cofatores. O que acontece quando mudamos o valor 4 para 100?
+		
+		\begin{sol}
+			Pela regra dos cofatores:\\
+			$$
+			detA = det\begin{bmatrix}
+			 1 & 1 & 4 \\
+			 1 & 2 & 2 \\ 
+			 1 & 2 & 5
+		    \end{bmatrix} = 
+	    	1 \cdot det\begin{bmatrix}
+	    		2 & 2 \\
+	    		2 & 5
+	    	\end{bmatrix}
+			- 1 \cdot det\begin{bmatrix}
+				1 & 2 \\
+				1 & 5
+			\end{bmatrix}
+			 + 4 \cdot det\begin{bmatrix}
+			 	1 & 2 \\
+			 	1 & 2
+			 \end{bmatrix}$$
+		 
+		 $$detA = 6 - 3 + 0$$
+		 $$detA = 3$$
+		 
+		 Caso mudemos o valor de 4 para 100, a determinante continua a mesma, pois $det\begin{bmatrix}
+		 	1 & 2 \\
+		 	1 & 2
+		 \end{bmatrix} = 0$, então poderia ser qualquer valor que a determinante de A continuaria 3.  
+		\end{sol}
+		
+	\end{enumerate}
+\end{document}

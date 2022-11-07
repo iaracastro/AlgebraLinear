@@ -1,0 +1,335 @@
+\documentclass[leqno]{article}
+
+%\usepackage[brazil]{babel} \usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+
+	\newcommand{\bvecfour}[4]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3 \\ #4 \end{bmatrix}
+	}
+	
+	\newenvironment{sol}
+	{
+		\vspace{4mm}
+		\noindent\textbf{Resolução:}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm}
+	}
+	{}
+	
+	\title{Álgebra Linear - Lista de Exercícios 6}
+
+	\author{Iara Cristina Mescua Castro}
+	\date{20/09/2021}
+	
+\begin{document}
+		
+	\maketitle
+	
+	\begin{enumerate}
+		
+		\item Seja $A$ uma matriz $m \times n$ com posto $r$. Suponha que existem $\bfb$ tais que $A \bfx = \bfb$ não tenha solução.
+		
+		\begin{enumerate}
+			
+			\item Escreva todas as desigualdade ($<$ e $\leq$) que os números $m,n$ e $r$ precisam satisfazer.
+			
+			\begin{sol} 
+				Já que não há soluções, é possível obter uma linha preenchida com zeros no lado esquerdo da equação e diferente de zero no lado direito ($b_n \neq 0$), o que significa: $r < m$ e $n \leq m$.
+			\end{sol} 
+			
+			\item Como podemos concluir que $A^T \bfx = 0$ tem solução fora $\bfx = 0$?
+			
+			\begin{sol} 
+				Se a equação dada tiver uma solução diferente de zero, isso significa que o núcleo esquerdo não deve ser um espaço vazio, então deve ter vetores não-zeros nele. E já que a expressão da dimensão $N(A^T)$ é dada por m - r, concluímos que $A^T \bfx = 0$ tem solução fora $\bfx = 0$ se $m - r > 0$, ou seja, $m > r$.
+			\end{sol} 
+		\end{enumerate}
+		
+		\item Sem calcular $A$ ache uma bases para os quatro espaços fundamentais:
+		$$A = \begin{bmatrix}
+			1 & 0 & 0 \\
+			6 & 1 & 0 \\
+			9 & 8 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 2 & 3 & 4 \\
+			0 & 1 & 2 & 3 \\
+			0 & 0 & 1 & 2
+		\end{bmatrix}$$
+		
+		\begin{sol} 
+			Sabendo que as duas matrizes representam A na forma $A = L \cdot U$\\
+		Uma base para $N(A) = \begin{bmatrix}
+			0\\
+			1\\
+			-2\\
+			1
+		\end{bmatrix}$, pois $N(A) =  N(U)$, e calculando N(U):
+	
+		$$U = \begin{bmatrix}
+			1 & 2 & 3 & 4 \\
+			0 & 1 & 2 & 3 \\
+			0 & 0 & 1 & 2
+		\end{bmatrix}$$\\
+		
+		$
+		\left\{
+		\begin {array}{l}
+		x_1 + 2x_2 + 3x_3 + 4x_4 = 0\\
+		x_2 + 2x_3 + 3x_4 = 0\\
+		x_3 + 2x_4 = 0
+		\end{array}
+		\right.$\\
+		
+		$x_4$ é a variável livre, pois não tem pivô na quarta coluna, então para uma solução especial $x_4 = 1$, e fazendo retrosubstituição:\\
+		
+		$
+		\left\{
+		\begin {array}{l}
+		x_3 + 2 = 0 \Rightarrow x_3 = -2\\
+		x_2 + 2(-2) + 3(1) = 0 \Rightarrow x_2 = 1 \\
+		x_1 + 2(1) + 3(-2) + 4(1) = 0 \Rightarrow x_1 = 0
+		\end{array}
+		\right.$\\
+		
+		-------------------------------------------------------------------------------------------------------------------------------------\\
+		
+		Já a base para o núcleo esquerdo $N(A^T)$ é vazia, pois a dimensão da base de $N(A^T)$ é calculada por (m - r), onde m é o número de linhas e r é o posto, que neste é caso é 3 - 3 = 0.
+		
+		-------------------------------------------------------------------------------------------------------------------------------------\\
+		
+		Uma base do espaço da coluna $(C(A))$: (1, 6, 9), (0, 1, 8), (0, 0, 1), pois a dimensão de $(C(A))$ é a mesma de $(C(U))$, que neste caso é 3. Então uma base pode ser os espaços colunas de L.
+		
+		-------------------------------------------------------------------------------------------------------------------------------------\\
+		
+		A base do espaço de linha $(C(A^{T}))$: pode ser as linhas diferentes de zero de U: (1, 2, 3, 4), (0, 1, 2, 3), (0, 0, 1, 2).
+		
+		-------------------------------------------------------------------------------------------------------------------------------------\\
+		
+		\end{sol} 
+		
+		\item Explique porque $v = (1, 0, -1)$ não pode ser uma linha de $A$ e estar também no seu núcleo.
+		
+		\begin{sol} 
+			Assumindo que $v = (1, 0, -1)$ seja uma linha de A e esteja no seu núcleo, então, para qualquer matriz A que contenha o vetor v, $A \cdot v = 0$.
+			
+			Representando isso: 
+			$$Ax = \begin{bmatrix}
+				x_1 & x_2 & x_3 \\
+				x_4 & x_5 & x_6 \\
+				0 & 0 & -1
+			\end{bmatrix}
+			\begin{bmatrix}
+				1 \\
+				0 \\
+				-1
+			\end{bmatrix}=
+			\begin{bmatrix}
+				x_1 - x_3 & x_4 - x_6 & 2
+			\end{bmatrix}$$
+		
+		Por isso, é possível visualizar que $Ax \neq 0$, então não é possível.
+		\end{sol} 
+		
+		\item A equação $A^T \bfx = \bfw$ tem solução quando $\bfw$ está em qual dos quatro subespaços? Quando a solução é única (condição sobre algum dos quatro subespaços)?
+		
+		\begin{sol} 
+			Em $C(A^T)$. Espaço linha de A, ou seja, espaço coluna de $A^T$.\\
+			\vspace{0.1cm}
+			Seja A uma matriz m x n, $A^T$ é uma matriz n x m\\
+			\vspace{0.1cm}
+			$C(A^T) = \{A^T \cdot x \in \bR^n; x \in \bR^m\}$\\
+			\vspace{0.1cm}
+			Então se $u, v \in C(A^T)$ e $\alpha$, $\beta \in \bR \Rightarrow \alpha u + \beta v \in C(A^T)$, pois se\\
+			\vspace{0.1cm}
+			$u \in C(A^T) \Longleftrightarrow \exists x \in \bR$ tal que $u = Ax$\\
+			\vspace{0.1cm}
+			$v \in C(A^T) \Longleftrightarrow \exists x \in \bR$ tal que $v = Ax$\\
+			\vspace{0.1cm}
+			Por isso, se w estiver em $C(A^T)$ ele será a combinação das colunas de $A^T$ e x existirá tal que, $A^T \bfx = \bfw$.
+		\end{sol} 
+		
+		\item Seja $M$ o espaço de todas as matrizes $3 \times 3$. Seja
+		$$A = \begin{bmatrix}
+			1 & 0 & -1 \\
+			-1 & 1 & 0 \\
+			0 & -1 & 1
+		\end{bmatrix}$$
+		e note que $A \bveccc{1}{1}{1} = \bveccc{0}{0}{0}$.
+		
+		\begin{enumerate}
+			
+			\item Quais matrizes $X \in M$ satisfazem $AX = 0$?
+			
+			\begin{sol} 
+			Sabendo que X é uma matriz $3 \times 3$:
+			
+			$$Ax = 
+			\begin{bmatrix}
+			1 & 0 & -1 \\
+			-1 & 1 & 0 \\
+			0 & -1 & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+			x_1 & x_2 & x_3 \\
+			x_4 & x_5 & x_6 \\
+			x_7 & x_8 & x_9
+			\end{bmatrix} =
+			\begin{bmatrix}
+			x_1 - x_7 & x_2 - x_8 & x_3 - x_9 \\
+			-x_1 + x_4 & -x_2 + x_5 & -x_3 + x_6 \\
+			-x_4 + x_7 & -x_5 + x_8 & -x_6 + x_9
+			\end{bmatrix}$$
+		
+		Então se a matriz x = 0, logo: $x_1 = x_2 = x_3 = x_4 = x_5 = x_6 = x_7 = x_8 = x_9$
+		
+			$$X = c \cdot \begin{bmatrix}
+					1 & 1 & 1 \\
+					1 & 1 & 1 \\
+					1 & 1 & 1
+				\end{bmatrix}$$ Onde c é uma constante qualquer em $\bR$. 
+			\end{sol} 
+		
+		---------------------------------------------------------------------------------------------------------------------------------\\
+			\item Quais matrizes $Y \in M$ podem ser escritas como $Y = AX$, para algum $X \in M$?
+			
+			\begin{sol} 
+				Sabendo que Ax = Y pode ser representado como:\\
+				$$Ax = 
+				\begin{bmatrix}
+					1 & 0 & -1 \\
+					-1 & 1 & 0 \\
+					0 & -1 & 1
+				\end{bmatrix}
+				\begin{bmatrix}
+					x_1 & x_2 & x_3 \\
+					x_4 & x_5 & x_6 \\
+					x_7 & x_8 & x_9
+				\end{bmatrix} =
+				\begin{bmatrix}
+					x_1 - x_7 & x_2 - x_8 & x_3 - x_9 \\
+					-x_1 + x_4 & -x_2 + x_5 & -x_3 + x_6 \\
+					-x_4 + x_7 & -x_5 + x_8 & -x_6 + x_9
+				\end{bmatrix}$$ \\
+				Em outras palavras:
+				 $$\begin{bmatrix}
+				 	x_1 & x_2 & x_3 \\
+				 	x_4 & x_5 & x_6 \\
+				 	x_7 & x_8 & x_9
+				 \end{bmatrix} - 
+			 	\begin{bmatrix}
+				 x_7 & x_8 & x_9 \\
+				 x_1 & x_2 & x_3 \\
+				 x_4 & x_5 & x_6
+				 \end{bmatrix}$$
+			 Visto que a segunda matriz é uma permutação da primeira, Y pode ser escrito como:\\
+			 $X - X \cdot K$, onde $K = \begin{bmatrix}
+			 	0 & 0 & 1 \\
+			 	1 & 0 & 0 \\
+			 	0 & 1 & 0
+			 \end{bmatrix}$
+			\end{sol} 
+		\end{enumerate}
+		
+		\item Sejam $A$ e $B$ matrizes $m \times n$ com os mesmos quatro subespaços fundamentais. Se ambas estão na sua forma escalonada reduzida, prove que $F$ e $G$ são iguais, onde:
+		$$A = \begin{bmatrix}
+			I & F \\
+			0 & 0
+		\end{bmatrix} \mbox{ e } B \begin{bmatrix}
+			I & G \\
+			0 & 0
+		\end{bmatrix}.$$
+		
+		\begin{sol} 
+			Sabendo que A e B tem dimensões $m \times n$ e estão em sua forma escalonada reduzida R:
+			$$\begin{bmatrix}
+			  I_{r \times r} & F_{r \times n-r} \\
+			  0_{m-r \times r} & 0_{m-r \times n-r}
+			\end{bmatrix}$$ e $$\begin{bmatrix}
+			  I_{r \times r} & G_{r \times n-r} \\
+			  0_{m-r \times r} & 0_{m-r \times n-r}
+			\end{bmatrix}$$
+	    	
+	  		Então, sabendo que $C(A^T) = C(B^T)$, A e B tem as mesmas dimensões, a primeira linha de A é igual à combinação das linhas de B, e a única combinação possível é 1 (linha 1 de B) já que ambas tem a matriz I ali, e para as outras linhas diferentes de 0 acontece o mesmo, logo, F = G.
+	  
+	  	
+
+		\end{sol} 
+	\end{enumerate}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document} 

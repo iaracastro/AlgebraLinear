@@ -1,0 +1,664 @@
+\documentclass[paper=a4]{article}
+\makeatletter
+\usepackage[utf8x]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[top=2cm,left=3cm,right=3cm,bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{mathptmx}
+\usepackage{url}
+\usepackage[svgnames]{xcolor}
+\usepackage{float} 
+\textheight=700px
+\frenchspacing
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage{gensymb}
+\usepackage{cancel}
+\usepackage[hang]{footmisc}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\@seccntformat}[1]{%
+	\ifcsname prefix@#1\endcsname
+	\csname prefix@#1\endcsname
+	\else
+	\csname the#1\endcsname\quad
+	\fi}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newcommand\prefix@section{Questão \thesection: }
+	\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	\thispagestyle{empty}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\linewidth]{C:/Users/iaram/OneDrive/Imagens/Prints/logo}
+		\label{fig:logo}
+	\end{figure}
+	\vspace{7cm}
+	\begin{center}	
+		\textcolor{black}{{\Huge{\bf Respostas da Lista 1}}} \\	
+	\end{center}
+	\vspace{0,2cm}
+	\begin{center}
+		\textcolor{black}{{\Huge{\bf Álgebra Linear}}}
+	\end{center}
+	\vspace{0,8cm}	
+	\begin{center}
+		\textcolor{black}{{\LARGE{\bf Iara Cristina Mescua Castro}}} \\
+	\end{center}
+	\vspace{0,2cm}
+	\begin{center}
+		\textcolor{black}{{\Large{\bf Matrícula: 211704019}}}
+	\end{center}
+	\vspace{0,5cm}
+	%\begin{center}
+	%	\textcolor{black}{{\LARGE{\bf Juliana Carrica Barcellos Miranda}}} \\
+	%\end{center}
+	%\vspace{0,7cm}
+	\begin{center}
+		\textcolor{black}{\Large{\bf 09/08/2021}}
+	\end{center}
+	
+	\newpage
+	\thispagestyle{empty}
+	\tableofcontents
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\newpage
+	\thispagestyle{empty}
+	%\listoffigures
+	\newpage
+	\setcounter{page}{1}
+	\pagenumbering{arabic}
+	
+	%%QUESTÃO 1
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\section{\vspace{0,1cm}\begin{flushleft}
+			{\large Quais condições para y1, y2 e y3 fazem com que os pontos (0, y1), (1, y2) e (2, y3) caiam numa reta?}
+	\end{flushleft}}
+    {\large 
+    Para três pontos estarem na mesma reta, as coordenadas dos pontos devem cumprir a seguinte condição:}
+    \begin{center}{\Large$
+       \det	\begin{vmatrix}
+    		x_1 & y_1 & 1\\
+    		x_2 & y_2 & 1 \\
+    		x_3 & y_3 & 1
+    	\end{vmatrix} = 0$} \end{center}
+    {\large Substituindo os valores:}
+    \begin{center}{\Large$
+    \det\begin{vmatrix}
+    		0 & y_1 & 1\\
+    		1 & y_2 & 1 \\
+    		2 & y_3 & 1
+    	\end{vmatrix} = 0$} 
+    \end{center}
+    {\large Resolvendo a determinante:
+    	\begin{center}
+    	$
+    	\begin{vmatrix}
+    		0 & y_1 & 1\\
+    		1 & y_2 & 1 \\
+    		2 & y_3 & 1
+    	\end{vmatrix}
+    	\begin{vmatrix}
+    		0 & y_1\\
+    		1 & y_2\\
+    		2 & y_3
+    	\end{vmatrix} = 0$
+    \end{center}}
+	{\large $0 + 2y_1 + y_3 - (2y_2 + 0 + y_1)$\\
+	\newline
+	$y_1 - 2y_2 + y_3 = 0$}\\
+	\newline
+	{\large Então para os pontos $(0,y_1)$, $(1,y_2)$ e $(2,y_3)$ estarem na mesma reta,\\
+	\newline
+	eles devem satisfazer a equação: $y_1 - 2y_2 + y_3 = 0$}
+	\newpage
+	
+	%%QUESTÃO 2
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+			{\large Se (a, b) é um múltiplo de (c, d) e são todos não-zeros, mostre que (a, c) é um múltiplo de (b, d).  O que isso nos diz sobre a matriz}
+	\end{flushleft}}
+
+	\begin{center}{\Large$
+	A =	\begin{bmatrix}
+			a& b\\
+			c& d
+		\end{bmatrix}$} \end{center}
+	
+	{\large
+	Se (a, b) é um múltiplo de (c, d), então:\\	
+	\begin{center}
+			$(a, b) = x(c, d)$\\
+			$a = xc$\\
+			$b = xd$\\
+			$c = a/x$\\
+			$d = b/x$
+	\end{center}
+	Então se (a, c) é múltiplo de (b, d):\\
+	\begin{center}
+			$(a, c) = y(b, d)$\\
+	\end{center}
+	Precisamos obter:
+	\begin{center}
+			$a = yb$\\
+			$c = yd$
+	\end{center}
+	Substituindo $a$ e $b$ em $(a, c) = y(b, d)$:\\
+	\begin{center}
+			$(xc, c) = y(xd, d)$\\
+			$\cancel{x}c = y\cancel{x}d$\\
+			$c = yd$ 
+	\end{center}
+	Substituindo $c$ e $d$ em $(a, c) = y(b, d)$:
+	\begin{center}
+			$(a, a/x) = y(b, b/x)$\\
+			\vspace{0.1cm}
+			$\frac{a}{\cancel{x}} = y\frac{b}{\cancel{x}}$\\
+			\vspace{0.1cm}
+			$a = yb$ 
+	\end{center}
+	Se substituirmos $a$, $b$, $c$ e $d$ na matriz e calcularmos sua determinante:
+	\begin{center}{\Large$
+			A =	\begin{bmatrix}
+				xc & xd\\
+				a/x & b/x
+	\end{bmatrix}$} \end{center}
+	Calculando a determinante: 
+	$xc . \frac{b}{x} - (\frac{a}{x} . xd) =  cb - ad$
+	Calculando a determinante da matriz original:
+	\begin{center}{\Large$
+		A =	\begin{bmatrix}
+			a& b\\
+			c& d
+		\end{bmatrix}$} \end{center}
+	\begin{flushleft}
+		$a . d - c b$\\
+		Com isso, é possível concluir que:\\
+		cb - ad = ad - cb\\
+	 	2cb = 2ad\\
+	 	cb = ad
+	\end{flushleft}
+ 	E assim, podemos concluir que a determinante dessa matriz A é igual a 0, é nulo.
+	\newpage
+	
+	%%QUESTÃO 3
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+			{\large Se w e v são vetores unitários, calcule os produtos internos de\vspace{0,2cm}
+			\\(a) $v$ e $−v$;
+			\\(b) $v + w$ e $v − w$;
+			\\(c) $v − 2w$ e $v + 2w$}\\
+			\end{flushleft}}
+	\begin{center}
+		\textbf{(a)} $<v, -v> = ||v|| · ||-v|| · \cos180$\\
+		\vspace{0,1cm}
+		$||v|| = 1$, $||-v|| = 1$ e $\cos180 = -1$, logo:\\
+		\vspace{0,1cm}
+		$= (1) · (1) ·(-1)$ \\
+		\vspace{0,1cm}
+		$= -1$
+	\end{center}
+	\begin{center}
+		\textbf{(b)} $<v + w, v - w> = <v,v> - <v,w> + <w,v> - <w,w>$\\
+		\vspace{0,1cm}
+		$<v,v> = 1$, $<v,w> = <w,v>$ e $<w,w> = 1$, logo:\\
+		\vspace{0,1cm}
+		$= 1 + 0 - 1$ \\
+		\vspace{0,1cm}
+		$= 0$
+	\end{center}
+	\begin{center}
+		\textbf{(c)} $<v - 2w, v + 2w> = <v,v> + <v,2w> - <2w,v> - <2w,2w>$\\
+		\vspace{0,1cm}
+		$<v,v> = 1$, $<v,2w> = <2w,v>$ e $<2w,2w> = 4<w,w> = 4$, logo:\\
+		\vspace{0,1cm}
+		$= 1 + 0 - 4$ \\
+		\vspace{0,1cm}
+		$= -3$
+	\end{center}
+	\newpage
+	
+	%%QUESTÃO 4
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+			{\large Se $||v|| = 5$ e $||w|| = 3$, quais são o menor e maior valores possíveis para $||v − w||$? E para $v · w$?}
+	\end{flushleft}} 
+	{\large Primeiro vamos provar que: $||v| - |w|| ≤ ||v - w||$ \newline
+	\vspace{0,1cm}
+	Através da desigualdade triangular, $||a||+||b|| ≥ ||a + b||$,
+	substituímos a = v - w  e  b = w, \newline formando:
+	\begin{center}
+		$||v - w|| + ||w|| ≥ ||v - w + w||$ \\
+		\vspace{0,1cm}
+    	$||v - w|| ≥ ||v| - |w||$
+	\end{center}
+	Por isso, quando v ≥ w ≥ 0
+	\vspace{0,1cm}
+	\begin{center}
+		$||v - w|| ≥ ||v| - |w||$\\
+		\vspace{0,1cm}
+		$||v - w|| ≥ |5 - 3|$\\
+		\vspace{0,1cm}
+		$||v - w|| ≥ |2|$\\
+		\vspace{0,1cm}
+		$||v - w|| ≥ 2$\\
+	\end{center}
+	\textbf{2} é o \textbf{menor} valor possível de $|v - w|$\\
+	\newline
+	E quando v ≥ 0 ≥ w , ou seja, v = 5 e w = -3
+		\begin{center}
+		$||v - w|| = ||5 - (-3)||$\\
+		\vspace{0,1cm}
+		$||v - w|| ≤ ||8|| $\\
+		\vspace{0,1cm}
+		$||v - w|| ≤ 8 $
+	\end{center}
+	\textbf{8} é o \textbf{maior} valor possível de $|v - w|$\\
+	\newline
+	\vspace{0,3cm}
+	Para $v \cdot w$, o menor valor possível seria negativo, ou seja, um dos valores será negativo e o outro positivo.\\
+	$v > 0$ e $w < 0$, ou seja, v = 5 e w = -3 \\
+	\vspace{0,1cm}
+	Esses valores satisfazem as condições, pois\\
+	\vspace{0,1cm}
+	$||v|| = 5$ e $||5|| = 5$\\
+	\vspace{0,1cm}
+	$||w|| = 3$ e $||-3|| = 3$\\
+	\vspace{0,1cm}
+	Assim, o menor valor para $v \cdot w$ é igual a 5 . (-3) = \textbf{-15}\\
+	\newline
+	\vspace{0,3cm}
+	E o maior valor seria positivo, ou seja, os dois valores serão positivos (ou os dois serão negativos).\\
+	$v > 0$ e $w > 0$, ou seja, v = 5 e w = 3 \\
+	\vspace{0,1cm}
+	Esses valores satisfazem as condições, pois\\
+	\vspace{0,1cm}
+	$||v|| = 5$ e $||5|| = 5$\\
+	\vspace{0,1cm}
+	$||w|| = 3$ e $||3|| = 3$\\
+	\vspace{0,1cm}
+	Assim, o maior valor para $v \cdot w$ é igual a 5 . 3 = \textbf{15}
+	\newpage
+	
+	%%QUESTÃO 5
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+			{\large Considere o desenho dos vetores w e v abaixo. Hachure as regiões definidas pelas combinações lineares
+				cv + dw considerando as seguintes restrições: c + d = 1 (não necessariamente positivos), c, d ∈ [0, 1] e
+				c, d ≥ 0 (note que são três regiões distintas).}
+	\end{flushleft}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{"5 item 1"}
+		\caption{}
+		\label{fig:5-item-1}
+	\end{figure}
+	\vspace{3cm}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{"5 item 2"}
+		\caption{Questão 5, item 2}
+		\label{fig:5-item-2}
+	\end{figure}
+	\newpage
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{"5 item 3"}
+		\caption{Questão 5, item 3}
+		\label{fig:5-item-3}
+	\end{figure}
+	
+	\newpage
+	
+	%%QUESTÃO 6
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large E possível que três vetores em $\mathbb{R}^2$ tenham\vspace{0,2cm} $u · v < 0$, $v · w < 0$ e $u · w < 0?$
+		\\Argumente.}
+	\end{flushleft}}
+	Sim, é possível. Primeiro, sem perda de generalidade, vamos supor que u, v, w são vetores unitários.
+	\newline
+	$ u . v = cos \measuredangle(u,v) < 0$\\
+	\vspace{0.1cm}
+	Logo, $\measuredangle(u,v) \in (\frac{2\pi}{3}, \pi)$\\
+	\vspace{0.25cm}
+	$ v . w = cos (v,w) < 0$\\
+	\vspace{0.1cm}
+	Logo, $\measuredangle(v,w) \in (\frac{2\pi}{3}, \pi)$\\
+	\vspace{0.25cm}
+	$ u . w = cos (u,w) < 0$\\
+	\vspace{0.1cm}
+	Logo, $\measuredangle(u,w) \in (\frac{2\pi}{3}, \pi)$\\
+	\newline
+	No plano cartesiano, podemos criar a seguinte situação:
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{"6"}
+		\caption{Questão 6}
+		\label{fig:6}
+	\end{figure}
+	E assim, forma-se 3 vetores (u, v, w) que estão em $\mathbb{R}^2$ e satisfazem essas condições.
+	
+	\newpage
+	
+	%%QUESTÃO 7
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large Sejam x, y, z satisfazendo x + y + z = 0. \\
+		Calcule o ângulo entre os vetores (x, y, z) e (z, x, y)}
+	\end{flushleft}}
+	Primeiro vamos chamar: \\
+	u = (x, y, z)\\
+	v = (z, x, y)\\
+	z = -x -y ou z = -(x+y)
+	\begin{center}
+		$cos\measuredangle(u,v) = \frac{(x, y, z) . (x, y, z)}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{xz + xy + zy}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{x(z+y) + zy}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{x(-x) + (-x-y)y}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{-x^2 -xy + y^2}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{-(x^2 + xy + y^2)}{||u|| . ||v||}$\\
+		\vspace{0.3cm}
+	\end{center}
+	Calculando as normas:\\
+	\newline
+	$||u|| = \sqrt{x² + y² + x² + 2xy + y²} = \sqrt{2x² + 2xy + 2y²}$ \\
+	$||v|| = \sqrt{z² + x² + y²} = \sqrt{2x² + 2xy + 2y²}$\\
+	$||u|| . ||v|| = 2x² + 2xy + 2y² = 2(x^2 + 2xy + 2y^2)$\\
+	\newline
+	Substituindo:
+	\begin{center}
+		$cos\measuredangle(u,v) = \frac{-(x^2 + xy + y^2)}{2(x^2 + 2xy + 2y^2)}$\\
+		\vspace{0.3cm}
+		$cos\measuredangle(u,v) = \frac{-1}{2}$\\
+		\vspace{0.3cm}
+		$\measuredangle(u,v) = 240^{\circ}$\\
+	\end{center}
+
+	\newpage
+	
+	%%QUESTÃO 8
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large Resolva o sistema linear abaixo:
+		\begin{center}{\Large$
+			\begin{bmatrix}
+			    1 & 0 & 0\\
+				1 & 1 & 0 \\
+				1 & 1 & 1
+			\end{bmatrix}
+		    \begin{bmatrix}
+		     	x_1\\
+		     	x_2\\
+		     	x_3
+		    \end{bmatrix} =
+	        \begin{bmatrix}
+	    	    b_1\\
+	    	    b_2\\
+	    	    b_3
+	        \end{bmatrix}
+		$} \end{center}  
+		Escreva a solução x como uma matriz A vezes o vetor b.}
+	\end{flushleft}}
+	Temos o sistema com as equações lineares:\\
+	\vspace{0.3cm}
+	$
+	\left\{
+	\begin{array}{c}
+		1x_1 + 0x_2 + 0x_3 = b_1\\
+		1x_{1} + 1x_{2} + 0x_3 = b_2\\
+		1x_1 + 1x_2 + 1x_3 = b_3
+	\end{array}
+	\right.
+	$\\
+	Por isso,
+	\begin{center}
+		$x_1 = b_1$\\
+		\vspace{0.5cm}
+		$x_1 + x_2 = b_2$\\
+		\vspace{0.3cm}
+		$b_1 + x_2 = b_2$\\
+		\vspace{0.3cm}
+		$x_2 = b_2 - b_1$\\
+		\vspace{0.5cm}
+		$x_1 + x_2 + x_3 = b_3$\\
+		\vspace{0.3cm}
+		$\cancel{b_1} + b_2 \cancel{-b_1} + x_3 = b_3$\\
+		\vspace{0.3cm}
+		$x_3 = b_3 - b_2$\\
+	\end{center}
+	Em outras palavras,\\
+	\newline
+	$
+	\left\{
+	\begin{array}{c}
+		1b_1 + 0b_2 + 0b_3 = x_1\\
+		-1b_{1} + 1b_{2} + 0b_3 = b_2\\
+		0b_1 + -1b_2 + 1b_3 = x_3
+	\end{array}
+	\right.
+	$\\
+	\newline
+	Assim, a solução de x, como uma matriz A vezes o vetor b fica:
+	\begin{center}{\Large$
+		\begin{bmatrix}
+			1 & 0 & 0\\
+			-1 & 1 & 0 \\
+			0 & -1 & 1
+		\end{bmatrix}
+		\begin{bmatrix}
+			b_1\\
+			b_2\\
+			b_3
+		\end{bmatrix} =
+		\begin{bmatrix}
+			x_1\\
+			x_2\\
+			x_3
+		\end{bmatrix}
+	$} \end{center}  
+	\newpage
+	
+	%%QUESTÃO 9
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large Repita o problema acima para a matriz:} \\
+		\begin{center}{\Large$
+			A =	\begin{bmatrix}
+				-1 & 1 & 0\\
+				0 & -1 & 1 \\
+				0 & 0 & -1
+		\end{bmatrix}$} \end{center}	
+	\end{flushleft}}
+	Repetindo o processo, temos o sistema com as equações lineares:\\
+	\vspace{0.3cm}
+	$
+	\left\{
+	\begin{array}{c}
+		-1x_1 + 1x_2 + 0x_3 = b_1\\
+		0x_{1} - 1x_{2} + 1x_3 = b_2\\
+		0x_1 + 0x_2 + -1x_3 = b_3
+	\end{array}
+	\right.
+	$\\
+	Por isso,
+	\begin{center}
+		$x_3 = -b_3$\\
+		\vspace{0.5cm}
+		$0_1 - 1x_2 + 1x_3= b_2$\\
+		\vspace{0.3cm}
+		$0_1 - 1x_2 - b_3 = b_2$\\
+		\vspace{0.3cm}
+		$x_2 = -(b_2 + b_3)$\\
+		\vspace{0.5cm}
+		$-x_1 + 1x_2 + 0x_3 = b_1$\\
+		\vspace{0.3cm}
+		$-x_1 -(b_2 + b_3) + 0(-b_3) = b_1$\\
+		\vspace{0.3cm}
+		$x_1 = -b_2 -b_3 - b_1$\\
+		\vspace{0.3cm}
+		$x_1 = -(b_2 + b_3)$\\
+	\end{center}
+	Em outras palavras,\\
+	\newline
+	$
+	\left\{
+	\begin{array}{c}
+		-1b_1 - 1b_2 - 1b_3 = x_1\\
+		0b_{1} - 1b_{2} - 1b_3 = x_2\\
+		0b_1 + 0b_2 - 1b_3 = x_3
+	\end{array}
+	\right.
+	$\\
+	\newline
+	Assim, a solução de x, como uma matriz A vezes o vetor b fica:
+	\begin{center}{\Large$
+		\begin{bmatrix}
+			-1 & -1 & -1\\
+			0 & -1 & -1 \\
+			0 & 0 & -1
+		\end{bmatrix}
+		\begin{bmatrix}
+			b_1\\
+			b_2\\
+			b_3
+		\end{bmatrix} =
+		\begin{bmatrix}
+			x_1\\
+			x_2\\
+			x_3
+		\end{bmatrix}
+		$} \end{center}  
+	\newpage
+	
+	%%QUESTÃO 10
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large Considere a equação de recorrência $−x_{i+1} + 2_{xi} −x_{i−1} = i$ para $i = 1, 2, 3, 4$ com $x_0 = x_5 = 0$. Escreva essas equações em notação matricial $Ax = b$ e ache x.}
+	\end{flushleft}}
+	Equação
+	\begin{center}
+		$-x_{i+1} + 2x_i - x_{i-1} = i$
+	\end{center}
+	Para i = 1:
+	\begin{center}
+		$-x_2 +  2x_{1} - x_{0} = 1$\\
+		$2x_1 - x_2 + 0 + 0 = 1$
+	\end{center}
+	Para i = 2:
+	\begin{center}
+		$-x_3 +  2x_{2} - x_{1} = 2$\\
+		$-x_{1} + 2x_{2} - x_3 + 0 = 2$
+	\end{center}
+	Para i = 3:
+	\begin{center}
+		$-x_4 + 2x_{3} - x_{2} = 3$\\
+		$0 -x_2 + 2x_3 - x_4 = 3$
+	\end{center}
+	Para i = 4:
+	\begin{center}
+		$-x_5 + 2x_{4} - x_{3} = 4$\\
+		$0 + 0 - x_3{3} + 2x_4 = 4$
+	\end{center}
+	Juntando todas as equações em um sistema, obtemos:\newline
+	\newline
+	$
+	\left\{
+	\begin{array}{c}
+	2x_1 - x_2 + 0 + 0 = 1\\
+	-x_{1} + 2x_{2} - x_3 + 0 = 2\\
+	0 -x_2 + 2x_3 - x_4 = 3\\
+	0 + 0 - x_3 + 2x_4 = 4
+	\end{array}
+	\right.
+	$
+	\newline
+	Escrevendo essas equações em notação matricial:
+	$\begin{bmatrix}
+		2 & -1 & 0 & 0 \\
+		-1 & 2 & -1 & 0 \\
+		0 & -1 & 2 & -1 \\
+		0 & 0 & -1 & 2
+	\end{bmatrix} 
+	\begin{bmatrix}
+		x_1\\
+		x_2\\
+		x_3\\
+		x_4
+	\end{bmatrix} =
+	\begin{bmatrix}
+		1\\
+		2\\
+		3\\
+		4
+	\end{bmatrix}
+		$\\
+	Somando:
+	\begin{center}
+	$1x_1 + 0x_2 + 0x_3 + 1x_4 = 10$\\
+	$x_1 = 10 - x_4$
+	\end{center}
+	Substituindo em $L_1$:\\
+	\begin{center}
+		$2(10 - x_4) -x_2 = 1$\\
+		$20 - 2x_4 -x_2 = 1$\\
+		$2x_4 + x_2 = 19$\\
+		$x_2 = 19 -2x_4$\\
+	\end{center}
+	Isolando $x_3$ em $L_4$:\\
+	\begin{center}
+		$2x_4 = 4 + 1x_3$\\
+		$x_3 = 2x_4 - 4$\\
+	\end{center}
+	\newpage
+	Substituindo tudo em $L_2$:
+	\begin{center}
+		$-(10 - x_4) + 2(19 -2x_4) - (2x_4 -4) = 2$\\
+		$x_4 - 10 + + 38 - 4x_4 - 2x_4 + 4 = 2$\\
+		$x_4 - 10 + + 38 - 4x_4 - 2x_4 + 4 = 2$\\
+		$-5x_4 - 10 + 38 + 4 = 2$\\
+		$-5x_4 - 10 + 38 + 4 = 2$\\
+		$-5x_4 = -30$\\
+		$x_4 = 6$\\
+	\end{center}
+	Substituindo nas equações:
+	\begin{center}
+		$x_3 = 2(6) - 4$\\
+		$x_3 = 8$\\
+		\vspace{0.2cm}
+		$x_2 = 19 -2(6)$\\
+		$x_2 = 7$\\
+		\vspace{0.2cm}
+		$x_1 = 4$
+	\end{center}
+	Resultado: $X = 
+		\begin{bmatrix}
+		4\\
+		7\\
+		8\\
+		6
+	\end{bmatrix}$
+	\newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\section{\vspace{0,1cm}\begin{flushleft}
+		{\large (Bônus) Use o seguinte código em numpy para gerar um vetor aleatório:
+	v = numpy.random.normal(size=[3,1]) em $\mathbb{R}^3$. Fazendo $u = v/||v||$ criamos então um vetor unitário aleatório. Crie 30 outros vetores unitários aleatórios $u_j$ (use numpy.random.normal(size=[3,30])). Calcule a média dos produtos internos $|u · u_j|$ e compare com o valor exato $\frac{1}{\pi} \int_0^{\pi}|\cos\theta|d\theta = \frac{2}{\pi}$}
+	\end{flushleft}}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\end{document}

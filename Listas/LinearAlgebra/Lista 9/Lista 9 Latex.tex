@@ -1,0 +1,1056 @@
+\documentclass[leqno]{article}
+
+\usepackage[brazil]{babel} % \usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage[inline]{enumitem}
+\usepackage{xifthen} \usepackage{tikz}
+\usepackage{mathtools}
+\usetikzlibrary{automata,arrows,positioning,calc}
+
+\DeclareMathOperator{\vspan}{Span}
+\DeclareMathOperator{\sen}{sen}
+
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\newenvironment{sol} 
+{
+	\vspace{4mm}
+	\noindent\textbf{Resolução:}
+	\strut\newline
+	\smallskip
+	\hspace{-3.5mm} 
+} 
+% Objetos que aparecem *após* o ambiente. 
+% (você pode, por exemplo, modificar, 
+% ou remover, a barra horizontal} 
+%{\noindent\rule{4cm}{.1mm}}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	\newcommand{\R}{\mathbb{R}}
+	\newcommand{\defeq}{\vcentcolon =}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	
+	\title{Álgebra Linear - Lista de Exercícios 9}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja $B$ uma matriz $3 \times 3$ com autovalores 0, 1 e 2. Com  essa informação, ache:
+		
+		\begin{enumerate}
+			
+			\item o posto de $B$;
+			
+			\item o determinante de $B^TB$;
+			
+			\item os autovalores de $B^TB$;
+			
+			\item os autovalores de $(B^2 + I)^{-1}$.
+			
+		\end{enumerate}
+		
+		\begin{sol}
+			
+			$a)$ $2$
+			
+			$B \cdot v_1 = \leftthreetimes_1 \cdot v_1 = 0$, pois $\leftthreetimes_1 = 0$\\
+			$B \cdot v_2 = \leftthreetimes_2 \cdot v_2$\\
+			$B \cdot v_3 = \leftthreetimes_3 \cdot v_2$\\
+			Então $v_1$ $\varepsilon$ $N(B)$ e $v_2, v_3$ $\varepsilon$ $C(B)$
+			
+			Então o posto de B é 3 - 1 = 2.
+			
+			$b)$ $0$
+			
+			$\det{B} = \leftthreetimes_1 \cdot \leftthreetimes_2 \cdot \leftthreetimes_3$\\
+			$\det{B} = 0 \cdot 1 \cdot 2 = 0$
+			
+			$\det{B^TB} = \det{B^T}\det{B} = 0$
+			
+			$c)$ Não há informações o suficiente para determinar os autovalores de $B^TB$
+			
+			$d)$ $1$, $\frac{1}{2}$, $\frac{1}{5}$
+			
+			Sabendo que:\\
+			$Bv = \leftthreetimes v$\\
+			$v = B^{-1} \leftthreetimes v$\\
+			$\frac{1}{\leftthreetimes}v = B^{-1}v$
+			
+			Em outras palavras, se $\leftthreetimes$ é um autovalor para A, então $\frac{1}{\leftthreetimes}$ é um autovalor para $B^{-1}$.
+			
+			Então os autovalores de $(B^2 + I)^{-1}$, sabendo que $\leftthreetimes_1, \leftthreetimes_2, \cdot \leftthreetimes_3 = 0, 1, 2$ serão:\\
+			
+			$\frac{1}{0^2 + 1} = 1$\\
+			$\frac{1}{1^2 + 1} = \frac{1}{2}$\\
+			$\frac{1}{2^2 + 1} = \frac{1}{5}$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache os autovalores das seguintes matrizes
+		
+		\begin{enumerate*}
+			
+			\item $A = \begin{bmatrix}
+				1 & 2 & 3\\
+				0 & 4 & 5 \\
+				0 & 0 & 6 
+			\end{bmatrix}$;
+			
+			\item $B = \begin{bmatrix}
+				0 & 0 & 1\\
+				0 & 2 & 0 \\
+				3 & 0 & 0 
+			\end{bmatrix}$;
+			
+			\item $C = \begin{bmatrix}
+				2 & 2 & 2\\
+				2 & 2 & 2 \\
+				2 & 2 & 2 
+			\end{bmatrix}$.
+			
+		\end{enumerate*}
+		
+		\begin{sol}
+			
+			$a)$ $$A - \leftthreetimes I = \begin{bmatrix}
+				1 - \leftthreetimes & 2 & 3\\
+				0 & 4 - \leftthreetimes& 5 \\
+				0 & 0 & 6 - \leftthreetimes 
+			\end{bmatrix}$$
+		$$ \det(A - \leftthreetimes I) = (1 - \leftthreetimes)(4 - \leftthreetimes)(6 - \leftthreetimes ) = 0$$
+		
+		Então os autovalores são: $1$, $4$ e $6$
+		
+			$b)$ $$B - \leftthreetimes I = \begin{bmatrix}
+				0 - \leftthreetimes & 0 & 1\\
+				0 & 2 - \leftthreetimes & 0 \\
+				3 & 0 & 0 - \leftthreetimes 
+			\end{bmatrix}$$
+		$$ \det(B - \leftthreetimes I) = (- \leftthreetimes)(2 - \leftthreetimes)(- \leftthreetimes) - ((1)(2 - \leftthreetimes)(3)) = 0$$ 
+		$$ \det(B - \leftthreetimes I) = \leftthreetimes^2(2 - \leftthreetimes) - (6 - 3\leftthreetimes) = 0$$ 
+		$$ \det(B - \leftthreetimes I) = \leftthreetimes^3 + 2 \leftthreetimes^2 - 3\leftthreetimes + 6 = 0$$ 
+		$$ \det(B - \leftthreetimes I) = (2 - \leftthreetimes)(\leftthreetimes^2 - 3) = 0$$ 
+		
+		Então os autovalores são: $2$, $\sqrt3$ e $-\sqrt3$
+		
+		$c)$ $$C - \leftthreetimes I = \begin{bmatrix}
+			2  - \leftthreetimes& 2 & 2\\
+			2 & 2  - \leftthreetimes& 2 \\
+			2 & 2 & 2 - \leftthreetimes
+		\end{bmatrix}$$
+		$$ \det(C - \leftthreetimes I) = -\leftthreetimes^3 + 6\leftthreetimes^2$$
+		$$ \det(C - \leftthreetimes I) = -\leftthreetimes^2 (\leftthreetimes - 6\leftthreetimes) = 0$$
+		
+		Então os autovalores são: $6$ e $0$
+		
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 3 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Descreva todas as matrizes $S$ que diagonalizam as matrizes $A$ e $A^{-1}$:
+		$$A = \begin{bmatrix}
+			0 & 4 \\
+			1 & 2 
+		\end{bmatrix}.$$
+		
+		\begin{sol}
+			
+		$$A - \leftthreetimes I = \begin{bmatrix}
+			0 - \leftthreetimes& 4 \\
+			1 & 2  - \leftthreetimes
+		\end{bmatrix}	$$
+		$$ \det(A - \leftthreetimes I) = (- \leftthreetimes)(2  - \leftthreetimes) - 4 = 0$$
+		$$ \det(A - \leftthreetimes I) = -2 \leftthreetimes + \leftthreetimes^2 - 4 = 0$$
+		$$ \bigtriangleup = 20 $$
+		$$ \leftthreetimes = \frac{2 \pm 2\sqrt{5}}{2}$$
+		
+		Os autovalores são: $\leftthreetimes_1 = 1 + \sqrt{5}$ e $\leftthreetimes_2 = 1 - \sqrt{5}$	
+		
+		Então para encontrar os autovetores usando esses valores, teremos:
+		
+		$(A - \leftthreetimes_1I)x = \begin{bmatrix}
+			0 - \leftthreetimes_1& 4 \\
+			1 & 2  - \leftthreetimes_1 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+		-1 - \sqrt{5}& 4 \\
+		1 & 1 + \sqrt{5}  
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} =  
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix}$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		-y -y\sqrt{5} + 4z = 0\\
+		y + z + z\sqrt{5} = 0
+		\end{array}
+		\right.$\\
+		
+		$y = z (-1 -\sqrt{5})$
+		
+		Então $v_1 = (-1 -\sqrt{5}, 1) $ é um autovetor para $\leftthreetimes_1$
+	
+		$(A - \leftthreetimes_2I)x = \begin{bmatrix}
+			0 -  \leftthreetimes_2 & 4 \\
+			1 & 2  -  \leftthreetimes_2
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-1 + \sqrt{5} & 4 \\
+			1 & 1 - \sqrt{5}  
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix} $\\
+	
+		$
+		\left\{
+		\begin {array}{l}
+		-y + \sqrt{5}y + 4z = 0\\
+		y + z - \sqrt{5}z = 0\\
+		\end{array}
+		\right.$\\
+		
+		$y = -z + \sqrt{5}z$\\
+		$y = z (-1 + \sqrt{5})$        
+		
+		Então $v_2 = (-1 + \sqrt{5}, 1)$ é um autovetor para $\leftthreetimes_2$	
+		
+		Logo as colunas da matriz S que diagonalizam A são múltiplos não zeros de $(-1 -\sqrt{5}, 1)$ e $(-1 + \sqrt{5}, 1)$. 
+		
+		Visto que $A^{-1} = S \wedge S^{-1}$, a mesma matriz S pode diagonalizar $A^{-1}$.
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache $\Lambda$ e $S$ que diagonalizem $A$
+		$$A = \begin{bmatrix}
+			0.6 & 0.9 \\
+			0.4 & 0.1
+		\end{bmatrix}.$$
+		Qual limite de $\Lambda^k$ quando $k \to +\infty$? E o limite de $A^k$?
+		
+		\begin{sol}		
+			Visto que a soma de ambas colunas é igual a 1. Sabemos que A é uma matriz de Markov, e por isso tem autovalor $\leftthreetimes_1 = 1$. A soma da diagonal de A é $0.7$, então o outro autovalor é $\leftthreetimes_2 = 0.7 - 1 = -0.3$.\\
+			
+			Para encontrar os autovetores:\\
+			
+			$(A - \leftthreetimes_1I)x = \begin{bmatrix}
+				0.6 - \leftthreetimes_1& 0.9 \\
+				0.4 & 0.1  - \leftthreetimes_1 
+			\end{bmatrix}
+			\begin{bmatrix}
+				y \\
+				z 
+			\end{bmatrix} = 
+			\begin{bmatrix}
+				-0.4 & 0.9 \\
+				0.4 & -0.9
+			\end{bmatrix}
+			\begin{bmatrix}
+				y \\
+				z 
+			\end{bmatrix} =  
+			\begin{bmatrix}
+				0 \\
+				0 
+			\end{bmatrix}$
+		
+			$
+			\left\{
+			\begin {array}{l}
+			-0.4y + 0.9z = 0\\
+			0.4y - 0.9z = 0
+			\end{array}
+			\right.$\\
+			
+			$-0.4y + 0.9z = 0$\\
+			$0.4y = 0.9z$
+			
+			Então, $(0.9, 0.4)$ é um autovetor para $\leftthreetimes_1$\\
+		
+			$(A - \leftthreetimes_2I)x = \begin{bmatrix}
+				0.6 - \leftthreetimes_2& 0.9 \\
+				0.4 & 0.1  - \leftthreetimes_2 
+			\end{bmatrix}
+			\begin{bmatrix}
+				y \\
+				z 
+			\end{bmatrix} = 
+			\begin{bmatrix}
+				0.9 & 0.9 \\
+				0.4 & 0.4
+			\end{bmatrix}
+			\begin{bmatrix}
+				y \\
+				z 
+			\end{bmatrix} =  
+			\begin{bmatrix}
+				0 \\
+				0 
+			\end{bmatrix}$
+		
+			$
+			\left\{
+			\begin {array}{l}
+			0.9y + 0.9z = 0\\
+			0.4y + 0.4z = 0
+			\end{array}
+			\right.$
+			
+			$y = -z$
+			
+			Então, $(-1, 1)$ é um autovetor para $\leftthreetimes_2$
+			
+			Juntando esses autovetores e sabendo que os autovalores são $\leftthreetimes_1 = 1$ e $\leftthreetimes_2 = -0.3$, teremos:\\
+			
+			$S = \begin{bmatrix}
+				0.9 & -1 \\
+				0.4 & 1
+			\end{bmatrix}
+			$ e $\bigwedge = \begin{bmatrix}
+				1 & 0 \\
+				0 & -0.3
+			\end{bmatrix}$\\
+		
+		Quando $k \rightarrow \infty$, $\bigwedge^k \rightarrow \begin{bmatrix}
+			1 & 0 \\
+			0 & 0
+		\end{bmatrix}$
+	
+		$A^k = S\bigwedge^kS^{-1}$, quando $k \rightarrow \infty$, $\rightarrow \begin{bmatrix}
+			0.9 & -1 \\
+			0.4 & 1
+		\end{bmatrix}\begin{bmatrix}
+		1 & 0 \\
+		0 & 0
+		\end{bmatrix}(\frac{1}{13})\begin{bmatrix}
+		1 & 1 \\
+		0.4 & -0.9
+		\end{bmatrix} = \frac{1}{13}\begin{bmatrix}
+			0.9 & 0.9 \\
+			0.4 & 0.4
+		\end{bmatrix}$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja $Q(\theta)$ a matriz de rotação do ângulo $\theta$ em $\bR^2$:
+		$$Q(\theta) = \begin{bmatrix}
+			\cos \theta & -\mbox{sen} \theta \\
+			\mbox{sen} \theta & \cos \theta
+		\end{bmatrix}.$$
+		Ache os autovalores e autovetores de $Q(\theta)$ (eles podem ser complexos).
+		
+		\begin{sol}
+			$\det Q = (\cos{\theta} - \leftthreetimes)^2 + \sen{\theta}^2 = 0$\\
+			$\det Q = \cos{\theta}^2 - 2\cos{\theta} + \leftthreetimes^2 + \sen{\theta}^2 = 0$\\
+			$\det Q = \leftthreetimes^2 - 2\cos{\theta} + 1 = 0$\\
+			$\bigtriangleup = 4\cos^2{\theta}$\\
+			$\displaystyle \leftthreetimes = \frac{2\cos{\theta} \pm \sqrt{4\cos^2{\theta} - 4}}{2}$
+			
+			$\displaystyle \leftthreetimes = \frac{2\cos{\theta} \pm \sqrt{4(\cos^2{\theta} - 1)}}{2}$
+			
+			$\displaystyle \leftthreetimes = \frac{2\cos{\theta} \pm \sqrt{4(-\sen^2{\theta})}}{2}$
+			
+			
+			Autovalores:\\
+			$\leftthreetimes_1 = \cos{\theta} + i\sen{\theta}$\\
+			$\leftthreetimes_2 = \cos{\theta} - i\sen{\theta}$\\
+			
+			Autovetores:
+			
+			$\begin{bmatrix}
+				-i\sen{\theta} & -sen{\theta} \\
+				sen{\theta} & -isen{\theta}
+			\end{bmatrix}\begin{bmatrix}
+			x \\
+			y
+			\end{bmatrix} = 0$
+		
+			$-i\sen{\theta} x - \sen{\theta} y = 0$\\
+			$\sen{\theta} - i\sen{\theta} y = 0$
+					
+			$\Rightarrow \sen{\theta}x - i\sen{\theta}y = 0$\\
+			$\sen{\theta}x - i\sen{\theta}y = 0$
+			
+			$\begin{bmatrix}
+				iy \\
+				y
+			\end{bmatrix} = y\begin{bmatrix}
+			i \\
+			1
+		\end{bmatrix}$
+	
+		Então $v_1 = \begin{bmatrix}
+			i \\
+			1
+		\end{bmatrix}$ 
+	
+		$v_2 = \begin{bmatrix}
+			-i \\
+			1
+		\end{bmatrix}$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Suponha que $A$ e $B$ são duas matrizes $n \times n$ com os mesmo autovalores $\lambda_1, \ldots, \lambda_n$ e os mesmos autovetores $x_1, \ldots, x_n$. Suponha ainda que $x_1, \ldots, x_n$ são LI. Prove que $A = B$.
+		
+		\begin{sol}			
+			Vetores x independentes obtidos de $\leftthreetimes’s$ diferentes Autovetores $x_1, \ldots, x_n$ que correspondam a distintos autovalores (todos diferentes) são LI. Uma matriz $n \times n$ que tenha n diferentes autovalores deve ser diagonalizável.
+			Uma vez que A e B têm n autovetores LI $x_1, \ldots, x_n$, eles são diagonalizáveis.
+			
+			Então, sabendo que $\leftthreetimes = \begin{bmatrix}
+				\leftthreetimes_1 & 0 & \cdots & 0 \\
+				0 & \leftthreetimes_2 & \cdots & 0 \\
+				\vdots & \vdots & \ddots & \vdots \\
+				0 & 0 & \cdots & \leftthreetimes_n
+			\end{bmatrix}$ é o mesmo para A e B.\\
+		
+			Uma vez que os autovetores são os mesmos, S também é o mesmo para A e B.
+		
+			$\leftthreetimes = S^{-1}AS$ e $\leftthreetimes = S^{-1}BS$ então $A = B$
+		\end{sol}
+		
+		%\item Sejam $B$, $C$ e $D$ matrizes $2 \times 2$ com auto-valores $\{1,2\}$, $\{3,4\}$ e $\{5, 7\}$, respectivamente. Quais são os autovalores da matriz $4 \times 4$:
+		%$$A = \begin{bmatrix}
+		%B & C \\
+		%0 & D
+		%\end{bmatrix}.$$
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 7 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja $Q(\theta)$ como na Questão 5. Diagonalize $Q(\theta)$ e mostre que
+		$$Q(\theta)^n = Q(n\theta).$$
+		
+		\begin{sol}
+			$$Q(\theta) = \begin{bmatrix}
+				\cos \theta & -\mbox{sen} \theta \\
+				\mbox{sen} \theta & \cos \theta
+			\end{bmatrix}.$$
+		Pela questão 5: \\
+		$\leftthreetimes_1 = \cos{\theta} + i\sen{\theta}$\\
+		$\leftthreetimes_2 = \cos{\theta} - i\sen{\theta}$\\
+		
+		$\bigwedge = \begin{bmatrix}
+			\cos{\theta} + i\sen{\theta} & 0\\
+			0 & \cos{\theta} - i\sen{\theta}
+		\end{bmatrix}$
+		
+		Pela fórmula de Euler:
+		Quando $n \rightarrow \infty, \bigwedge^n \rightarrow \begin{bmatrix}
+			\cos{n\theta} + i\sen{n\theta} & 0\\
+			0 & \cos{n\theta} - i\sen{n\theta}
+		\end{bmatrix}$
+	
+		$v_1 = (i, 1)$ 
+		
+		$v_2 = (-i, 1)$
+	
+		$S = \begin{bmatrix}
+			i & -i\\
+			1 & 1
+		\end{bmatrix}$
+	
+		Então:
+		$Q(\theta)^n = S\bigwedge^nS^{-1} = \begin{bmatrix}
+			i & -i\\
+			1 & 1
+		\end{bmatrix}
+		 \begin{bmatrix}
+			\cos{n\theta} + i\sen{n\theta} & 0\\
+			0 & \cos{n\theta} - i\sen{n\theta}
+		\end{bmatrix}
+		\begin{bmatrix}
+			\frac{-i}{2} & \frac{1}{2}\\
+			\frac{i}{2} & \frac{1}{2}
+		\end{bmatrix}$
+	
+		$= \begin{bmatrix}
+			i & -i\\
+			1 & 1
+		\end{bmatrix}\begin{bmatrix}
+			\frac{-i\cos{n\theta} + \sen{n\theta}}{2} & \frac{\cos{n\theta} + i\sen{n\theta}}{2}\\
+			\frac{i\cos{n\theta} + \sen{n\theta}}{2} & \frac{\cos{n\theta} - i\sen{n\theta}}{2}
+		\end{bmatrix} = \begin{bmatrix}
+		\cos{n\theta} & -\sen{n\theta} \\
+		\sen{n\theta} & \cos {n\theta}
+		\end{bmatrix} = Q(n\theta)$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 8 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Suponha que $G_{k+2}$ é a média dos dois números anteriores $G_{k+1}$ e $G_k$. Ache a matriz $A$ que faz com que
+		$$\begin{bmatrix}
+			G_{k+2}\\
+			G_{k+1}\end{bmatrix} = A \begin{bmatrix}
+			G_{k+1}\\
+			G_k\end{bmatrix}.$$
+		
+		\begin{enumerate}
+			
+			\item Ache os autovalores e autovetores de $A$;
+			
+			\item Ache o limite de $A^n$ quando $n \to +\infty$;
+			
+			\item Mostre que $G_n$ converge para $2/3$ quando $G_0 = 0$ e $G_1 = 1$.
+			
+		\end{enumerate}
+		
+		\begin{sol}	
+			
+		a) Temos as equações:
+		
+		$
+		\left\{
+		\begin {array}{l}
+		G_{k+2} = \frac{1}{2}G_{k+1} + \frac{1}{2}G_{k}\\
+		G_{k+1} = G_{k+1} + 0 G_{k}
+		\end{array}
+		\right.$
+		
+		Então a matriz A é:	
+		$A = \begin{bmatrix}
+		0.5 & 0.5\\
+		1 & 0\end{bmatrix}$
+	
+		Calculando os autovalores:
+		
+		$A - \leftthreetimes I = \begin{bmatrix}
+			0.5 - \leftthreetimes& 0.5\\
+			1 & 0 - \leftthreetimes\end{bmatrix}$
+		
+		$\det(A - \leftthreetimes I) = (0.5 - \leftthreetimes)-\leftthreetimes - 0.5 = 0$\\
+		$\leftthreetimes^2 - 0.5\leftthreetimes - 0.5 = 0$\\
+		$\bigtriangleup = 2.25$
+		
+		$\displaystyle \leftthreetimes = \frac{0.5 \pm 1.5}{2}$
+		
+		$\leftthreetimes_1 = 1$ e $\leftthreetimes_2 = -\frac{1}{2}$\\
+		
+		Calculando os autovetores:
+		
+		$(A - \leftthreetimes_1I)x = \begin{bmatrix}
+			0.5 - \leftthreetimes_1 & 0.5 \\
+			1 & 0  - \leftthreetimes_1 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-0.5 & 0.5 \\
+			1 & -1  
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} =  
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix}$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		-0.5y + 0.5z = 0\\
+		y - z = 0
+		\end{array}
+		\right.$\\
+		
+		$y = z$
+		
+		$v_1 = (1,1)$ 
+		
+		$(A - \leftthreetimes_2I)x = \begin{bmatrix}
+			0.5 - \leftthreetimes_2 & 0.5 \\
+			1 & 0  - \leftthreetimes_2 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			1 & 0.5 \\
+			1 & 0.5  
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} =  
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix}$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		1y + 0.5z = 0\\
+		1y + 0.5z = 0
+		\end{array}
+		\right.$\\
+		
+		$v_2 = (-\frac{1}{2},1)$ ou $(-1, 2)$
+		
+		b) Quando $n \rightarrow \infty$, $\bigwedge^k \rightarrow \begin{bmatrix}
+			1 & 0 \\
+			0 & 0
+		\end{bmatrix}$
+		
+		$A^n = S\bigwedge^nS^{-1}$, quando $n \rightarrow \infty$, $\rightarrow \begin{bmatrix}
+			1 & 1 \\
+			1 & -2
+		\end{bmatrix}\begin{bmatrix}
+			1 & 0 \\
+			0 & 0
+		\end{bmatrix}(\frac{1}{3})	\begin{bmatrix}
+			2 & 1 \\
+			1 & -1
+		\end{bmatrix} = \frac{1}{3}\begin{bmatrix}
+			2 & 1 \\
+			2 & 1
+		\end{bmatrix} = \begin{bmatrix}
+			\frac{2}{3} & \frac{1}{3} \\
+			\frac{2}{3} & \frac{1}{3}
+		\end{bmatrix}$
+	
+		c) Quando $G_0 = 0$ e $G_1 = 1$ e $n \rightarrow \infty$
+		
+		$\begin{bmatrix}
+			G_n \\
+			G_{n-1} 
+		\end{bmatrix} = A^n \begin{bmatrix}
+			G_{1} \\
+			G_{0}
+		\end{bmatrix} = \begin{bmatrix}
+			\frac{2}{3} & \frac{1}{3} \\
+			\frac{2}{3} & \frac{1}{3}
+		\end{bmatrix} \begin{bmatrix}
+			1 \\
+			0 
+		\end{bmatrix} = \begin{bmatrix}
+			\frac{2}{3} \\
+			\frac{2}{3} 
+		\end{bmatrix}$
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 9 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Ache a solução do sistema de EDOs usando o método de diagonalização:
+		$$\begin{cases}
+			u_1'(t) = 8u_1(t) + 3u_2(t),\\
+			u_2'(t) = 2u_1(t) + 7u_2(t),
+		\end{cases}$$
+		onde $u(0) = (5, 10)$.
+		
+		\begin{sol}		
+			$\begin{bmatrix}
+				u_1' \\
+				u_2'
+			\end{bmatrix} = \begin{bmatrix}
+			8 & 3 \\
+			2 & 7 
+		\end{bmatrix}\begin{bmatrix}
+		u_1 \\
+		u_2
+		\end{bmatrix}$
+	
+		$\begin{bmatrix}
+			u_1(t) \\
+			u_2(t)
+		\end{bmatrix} = c_1 e^{\leftthreetimes_1 t}v_1 + c_2 e^{\leftthreetimes_2 t}v_2$
+		
+		$u_1(0) = 2c_1 + 3c_2$\\
+		$u_2(0) = 4c_1 - 7c_2$\\
+		Sabendo que:\\
+		$u_1(0) = 5$ e $u_2(0) = 10$\\
+		Temos o sistema:
+		
+		$
+		\left\{
+		\begin {array}{cl}
+		2c_1 + 3c_2 = 5\\
+		4c_1 - 7c_2 = 10
+		\end{array}
+		\right.
+		$\\	
+		
+		$c_1 = \frac{5}{2}$ e $c_2 = 0$
+		
+		Encontrando os autovalores:
+		
+		$A - \leftthreetimes I = \begin{bmatrix}
+			8 - \leftthreetimes & 3 \\
+			2 & 7 - \leftthreetimes
+		\end{bmatrix}$
+	
+		$det(A - \leftthreetimes I) = (8 - \leftthreetimes)(7 - \leftthreetimes) - 6 = 0$\\
+		$56 - 8\leftthreetimes - 7\leftthreetimes + \leftthreetimes^2 - 6 = 0$\\
+		$\leftthreetimes^2 - 15\leftthreetimes + 50 = 0$\\
+		$\bigtriangleup = 25$\\
+		$\leftthreetimes = \frac{15 \pm 5}{2}$\\
+		$\leftthreetimes_1 = 10$ e $\leftthreetimes_2 = 5$
+		
+		Encontrando os autovetores:
+		
+		$(A - \leftthreetimes_1I)x = \begin{bmatrix}
+			8 - \leftthreetimes_1& 3 \\
+			2 & 7  - \leftthreetimes_1 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-2 & 3 \\
+			2 & -3 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} =  
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix}$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		-2y + 3z = 0\\
+		2y + 3z = 0
+		\end{array}
+		\right.$\\
+		
+		$3z = 2y$
+		
+		Então $v_1 = (3, 2)$
+		
+		$(A - \leftthreetimes_2I)x = \begin{bmatrix}
+			8 - \leftthreetimes_2& 3 \\
+			2 & 7  - \leftthreetimes_2 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			3 & 3 \\
+			2 & 2 
+		\end{bmatrix}
+		\begin{bmatrix}
+			y \\
+			z 
+		\end{bmatrix} =  
+		\begin{bmatrix}
+			0 \\
+			0 
+		\end{bmatrix}$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		3y + 3z = 0\\
+		2y + 2z = 0
+		\end{array}
+		\right.$\\
+		
+		$-z = y$
+		
+		Então $v_2 = (-1, 1)$
+		
+		A solução é:\\
+		
+		$u(t) = \begin{bmatrix}
+			u_1(t) \\
+			u_2(t)
+		\end{bmatrix} = \frac{5}{2} e^{10 t}\begin{bmatrix}
+		3 \\
+		2
+		\end{bmatrix} = \begin{bmatrix}
+		\frac{15}{2} e^{10 t} \\
+		5 e^{10 t}
+		\end{bmatrix}$
+		
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 10 %%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Seja \( \mathcal{F} ( \R; \R ) \) o espaço vetorial das funções reais de uma variável real.
+		Considere em \( \mathcal{F} ( \R; \R ) \) o subespaço
+		\begin{equation*}
+			S \defeq \vspan \left\{ e^{ 2x } \sen x, e^{ 2x } \cos x, e^{ 2x } \right\}
+			.\end{equation*}
+		e o operador linear \( D : S \to S \) definido por \( D ( f ) = f' \).
+		Considere, ainda, as funções \( f_{ 1 } ( x ) = e^{ 2x } \sen x, f_{ 2 } ( x ) = e^{ 2x } \cos x \) e \( f_{ 3 } ( x ) = e^{ 2x } \) em \( \mathcal{F} ( \R; \R ) \).
+		Determine:
+		\begin{enumerate}[label=(\alph*)]
+			\item a matriz de \( D \) em relação à base \( \mathcal{B} = \left\{ f_{ 1 }, f_{ 2 }, f_{ 3 } \right\} \).
+			Lembre-se de que, dada a base \( \mathcal{B} \), podemos enxergar os elementos de \(  \) como vetores em \( \R^{ 3 } \).
+			Por exemplo:
+			\begin{equation*}
+				( 1, 2, 3 )_{ \mathcal{B} } = f_{ 1 } + 2f_{ 2 } + 3f_{ 3 }
+				.\end{equation*}
+			\item os autovalores de \( D \) e as funções de \( S \) que são autovetores de \( D \).
+		\end{enumerate}
+		
+		\begin{sol}
+					
+			$a)$ 
+				$$D(f_1) = D(e^{2x}sen(x)) = 2e^{2x}sen(x) + e^{2x}cos(x) = 2f_1 + 1f_2 + 0f_3$$
+				$$D(f_2) = D(e^{2x}cos(x)) = 2e^{2x}cos(x) - e^{2x}sen(x) = -f_1 + 2f_2 + 0f_3$$
+				$$D(f_3) = D(e^{2x}) = 2e^{2x} = 0f_1 + 0f_2 + 2f_3$$
+				
+			$D = \begin{bmatrix}
+				2 & -1 & 0\\
+				1 & 2 & 0 \\
+				0 & 0 & 2 
+			\end{bmatrix}$
+		
+		    $b)$ 
+		    	$$(D - \leftthreetimes I) = \begin{bmatrix}
+		    		2 - \leftthreetimes & -1 & 0\\
+		    		1 & 2 - \leftthreetimes& 0 \\
+		    		0 & 0 & 2 - \leftthreetimes 
+		    	\end{bmatrix}$$
+		
+		$(2 - \leftthreetimes)^3 + (2 - \leftthreetimes) = 0$\\
+		$(2 - \leftthreetimes)[(2 - \leftthreetimes)^2 + 1] = 0$\\
+		$(2 - \leftthreetimes)(\leftthreetimes^2 - 4\leftthreetimes + 5) = 0$
+		
+		Autovalores:\\
+		$\leftthreetimes_1 = 2$
+		
+		$\bigtriangleup = -4$\\
+		$\displaystyle \leftthreetimes = \frac{4 \pm \sqrt{-4}}{2}$
+		
+		$\displaystyle \leftthreetimes = \frac{4 \pm 2i}{2}$
+		
+		$\displaystyle \leftthreetimes_2 = 2 + i$
+		
+		$\displaystyle \leftthreetimes_3 = 2 - i$
+		
+		Autovetores:\\
+		
+		Para $\leftthreetimes_1 = 2$:
+		$$\begin{bmatrix}
+			0 & -1 & 0\\
+			1 & 0 & 0 \\
+			0 & 0 & 0
+		\end{bmatrix}\begin{bmatrix}
+		v_1\\
+		v_2\\
+		v_3
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0\\
+			0\\
+			0
+		\end{bmatrix}$$
+	
+		$$v_1 = \begin{bmatrix}
+			v_1\\
+			v_2\\
+			v_3
+		\end{bmatrix} = \begin{bmatrix}
+			0\\
+			0\\
+			1
+		\end{bmatrix}$$
+
+		Para $\leftthreetimes_2 = 2 + i$:
+		$$\begin{bmatrix}
+			-i & -1 & 0\\
+			1 & -i & 0 \\
+			0 & 0 & -i
+		\end{bmatrix}\begin{bmatrix}
+			v_1\\
+			v_2\\
+			v_3
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0\\
+			0\\
+			0
+		\end{bmatrix}$$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		-iv_1 - v_2 = 0\\
+		v_1 - iv_2 = 0\\
+		-iv_3 = 0
+		\end{array}
+		\right.$\\
+		
+		$\Rightarrow$
+		$ v_1 = iv_2$\\
+		$ v_3 = 0$
+		
+		$$v_2 = \begin{bmatrix}
+			v_1\\
+			v_2\\
+			v_3
+		\end{bmatrix} = \begin{bmatrix}
+			iv_2\\
+			v_2\\
+			0
+		\end{bmatrix} = v_2 \begin{bmatrix}
+		i\\
+		1\\
+		0
+	\end{bmatrix}$$
+
+		
+		Para $\leftthreetimes_3 = 2 - i$:
+		$$\begin{bmatrix}
+			i & -1 & 0\\
+			1 & i & 0 \\
+			0 & 0 & i
+		\end{bmatrix}\begin{bmatrix}
+			v_1\\
+			v_2\\
+			v_3
+		\end{bmatrix} =
+		\begin{bmatrix}
+			0\\
+			0\\
+			0
+		\end{bmatrix}$$
+		
+		$
+		\left\{
+		\begin {array}{l}
+		iv_1 - v_2 = 0\\
+		v_1 + iv_2 = 0\\
+		+iv_3 = 0
+		\end{array}
+		\right.$\\
+		
+		$\Rightarrow$
+		$ v_1 = -iv_2$\\
+		$ v_3 = 0$
+		
+		$$v_3 = \begin{bmatrix}
+			v_1\\
+			v_2\\
+			v_3
+		\end{bmatrix} = \begin{bmatrix}
+			-iv_2\\
+			v_2\\
+			0
+		\end{bmatrix} = \begin{bmatrix}
+			-i\\
+			1\\
+			0
+		\end{bmatrix}$$
+		
+		\end{sol}
+	\end{enumerate}
+\end{document} 
