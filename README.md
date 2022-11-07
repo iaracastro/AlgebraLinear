@@ -19,7 +19,7 @@ input: A (matriz quadrada)
 input: A (matriz quadrada)
 
 ### PLK_MinQuadraticSolver.sce: Resolve o método dos mínimos quadrados para uma matriz no formato P (produção total), L (quantidade de trabalho), K (capital investido). Parte de uma função para modelar produção desenvolvido por Charles Cobb e Paul Douglas.
-### input: A (matriz com 3 colunas PLK) 
+input: A (matriz com 3 colunas PLK) 
 
 ### RandomMatrix.sce: Gera uma matriz aleatória de ordem n.
 input: n (ordem da matriz)
