@@ -1,5 +1,5 @@
 # Algebra-Linear
-Repositório pessoal pra matéria de álgebra linear (e numérica).
+Repositório pessoal pra matéria de álgebra linear (numérica).
 Se alguém achou isso por acaso, espero que te ajude :)
 
 # Códigos
@@ -85,7 +85,7 @@ input: A (matriz quadrada), tol (tolerância)
 
 # Listas
 
-- [LinearAlgebra](https://github.com/iaracastro/AlgebraLinear/tree/main/Listas/NumericLinearAlgebra): Listas da matéria ministrada por Yuri Saporito.
+- [LinearAlgebra](https://github.com/iaracastro/AlgebraLinear/tree/main/Listas/LinearAlgebra): Listas da matéria ministrada por Yuri Saporito.
 - [NumericLinearAlgebra](https://github.com/iaracastro/AlgebraLinear/tree/main/Listas/NumericLinearAlgebra): Listas práticas da matéria ministrada por Branco. (aplicação computacioal)
 
 # Materiais
