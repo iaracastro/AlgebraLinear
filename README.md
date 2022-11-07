@@ -44,8 +44,8 @@ input: A (matriz quadrada), tol (tolerância)
 
 # Listas
 
-- LinearAlgebra: Listas da matéria ministrada por Yuri Saporito.
-- NumericLinearAlgebra: Listas práticas da matéria ministrada por Branco. (aplicação computacioal)
+- [LinearAlgebra](https://github.com/iaracastro/AlgebraLinear/tree/main/Listas/NumericLinearAlgebra): Listas da matéria ministrada por Yuri Saporito.
+- [NumericLinearAlgebra](https://github.com/iaracastro/AlgebraLinear/tree/main/Listas/NumericLinearAlgebra): Listas práticas da matéria ministrada por Branco. (aplicação computacioal)
 
 # Materiais
 
