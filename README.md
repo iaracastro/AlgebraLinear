@@ -4,11 +4,11 @@ Se alguém achou isso por acaso, espero que te ajude :)
 
 # Códigos
 ### ConfusionMatrixMeasures.sce
-- Calcula as medidas que provém da confusão de matriz, como acurácia, precisão, recall, falso alarme a falsa omissão. <br/>
+- Calcula as medidas que provém da confusão de matriz: acurácia, precisão, recall, falso alarme a falsa omissão. <br/>
 input: VP (verdadeiro-positivo), VN (verdadeiro-negativo), FN (falso-negativo) e FP (falso-positivo)
 
 ### ConfusionMatrixValues.sce
-- Calcula os valores da matriz de confusão, como verdadeiro-positivo, verdadeiro-negativo, falso-negativo e falso-positivo.
+- Calcula os valores da matriz de confusão, como verdadeiro-positivo, verdadeiro-negativo, falso-negativo e falso-positivo. <br/>
 input: prev_tt (previsão do arquivo de teste), y_tt (resultados reais)
 
 ### GaussianElimination.sce
