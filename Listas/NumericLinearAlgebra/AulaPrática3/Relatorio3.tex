@@ -1,0 +1,1106 @@
+\documentclass[leqno]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+\usepackage[brazil]{babel} %\usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\usepackage{mathtools}
+\usepackage{nccmath}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\definecolor{codegray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{mystyle}{
+	language=Scilab,
+	backgroundcolor=\color{codegray},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	emph={testfunc,print,src},
+	emphstyle=\color{codeyellow},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol} 
+	{
+		\vspace{4mm}
+		\noindent\textbf{{\large Código:}}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm} 
+	} 
+	% Objetos que aparecem *após* o ambiente. 
+	% (você pode, por exemplo, modificar, 
+	% ou remover, a barra horizontal} 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Aula Prática 3}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle 
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item  \textbf{{\large MÉTODO DA POTÊNCIA - versão 1}}\\
+		
+		Escreva uma função Scilab:		
+		\begin{lstlisting}[language=Scilab]
+function [lambda,x1,k,n_erro] = Metodo_potencia(A,x0,epsilon,M)
+		\end{lstlisting}
+		
+		\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+		Variáveis de entrada:\\
+		A: matriz real n x n, diagonalizável, com autovalor dominante (lambda);\\
+		x0: vetor, não nulo, a ser utilizado como aproximação inicial do autovetor dominante.\\
+		epsilon: precisão a ser usada no critério de parada.\\
+		M: número máximo de iterações.\\
+		\end{tcolorbox}
+	
+		\begin{tcolorbox}[colback=red!5,colframe=red!40!black]
+		Variáveis de saída:\\
+		lambda: autovalor dominante de A;\\
+		$x1$: autovetor unitário (norma infinito) correspondente a lambda;\\
+		k: número de iterações necessárias para a convergência;\\
+		$n_{erro}$: norma infinito do erro.\\
+		\end{tcolorbox}
+	
+		Critério de parada: sendo erro = x1 – x0 (diferença entre dois iterados consecutivos),
+		parar quando $n_{erro} <$ épsilon ou $k > M$.
+		
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% ALGORITMO 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\textbf{{\large ALGORITMO – versão 1}}\\
+		\begin{tcolorbox}[colback=gray!5,colframe=gray!40!black]	
+		$k=0$\\
+		x0=x0/(coordenada de maior módulo de x0)\\
+		x1 = A*x0 (aproximação do autovetor dominante)\\
+		$n_erro$ = épsilon + 1 (obriga a entrar no loop)\\
+		Enquanto $k \leq M$ e $n_erro \geq$ épsilon \\
+		\hspace*{3ex}	lambda = coord. de maior módulo de x1 (aproximação autovalor dominante)\\
+		\hspace*{3ex}	x1=x1/lambda\\
+		\hspace*{3ex}	$n_erro$ = norma infinito de x1 – x0\\
+		\hspace*{3ex}	x0 = x1\\
+		\hspace*{3ex}	x1=A*x0\\
+		\hspace*{3ex} 	k=k+1\\
+		Fim Enquanto\\
+		Mensagem e retorna\\
+		\end{tcolorbox}
+		
+		\begin{sol}			
+			
+			\begin{lstlisting}[style=mystyle, language=Scilab]
+function [lambda, x1, k, n_erro]=Metodo_da_Potencia1_v1(A, x0, eps, M)
+tic();
+realtimeinit(1);
+k = 0;
+[n, m]=size(A)
+
+if  n <> m then // verifica se as dimensoes de A sao iguais
+	msg = gettext("%s: A nao e uma matriz quadrada. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if x0 == 'x0' then //se x0 nao foi definido, gera uma matriz de zeros
+	//cujo primeiro termo e 1
+	x0 = zeros(n,1)
+	x0(1,1) = 1
+end
+
+if  size(x0,1) <> n then // verifica se o tamanho de x0 e compativel com A
+	msg = gettext("%s: O tamanho de x0 nao e compativel com A. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if eps < 0 then // se eps for negativo, torna-o positivo para diminuir iteracoes
+	eps = -eps
+end
+
+[val0,ind0]= max(abs(x0)); // maior valor de x0 em modulo de x0 e coordenada
+x0 = x0/x0(ind0);
+x1 = A*x0;
+n_erro = eps + 1;
+
+while k <= M & n_erro >= eps //crit de parada
+	[val,ind]= max(abs(x1));
+	lambda = x1(ind);
+	x1 = x1/lambda;
+	n_erro = norm(x1 - x0, 'inf');
+	x0 = x1;
+	x1 = A*x0;
+	k = k + 1;
+end
+
+x1 = x1/norm(x1,'inf');
+endfunction
+			\end{lstlisting}
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% ALGORITMO 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\textbf{{\large ALGORITMO – versão 2}}\\
+		\begin{tcolorbox}[colback=gray!5,colframe=gray!40!black]
+		$k=0$\\
+		x0=x0/($norma_2$ de x0)\\
+		$x1=A*x0$ (aproximação do autovetor dominante)\\
+		$n_erro$ = épsilon + 1 (Obriga a entrar no loop)\\
+		Enquanto $k \leq M$ e $n_erro \geq$ épsilon\\
+		\hspace*{3ex}	lambda = $x1T*x0$ (Quociente de Rayleigh; x0 é unitário)\\
+		\hspace*{3ex}	Se lambda<0 então x1 = − x1 (Mantém x1 com mesmo sentido de x0)\\
+		\hspace*{3ex}	x1 = $x1/norma_2$ de x1\\
+		\hspace*{3ex}	$n_erro$ = $norma_2$ de x1 – x0\\
+		\hspace*{3ex}	x0 = x1\\
+		\hspace*{3ex}	$x1=A*x0$\\
+		\hspace*{3ex}	k=k+1\\
+		Fim Enquanto\\
+		Mensagem e retorna\\
+		\end{tcolorbox}
+	
+		\begin{sol}
+		\begin{lstlisting}[language=Scilab]
+function [lambda, x1, k, n_erro]=Metodo_da_Potencia1_v2(A, x0, eps, M)
+tic();
+realtimeinit(1);
+k = 0;
+[n, m]=size(A)
+
+if  n <> m then // verifica se as dimensoes de A sao iguais
+	msg = gettext("%s: A nao e uma matriz quadrada. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if x0 == 'x0' then //se x0 nao foi definido, gera uma matriz de zeros
+	//cujo primeiro termo e 1
+	x0 = zeros(n,1)
+	x0(1,1) = 1
+end
+
+if  size(x0,1) <> n then // verifica se o tamanho de x0 e compativel com A
+	msg = gettext("%s: O tamanho de x0 nao e compativel com A. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if eps < 0 then // se eps for negativo, torna-o positivo para diminuir iteracoes
+	eps = -eps
+end
+
+x0 = x0/norm(x0,2);
+x1 = A*x0;
+n_erro = eps + 1;
+while k <= M & n_erro >= eps //crit de parada
+	lambda = x1' * x0;
+	if lambda < 0 then
+	x1 = -x1;
+end
+x1 = x1/norm(x1,2);
+n_erro = norm(x1 - x0, 2);
+x0 = x1;
+x1 = A*x0;
+k = k + 1;
+end
+
+x1 = x1/norm(x1,2);
+endfunction
+			
+		\end{lstlisting}
+	
+	\textbf{{\large MÉTODO DA POTÊNCIA - EXPLICAÇÃO}}
+	
+	--------------------------------------------------------------------------------------------------------------------------------------	
+	O método da potência é aplicado em matrizes $A_{nxn}$ com um autovalor dominante $\lambda_1$, sendo $|\lambda_1| > |\lambda_2| \geq ... \geq |\lambda_n|$. Esse método produz uma sequência que converge pra $\lambda_1$ e uma sequência que converge para $v_1$, o autovetor correspondente de $\lambda_1$.
+	
+	Para os códigos das funções, comecei definindo tic() no começo e toc() no final, e com display, mostrar o tempo de execução assim que as funções forem utilizadas. E também criei algumas condições para verificar as entradas e definindo um $x_0$ não-nulo caso ele esteja como 'x0'. Nas iterações, teremos as sequências:
+	
+	$x_1 = x_0 * A, x_2 = x_1 * A....$ Colocamos a primeira iteração por fora do while, para já começar calculando o lambda iniciar a partir dele.
+	
+	--------------------------------------------------------------------------------------------------------------------------------------
+	Na primeira versão, usamos coordenada de maior módulo de $x_1$ para calcular lambda.\\
+	max(abs($x_k$))/max(abs($x_{k-1}$)) $\rightarrow \lambda_1 \cdot x_{k-1}$\\
+	$x_{k+1} = A_{k_k} \approx \lambda_1 \cdot x_{k-1}$
+	
+	--------------------------------------------------------------------------------------------------------------------------------------
+	Na segunda versão, usamos o quociente de Rayleigh para calcular lambda:\\
+	$Ax = \lambda x$
+	
+	$\frac{(Ax) \cdot x}{x \cdot x} = \frac{(\lambda x) \cdot x}{x \cdot x} = \frac{\lambda (x \cdot x)}{x \cdot x} = \lambda$
+	
+	No processo interativo:\\
+	$\frac{(Ax_k) \cdot x_k}{x_k \cdot x_k} = \frac{(\lambda x_{k+1}) \cdot x_k}{x_k \cdot x_k} = \frac{\lambda x_{k+1} \cdot x_k}{||x_k||^2_2}$
+	
+	Logo, $\lambda_1$ depende do autovetor normalizado pela norma 2, já que se a cada iteração mantivermos $||x_k||_2 = 1$, tem-se que:
+	
+	$x_{k+1} \cdot x_k \rightarrow \lambda_1$
+	
+	Então para obtermos esse produto interno calculamos lambda multiplicado a transposta de $x_1$ por $x_0$ a cada interação. 
+	
+	--------------------------------------------------------------------------------------------------------------------------------------	
+	E repetimos essas operações em ambas versões enquanto k for menor que o número máximo de iterações M ou até a norma 'inf' ou 2 de (x1 - x0) for menor que $\epsilon$.
+	
+	
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\item \textbf{{\large MÉTODO DA POTÊNCIA DESLOCADA com ITERAÇÃO INVERSA}}\\
+		
+		Escreva uma função Scilab:\\
+		\begin{lstlisting}[language=Scilab]
+function [lambda1,x1,k,n_erro] = Potencia_deslocada_inversa(A,x0,epsilon,alfa,M)
+
+		\end{lstlisting}
+	
+		que implementa o Método da Potência Deslocada com Iteração Inversa para
+		determinar o autovalor de A \textbf{mais próximo de “alfa”}.\\
+		
+		\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+		Variáveis de entrada:\\
+		A: matriz real n x n, diagonalizável;\\
+		x0: vetor, não nulo, a ser utilizado como aproximação inicial do autovetor dominante.\\
+		epsilon: precisão a ser usada no critério de parada.\\
+		alfa: valor do qual se deseja achar o autovalor de A mais próximo;\\
+		M: número máximo de iterações.\\
+		\end{tcolorbox}
+
+		\begin{tcolorbox}[colback=red!5,colframe=red!40!black]
+		Variáveis de saída:\\
+		lambda1: autovalor de A mais próximo de alfa;\\
+		x1: autovetor unitário ($norma_2$) correspondente a lambda;\\
+		k: número de iterações necessárias para a convergência\\
+		$n_{erro}$: $norma_2$ do erro\\
+		\end{tcolorbox}
+	
+		Critério de parada: sendo erro = x1 – x0 (diferença entre dois iterados consecutivos),
+		parar quando a $n_{erro} <$ épsilon ou $k > M$.\\
+		
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\textbf{{\large ALGORITMO Método da Potência Deslocada com Iteração Inversa}}\\		
+		\begin{tcolorbox}[colback=gray!5,colframe=gray!40!black]
+		k=0\\
+		x0=x0/($norma_2$ de x0)\\
+		$n_erro$ = épsilon + 1 (Obriga a entrar no loop)\\
+		Enquanto k<=M e $n_{erro}$ >= épsilon\\
+		Resolva o sistema (A – alfa*I)*x1 = x0 para achar x1\\
+		x1 = x1/($norma_2$ de x1)\\
+		lambda = $x1^T$*A*x1 (Quociente de Rayleigh; x1 é unitário)\\
+		Se $x1^T$*x0 $<$ 0 então x1 = − x1 (Mantém x1 com mesmo sentido de x0)\\
+		$n_{erro}$ = $norma_2$ de x1 – x0\\
+		x0 = x1\\
+		k=k+1\\
+		Fim Enquanto\\
+		lambda1 = ...\\
+		Mensagem e retorna\\
+		\end{tcolorbox}
+		
+		\begin{sol}
+			\begin{lstlisting}
+function [lambda, x1, k, n_erro]= Potencia_deslocada_inversa(A, x0, eps, alfa, M)
+k = 0;
+[n, m]=size(A)
+
+if  n <> m then // verifica se as dimensoes de A sao iguais
+	msg = gettext("%s: A nao e uma matriz quadrada. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if x0 == 'x0' then //se x0 nao foi definido, gera uma matriz de zeros
+	//cujo primeiro termo e 1
+	x0 = zeros(n,1)
+	x0(1,1) = 1
+end
+
+if  size(x0,1) <> n then // verifica se o tamanho de x0 e compativel com A
+	msg = gettext("%s: O tamanho de x0 nao e compativel com A. \n")
+	error(msprintf(msg, "Error", 1))
+end
+
+if eps < 0 then // se eps for negativo, torna-o positivo para diminuir int
+	eps = -eps
+end
+
+I = eye(n,n);
+x0 = x0/norm(x0,2);
+n_erro = eps + 1;
+
+//Resolver o sistema na primeira interacao usando a funcao Gaussian_Elimination_4
+[x0, C, P] = Gaussian_Elimination_4((A - alfa * I), x0);
+
+//AP = LU
+while k <= M & n_erro >= eps
+	x1 = Resolve_com_LU(C, x0, P); //resolver o restante das interacoes por dois sistemas triangulares
+	x1 = x1/norm(x1,2);
+	lambda = x1' * A * x1;
+	if x1' * x0 < 0 
+		x1 = -x1;
+	end
+n_erro = norm(x1 - x0, 2);
+x0 = x1;
+k = k + 1;
+end
+
+endfunction
+			\end{lstlisting}
+		
+		\textbf{{\large MÉTODO DA POTÊNCIA DESLOCADA com ITERAÇÃO INVERSA - EXPLICAÇÃO}}
+		
+		--------------------------------------------------------------------------------------------------------------------------------------	
+		O método da potência deslocada com iteração inversa é aplicado em matrizes $A_nxn$ para encontrar um autovalor específico que esteja mais próximo de um alfa dado na entrada. Como sabemos:
+		
+		$Ax = \lambda x$, para x diferente de 0.\\
+		Multiplicando pela inversa de A em ambos lados:
+		
+		$A^{-1}Ax = A^{-1}\lambda x$\\
+		$Ix = \lambda A^{-1}x$\\
+		$x = \lambda A^{-1}x$\\
+		$A^{-1}x = \frac{1}{\lambda}x$
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		Com a matriz ($A - \alpha I$)
+		
+		$A x = \lambda x$\\
+		$Ax - \alpha Ix = \lambda x - \alpha I x$\\
+		$(A - \alpha I)x = (\lambda - \alpha)x$\\
+		$\frac{x}{\lambda - \alpha} = \frac{(A - \alpha I)^{-1} (\lambda - \alpha)x}{\lambda - \alpha}$
+		
+		$(A - \alpha I)^{-1} x = \frac{1}{\lambda - \alpha}x$
+		
+		$v = \frac{1}{\lambda - \alpha}$, onde $|\lambda - \alpha|$ é mínimo, e correspondendo a $\lambda_i$ mais próximo de $\alpha$
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		Na nossa função, a cada iteração, o vetor $x_k$ seria multiplicado pela inversa da matriz $(A - \alpha I)$ e normalizado. Mas em vez disso, note que não é necessário calcular a matriz inversa e iremos resolver o sistema linear a cada iteração:
+		
+		$(A - \alpha I) * x_{k+1} = x_k$
+		
+		Para otimizar a função, vamos resolver a primeira iteração com a função $Gaussian\_Elimination\_4$ para além de resolver o sistema, também encontrar a matriz C com a decomposição LU de A e a matriz de permutação P.
+		
+		Ao começar o while, já poderemos resolver dois sistemas triangulares com as matrizes L e U, usando a função $Resolve\_com\_LU$, onde C e P sempre serão os mesmos que já foram calculados, e apenas atualizando $x_0$ e $x_1$ a cada iteração.
+		
+		\begin{lstlisting}
+			function x=Resolve_com_LU(C, b, P)
+			b = P*b;
+			n = size(C,1); //linhas
+			L = tril(C, -1) + eye(n,n); //Matriz L (triangular inferior)
+			
+			U = triu(C); //Matriz U (triagular superior)
+			x = zeros(n,1);
+			
+			y = resolveL(L,b); //vetor y
+			x = resolveU(U,y); //vetor x 
+			
+			endfunction
+			
+			//Ly = b
+			function y = resolveL(L,b)
+			n = size(L,1);
+			y = zeros(n,1);
+			y(1) = b(1);
+			for i=2:n
+				y(i) = (b(i) - L(i,1:i-1)*y(1:i-1))/L(i,i);
+			end
+			endfunction
+			
+			//Ux = y
+			function x = resolveU(U,y)
+			n = size(U,1);
+			x = zeros(n,1);
+			x(n) = y(n)/U(n,n);
+			for i = n-1:-1:1
+				x(i) = (y(i) - U(i, i+1:n) * x(i+1:n)) / U(i, i);
+			end
+			endfunction
+		\end{lstlisting}
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		Assim como nas outras funções, repetimos essas operações enquanto k for menor que o número máximo de iterações M ou até a norma 2 de (x1 - x0) for menor que $\epsilon$.
+	
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Teste suas duas primeiras funções para várias matrizes A, com ordens
+		diferentes e também variando as demais variáveis de entrada de cada função.
+		Use matrizes com autovalores reais (por exemplo, matrizes simétricas ou
+		matrizes das quais você saiba os autovalores). Teste a mesma matriz com os
+		dois primeiros algoritmos, comparando os números de iterações necessárias
+		para convergência e os tempos de execução. Teste com uma matriz em que o
+		autovalor dominante é negativo. Alguma coisa deu errada? Se for o caso,
+		corrija o algoritmo (e a função) correspondente.\\
+		
+		\textbf{{\large MATRIZES COM AUTOVALORES REAIS}}
+		
+		Matrizes simétricas sempre terão autovalores reais. Isso acontece, pois:
+		Pelo teorema espectral, se A é uma matriz nxn simétrica, com entradas reais, então tem n autovetores ortogonais.
+		Todas as raízes do polinômio característico de A são números reais.
+		
+		Seja $\bar{v}$ o complexo conjugado de $v$, é verdade que $\bar{v} \cdot v \geq 0$, sendo igual apenas se $v = 0$.
+		
+		$$\begin{bmatrix}
+			a_1 - b_1 i \\
+			a_2 - b_2 i \\
+			\vdots \\
+			a_n - b_n i
+		\end{bmatrix} \cdot \begin{bmatrix}
+			a_1 + b_1 i \\
+			a_2 + b_2 i \\
+			\vdots \\
+			a_n + b_n i
+		\end{bmatrix} = (a_1^2 + b_1^2) + (a_2^2 + b_2^2) + ... (a_n^2 + b_n^2)$$, que sempre são não-negativas.
+		
+		
+		Agora, supomos que z um número complexo $z = a + bi$ e $\bar{z} = a - bi$ sua conjugada. Temos $z\bar{z} = (a + bi)(a - bi) = a^2 + b^2$, então $z\bar{z}$ é um valor não negativo e real. Se $w$ também for um valor complexo, $\bar{wz} = \bar{w}\bar{z}$
+			
+		Por contradição, vamos supor que $\lambda$ é um autovalor complexo de uma matriz simétrica A. E há um autovetor não-nulo $v$, cujo $A v = \lambda v$.
+		
+		Tomando o conjugado complexo de ambos os lados, e notando que $\bar{A} = A$ já que A tem real
+		entradas, temos:
+		
+		$Av = \lambda v \Longrightarrow Av = \lambda v$. Então, usando $A^T = A$: \\
+		
+		$\bar{v}^T A v = \bar{v}^T(Av) = \bar{v}^T(\lambda v) = \lambda (\bar{v} \cdot v)$\\
+		$\bar{v}^T A v = (A\bar{v})^T v = (\bar{\lambda}\bar{v})^T v = \lambda (\bar{v} \cdot v)$
+		
+		Já que $v \neq 0$, temos que $\bar{v}v \neq 0$ e $\bar{\lambda} = \lambda$, ou seja, $\lambda$ pertence aos reais.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large TESTES no SCILAB}}
+		
+		Agora iremos testar as duas primeiras funções para diversas matrizes A. Sabendo que elas terão autovalores reais, utilizarei uma função, que gera matrizes aleatórias simétricas.
+		
+		\begin{lstlisting}
+function A = Matriz_Simetrica_Aleat(n)   
+A = floor(-((n^2)*rand(n,n,'uniform')) + ((n^2)*rand(n,n,'uniform')))
+A = tril(A) + triu(A', 1)
+endfunction
+		\end{lstlisting}
+		Que gera uma matriz aleatória entre $[-n^2, n^2]$, e forma a matriz simétrica somando a parte inferior com a parte superior da sua transposta (que é ela mesma), sem a diagonal, pois já estava incluida no tril(A).
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large ORDEM 3}}
+		
+		Exemplo 1:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex1.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex1.2}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 1}}
+	
+		Apesar do autovalor dominante ser 3, ambas funções retornam $\lambda = 2$. Isso ocorre pois o $x0$ inicial deve ter uma componente $c_1$ na direção do autovetor dominante $v_1$, que nesse caso é $(0,1,0)$.
+		
+		Isso pode ser solucionado ao mudar o $x_0$, para $[1;1;1]$:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex1.3}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex1.4}
+		\end{figure}
+	
+		Apesar das funções retornarem o autovalor dominante correto, note que todas as iterações foram utilizadas.
+		
+		Exemplo 2:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex2.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex2.2}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 2}}
+		
+		À seguir, aumentando o valor de $\epsilon$ de $10^{-10}$ para $10^{-5}$, observamos uma queda no número de iterações pela metade.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex2.3}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex2.4}
+		\end{figure}
+		
+		Exemplo 3:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex3.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem3-ex3.2}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 3}}
+		
+		Mesmo as funções operando normalmente, o número de iterações necessário em ambas versões parece alto para matrizes de ordem 3. O tempo de execução da versão 2 se saiu melhor, cerca de duas vezes mais rápido, em todos os casos.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large ORDEM 5}}
+		
+		Exemplo 1:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex1.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex1.2}
+		\end{figure}
+	
+	
+		Exemplo 2:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex2.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex2.2}
+		\end{figure}
+		
+		Exemplo 3:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex3.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex3.2}
+		\end{figure}
+	
+		Mesmo com a mesma ordem das demais, note que esse exemplo utilizou todas as iterações possíveis, podemos ajustar M para 200.
+		É um número que parece relativamente grande para uma matriz de ordem 5. Mesmo aqui, o tempo de execução da versão 2 além de ser mais rápido, exige menos iterações que a versão 1.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex3.3}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem5-ex3.4}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 4}}
+		
+		Ao fazer $spec(A)$ para verificar os autovalores de A, observamos que nos exemplos 1 e 3 o autovalor dominante é negativo. Mesmo assim, ambas funções continuam operando normalmente.
+		
+		\textbf{{\normalsize OBSERVAÇÃO 5}}
+		
+		Era esperado um aumento drástico no número de iterações pelo tamanho das matrizes A ser maior em relação às de ordem 3. Mas houve o oposto, e o número de iterações manteve-se próximo, e até diminuiu em alguns exemplos.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large ORDEM 10}}
+		
+		Exemplo 1:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem10-ex1.1}
+		\end{figure}
+	
+		A partir de agora gerei a matriz aleatória simétrica com ; no final para não ocupar muito espaço.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem10-ex1.2}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 6}}
+		
+		Ajustei M para 200, esperando um aumento no número de iterações, mas novamente, ele está próximo do que foi utilizado em ordens menores. O tempo de execução em ambas funções continuou o mesmo.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------		
+		Sabendo que há 10 autovalores agora, há uma forma de pegar diretamente o autovalor dominante e não precisar analisar todos os valores, com os seguintes comandos:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.3\linewidth]{figures/ordem10-ex1.3}
+		\end{figure}
+	
+		Pegamos o valor máximo do módulo de $spec(A)$ e seu índice, para então, usar esse índice e pegar seu valor sem módulo.
+		Lambda continua compatível com o que foi obtido das duas funções.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\newpage
+		Exemplo 2:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem10-ex2.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem10-ex2.2}
+		\end{figure}
+
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.3\linewidth]{figures/ordem10-ex2.3}
+		\end{figure}
+		
+		\newpage
+		\textbf{{\large ORDEM 100}}
+		
+		Exemplo 1:
+		
+		Sabendo que agora temos 100 autovalores e um autovetor dominante 100x1, vamos colocar ; no final dos comandos para não ocupar espaço com ele. 
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem100-ex1.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.3\linewidth]{figures/ordem100-ex1.2}
+		\end{figure}
+		
+		\textbf{{\normalsize OBSERVAÇÃO 7}}
+		
+		Mantivemos M em 200 e dessa vez houve sim, um aumento no número necessário de iterações, gastando todas as 200. Mesmo assim parece estar convergindo para o autovalor dominante correto, visto que está próximo de lambda obtido por spec().		
+		O tempo de execução aumentou também, mas não drasticamente. Assim como nas outras ordens, a versão 2 é sempre mais eficaz em número de iterações.
+		
+		\newpage
+		Exemplo 2:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem100-ex2.1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.3\linewidth]{figures/ordem100-ex2.2}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 8}}
+			
+		Houve algo incomum nesse exemplo, pois além de gastar todas as iterações, o autovalor dominante obtido não parece estar próximo do verdadeiro, visto que é negativo e o outro positivo. Podemos supor que há dois maiores autovalores que em módulo são bem próximos, então vamos aumentar o número de iterações máximo M para 100000. 
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem100-ex2.4}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 9}}
+		Agora obtivemos o lambda correto em ambas versões. Além disso, o número de iterações foi extremamente grande, chegando a 18000. Mesmo assim, os tempos de execução não passaram de meio segundo. A observação 6 provavelmente está incorreta, visto que mesmo próximo de lambda as 200 iterações estava longe de ser suficiente para uma boa precisão.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/ordem100-ex2.3}
+		\end{figure}
+	
+		\textbf{{\normalsize OBSERVAÇÃO 10}}
+		Mesmo a precisão já sendo boa, por curiosidade, diminuí $\epsilon$ de $10^{-5}$ para $10^{-20}$. Observe que todas as 100000 iterações foram gastas.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large CONCLUSÕES}}
+		
+		$\cdot$ Na prática, ambos métodos tiveram desempenhos similares, mas na maioria dos casos, a versão 2 se mostrou mais eficaz, mesmo com poucas iterações de diferença.
+		
+		$\cdot$ Ao definir um $\epsilon$ muito pequeno, o desempenho de ambas funções caiu drasticamente. Os resultados são praticamente os mesmos, e $\epsilon = 10^{-5}$ funcionou bem para todos os casos.
+		
+		$\cdot$ É preciso ter cuidado ao definir $x_0$, já que além de não poder ser nulo, precisa atender à condição citada na observação 1, e dependendo de seus valores pode acabar aumentando desnecessariamente o número de iterações. Somado à isso, se $x0$ for exatamente igual a um autovetor de algum lambda, a função retorna esse lambda que talvez não necessariamente seja o dominante, mas por sorte, isso não aconteceu em nenhum de nossos exemplos.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\item Construa uma matriz simétrica e use os Discos de Gerschgorin para estimar
+		os autovalores. Use essas estimativas e o Método da Potência Deslocada com
+		Iteração Inversa para calcular os autovalores.
+		
+		O Teorema (Gershgorin) diz que seja $A=(aij)$ uma matriz quadrada complexa. Então todo autovalor de A está em um dos discos de Gershgorin. Logo,
+		a teoria dos discos de Gershgorin é um resultado elementar que permite fazer deduções rápidas sobre as localizações dos autovalores. 	
+		
+		Para essa questão, além de utilizar a função de gerar matrizes simétricas aleatórias, também utilizei uma função que obtém os centros e raios dos discos de Gerschgorin nessas matrizes, devolvendo eles como vetores um ao lado do outro.
+			
+		\begin{sol}	\begin{lstlisting}
+function [x]=Discos_de_Gershgorin(A)
+//c: vetor de centros,
+//r: vetor de raios
+n = size(A,1);
+c = diag(A);
+r = sum(abs(A),2) - abs(c);
+x = [c r]
+endfunction
+		\end{lstlisting}
+	
+		Agora é possível usar o Método da Potência Inversa para calcular um autovalor específico partindo de um alfa que já esteja próximo a ele. 
+		\end{sol}		
+	
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large ORDEM 3}}
+		
+		Exemplo 1:
+		
+		Vamos tentar calcular o autovalor dominante:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.11}
+		\end{figure}
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\linewidth]{figures/circulo2}
+		\end{figure}
+	
+		Observamos os centros: -2, -1, -8. O maior em módulo vem do -8, que está em um disco completamente afastado dos demais então não há riscos. Testando com $\alpha = -10$, obtemos:
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/4.12}
+		\end{figure}
+	
+		O teste deu certo, e obtivemos o autovalor dominante que está mais próximo de alfa.
+	
+		Exemplo 2:
+		
+		Agora vamos tentar calcular o \textbf{MENOR} autovalor em módulo:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.13}
+		\end{figure}
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\linewidth]{figures/circulo1}
+		\end{figure}
+		
+		Observamos os centros: 2, -4, 3. O menor em módulo vem do 2, há riscos já que todos os discos se intersetam no meio. Então testando com $\alpha = 2$, obtemos:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/4.14}
+		\end{figure}
+	
+		Novamente, tivemos sucesso e obtivemos o menor autovalor em módulo.
+		
+		\textbf{{\large ORDEM 5}}
+		
+		Exemplo 1:
+		
+		Vamos tentar calcular o autovalor dominante:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.21}
+		\end{figure}
+	
+		Observamos os centros na primeira coluna, e podemos deduzir que o autovalor dominante venha do -19, pois é o maior centro em módulo.
+		Entretanto, ao visualizar os discos é evidente que todos se intersetam, pelo fato de seus raios estarem cada vez maiores, então a precisão diminui.
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\linewidth]{figures/circulo3}
+		\end{figure}
+	
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/4.22}
+		\end{figure}
+	
+		Ao escolher $\alpha = -19$ não obtivemos sucesso, mesmo provavelmente ele sendo desse disco, seu autovalor correspondente estava muito distante, e a função acabou convergindo para o segundo maior autovalor, de outro disco.
+	
+		Exemplo 2:
+		
+		Vamos tentar calcular o \textbf{MENOR} autovalor em módulo:
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.23}
+			
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\linewidth]{figures/circulo4}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{figures/4.24}
+		\end{figure}
+	
+		Ao usar $\alpha = -1$, obtivemos sucesso em obter o menor autovalor em módulo.
+	\newpage
+		\textbf{{\large ORDEM 15}}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.31}
+			
+		\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.6\linewidth]{figures/4.32}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{figures/4.33}
+		\end{figure}
+	
+		Houve uma perda drástica de precisão ao aumentar a ordem para 15. Não apenas não obtivemos o autovalor dominante, mas ele também não estava entre os 5 maiores.
+		
+		--------------------------------------------------------------------------------------------------------------------------------------
+		\textbf{{\large CONCLUSÕES}}
+		
+		Todos os discos dos exemplos se encontram no eixo x, por serem de matrizes A reais e não terem uma parte imaginária, logo, os autovalores não podem estar fora do eixo x também. Para matrizes completamente aleatórias, discos com ordem maior que 10 já irão perder muita precisão, pois a chance de se intersetarem é muito grande. Entretanto funciona perfeitamente se:
+		
+		1) Os centros estiverem extremamente afastados um do outro, em outras palavras, se a diagonal de A tiver valores muito distintos.
+		
+		2) Se os raios forem extremamente pequenos em comparação com o centro, em outras palavras, se a soma dos módulos das linhas (tirando a diagonal) for bem pequena. Pois estão, os autovalores estarão restritos àqueles espaços e haverá precisão.
+		
+--------------------------------------------------------------------------------------------------------------------------------------		
+		\item Faça outros testes que achar convenientes ou interessantes!!! 
+		
+		
+		\textbf{{\large TESTES - MÉTODO DA POTÊNCIA para AUTOVALORES INTEIROS}}
+		
+		Concluímos anteriormente que a versão 2 exerce um melhor desempenho que a 1, e também, a mudança de iterações dependendo da ordem das matrizes reais.
+		Mas como será o desempenho para matrizes cujo todos seus autovalores são inteiros? Será mais rápida?
+		
+		Para isso, vou utilizar como base o teorema de matrizes $A = QDQ^T$ serem diagonalizáveis e terem seus autovalores iguais à diagonal de D.
+		Criei uma função para gerar matrizes de ordem n aleatórias com essa decomposição:
+		
+		\begin{sol}
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+function [A, x] = Matriz_Aleat(n)
+//Gera Matriz A aleatoria com autovalores x reais e inteiros.
+//Esses autovalores sao o proprio D
+Q = Matriz_Ortogonal_Aleat(n)
+D = Matriz_Diagonal_Aleat(n)
+
+A = Q*D*Q'
+x = real(spec(A)) //ignora a parte imaginaria que aparece por erros de casa decimal
+
+endfunction			
+		\end{lstlisting}
+		\begin{lstlisting}[style=mystyle, language=Scilab]	
+function [A] = Matriz_Diagonal_Aleat(n)
+A = zeros(n)
+for i = 1:n
+A(i,i) = floor(-((n*n-1)*rand(1,1,'uniform')) + ((n*n-1)*rand(1,1,'uniform')))
+end
+endfunction		
+		\end{lstlisting}	
+		\begin{lstlisting}[style=mystyle, language=Scilab]
+function [A] = Matriz_Ortogonal_Aleat(n)
+
+//para gerar um num. aleat. entre [a,b]
+//  r = a + (b-a)*rand();
+
+//matriz A com num. aleat. entre [-n^2 e n^2]
+A = floor(-((n*n-1)*rand(n,n,'uniform')) + ((n*n-1)*rand(n,n,'uniform')))
+A = orth(A)
+endfunction
+		\end{lstlisting}
+	\end{sol}
+	É gerada uma matriz ortogonal aleatória de ordem n, uma matriz diagonal aleatória de ordem n, e multiplicadas $A = QDQ^T$, para obter A.
+	
+	Testando com o \textbf{Método da Potência}:
+	\newpage
+	\textbf{{\large ORDEM 5}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/5.1}
+		
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.12}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.13}
+	\end{figure}
+
+	Exemplo 2:
+		
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\linewidth]{figures/5.14}
+		
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.15}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.16}
+	\end{figure}
+	
+--------------------------------------------------------------------------------------------------------------------------------------
+\newpage
+	\textbf{{\large ORDEM 10}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.17}
+	\end{figure}	
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/5.18}
+\end{figure}		
+
+--------------------------------------------------------------------------------------------------------------------------------------
+\newpage
+	\textbf{{\large ORDEM 100}}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/5.2}
+	\end{figure}	
+	\end{enumerate}
+
+Podemos concluir que o tempo de execução parece um pouco menor em matrizes menores, e houve uma melhora de desempenho na primeira versão.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+\textbf{{\large TESTES - MÉTODO DA POTÊNCIA para AUTOVALORES IMAGINÁRIOS}}
+
+	Testando com matrizes completamente aleatórias:\\
+	
+	\textbf{{\large ORDEM 5}}	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.31}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.32}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.33}
+	\end{figure}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/5.34}
+	\end{figure}
+
+	Podemos concluir que o lambda obtido em ambos testes corresponde ao autovalor que tem a maior parte real em módulo. 
+	
+--------------------------------------------------------------------------------------------------------------------------------------
+
+\large{Desculpe pelo relatório enorme. $\ddot\smile$}
+\end{document}
