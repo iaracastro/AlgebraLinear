@@ -1,0 +1,593 @@
+\documentclass[leqno]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+\usepackage[brazil]{babel} %\usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\usepackage{mathtools}
+\usepackage{nccmath}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\usepackage{listings}
+\usepackage{tcolorbox}
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\definecolor{codegray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+
+\lstdefinestyle{mystyle}{
+	language=Scilab,
+	backgroundcolor=\color{codegray},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	emph={testfunc,print,src},
+	emphstyle=\color{codeyellow},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol} 
+	{
+		\vspace{4mm}
+		\noindent\textbf{{\large Código:}}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm} 
+	} 
+	% Objetos que aparecem *após* o ambiente. 
+	% (você pode, por exemplo, modificar, 
+	% ou remover, a barra horizontal} 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Aula Prática 4}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle 
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item  \textbf{{\large MÉTODO DOS MÍNIMOS QUADRADOS}}\\
+	
+		
+		\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+			1) (Texto do livro Cálculo - Volume 2 – James Stewart) Em 1928, Charles
+			Cobb e Paul Douglas publicaram um estudo no qual modelaram o
+			crescimento da economia norte-americana durante o período de 1899-
+			1922. Eles consideraram uma visão simplificada da economia em que a
+			saída da produção é determinada pela quantidade de trabalho envolvido e
+			pela quantidade de capital investido. Apesar de existirem muitos outros
+			fatores afetando o desempenho da economia, o modelo mostrou-se
+			bastante preciso. A função utilizada para modelar a produção era da forma:
+			
+			$$𝑃 = bL^{\alpha}K^{1 - \alpha}$$
+			
+			onde P é a produção total (valor monetário dos bens produzidos no ano);
+			L é a quantidade de trabalho (número total de pessoas-hora trabalhadas no
+			ano); e K é a quantidade de capital investido (valor monetário das
+			máquinas, equipamentos e prédios); b e $\alpha$ são parâmetros (constantes) a
+			serem determinados.
+			Cobb e Douglas usaram os dados da tabela a seguir e o Método dos
+			Mínimos Quadrados para obter os valores de b e de $\alpha$.
+		\end{tcolorbox}
+		
+		\begin{tcolorbox}[colback=gray!5,colframe=gray!40!black]	
+			a) Faça como Cobb e Douglas: use o Método dos Mínimos Quadrados
+			para estimar os valores dos parâmetros b e $\alpha$. Mostre a sua modelagem
+			para o problema ser resolvido pelo Método dos Mínimos Quadrados.
+		\end{tcolorbox}		
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% ALGORITMO 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\textbf{{\normalsize DESENVOLVIMENTO}}
+		
+		Queremos encontrar b e $\alpha$ a partir da fórmula, então para isso vamos tentar isolá-los:
+		$$𝑃 = bL^{\alpha}K^{1 - \alpha}$$
+		Calculando logaritmo da equação:
+		$$ln(𝑃) = ln(b) + \alpha ln(L) + (1-\alpha)ln(K)$$
+		$$ln(𝑃) = ln(b) + \alpha ln(L) + ln(K) - \alpha ln(K)$$
+		$$ln(𝑃) - ln(K) = ln(b) + \alpha ln(L) - \alpha ln(K)$$
+		
+		$$ln(b) + \alpha (ln(L) - ln(K)) = ln(𝑃) - ln(K)$$
+		
+		Para utilizar o método dos mínimos quadrados, precisamos de expressão na forma $Ax = b$.
+		Podemos observar que $ln(b)$ não está multiplicando com ninguém, então podemos colocar uma coluna de 1 na frente de $A = (ln(L) - ln(K))$ para representá-la da seguinte forma:
+		
+		
+		$$\begin{bmatrix}
+			1 & (ln(L) - ln(K))^1 \\
+			1 & \vdots \\
+			1 & (ln(L) - ln(K))^{24}
+		\end{bmatrix}
+		\begin{bmatrix}
+			ln(b) \\
+			\alpha
+		\end{bmatrix} = \begin{bmatrix}
+			(ln(P) - ln(K))^1 \\
+			\vdots \\
+			(ln(P) - ln(K))^{24}
+		\end{bmatrix}$$
+	
+	Agora podemos aplicar o método dos mínimos quadrados, onde:
+	
+	$$A = \begin{bmatrix}
+		1 & (ln(L) - ln(K))^1 \\
+		1 & \vdots \\
+		1 & (ln(L) - ln(K))^{24}
+	\end{bmatrix}$$
+
+	$$x = \begin{bmatrix}
+		ln(b) \\
+		\alpha
+	\end{bmatrix}$$
+
+	$$b = \begin{bmatrix}
+		(ln(P) - ln(K))^1 \\
+		\vdots \\
+		(ln(P) - ln(K))^{24}
+	\end{bmatrix}$$
+
+	Logo:
+	
+		$$ln(b) + \alpha (ln(L) - ln(K)) = ln(𝑃) - ln(K)$$
+		
+		$$Ax = b$$
+		
+	Criando uma função que receba a planilha de dados e separe as colunas K, L e P para transformá-las nas matrizes A e b do sistema, e por fim, calcular a solução x que melhor aproxima esses dados através do método dos mínimos quadrados:
+	
+	$$A^TAx = A^Tb$$
+	
+	Lembrando que ao encontrar x, teremos os valores de $ln(b)$ e $\alpha$, $$x = \begin{bmatrix}
+		ln(b) \\
+		\alpha
+	\end{bmatrix}$$
+	Então para retornar b, basta elevar o primeiro valor do vetor x, $ln(b)$ a exponencial:
+	
+\begin{sol}			
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+	function [alfa, b]=calcular_alfa_b(A)
+	
+	P = A(:,2);
+	L = A(:,3);
+	K = A(:,4);
+	
+	P_ln = log(P);
+	L_ln = log(L);
+	K_ln = log(K);
+	
+	n = size(L,1);
+	A = [ones(n,1) (L_ln - K_ln)];
+	b = (P_ln - K_ln);
+	//nao esquecer de executar a funcao Gaussian_Elimination_4
+	x = Gaussian_Elimination_4(A' * A, A' * b);
+	alfa = x(2);
+	b = exp(x(1));
+	endfunction
+	\end{lstlisting}
+	\newpage
+	Ao testar a função na tabela:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/tabela}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\linewidth]{figures/1a}
+	\end{figure}
+
+	Encontramos que:\\
+	$\cdot$ $\alpha = 0.7446062$\\
+	$\cdot$ $b = 1.0070689$
+	\begin{tcolorbox}[colback=gray!5,colframe=gray!40!black]	
+		b) Agora, use a função de Cobb-Douglas encontrada no item a) e teste a
+		sua adequação calculando os valores da produção nos anos de 1910 e
+		1920. Comente!
+	\end{tcolorbox}
+	
+	Agora que temos os valores de $\alpha$ e b, podemos substituí-los na fórmula de produção para encontrar a previsão de P. Para isso criei uma função que recebe a tabela de dados, e verifica o ano de entrada para escolher os valores de K e L em suas respectivas colunas, e por último, substituir na fórmula.
+	
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+function [P]=calcular_p(A, ano)
+
+L = A(:,3); //L na coluna 3
+K = A(:,4); //K na coluna 4
+
+n = size(K,1) 
+for i = 1:n
+	if (A(i,1) == ano) //verifica a linha do ano selecionado
+		x = A(i,:);
+		L = x(3);
+		K = x(4);
+		//funcao utilizada para modelar a producao
+		P = b * L^alfa * K^(1-alfa); 
+	end
+end
+endfunction
+	\end{lstlisting}
+\end{sol}
+
+Os valores de \textit{alfa} e \textit{b} não precisam estar na entrada, pois as variáveis no scilab são globais, basta haver executado $[alfa, b]=calcular\_alfa\_b(A)$ anteriormente. Da seguinte forma, podemos encontrar os valores de P nos anos de 1910 e 1920, e em qualquer outro ano desejado.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\linewidth]{figures/1b}
+\end{figure}
+
+Os valores previstos para P foram:\\
+$\cdot$ $P_{1910} = 161.76185$\\
+$\cdot$ $P_{1920} = 236.07215$\\
+
+Os valores reais de P nesses anos foram:\\
+$\cdot$ $P_{1910} = 159$\\
+$\cdot$ $P_{1920} = 231$\\
+
+Podemos concluir que os valores de $\alpha$ e $b$ calculam a produção de forma relativamente precisa. Vamos calcular mais alguns anos:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\linewidth]{figures/1btestes}
+\end{figure}
+\newpage
+Os valores previstos para P foram:\\
+$\cdot$ $P_{1900} = 106.25302$\\
+$\cdot$ $P_{1905} = 131.65873$\\
+$\cdot$ $P_{1915} = 180.04169$\\
+$\cdot$ $P_{1918} = 235.90134$\\
+
+Os valores reais de P nesses anos foram:\\
+$\cdot$ $P_{1900} = 101$\\
+$\cdot$ $P_{1905} = 143$\\
+$\cdot$ $P_{1915} = 189$\\
+$\cdot$ $P_{1918} = 223$\\
+
+De forma geral, a previsão está proxima, há um erro de mais ou menos 10. Segue o gráfico feito em excel dos valores reais de produção juntamente com os valores obtidos da função de previsão ao longo dos anos:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.1\linewidth]{figures/excel}
+\end{figure}
+
+Ao comparar a linha de tendência dos valores previstos de produção com a dos valores reais, nota-se que com o passar dos anos a precisão vai diminuindo.
+ \newpage
+\item  \textbf{{\large “MACHINE LEARNING”}}\\
+
+\begin{tcolorbox}[colback=green!5,colframe=green!40!black]
+	2) Agora vamos usar o método dos mínimos quadrados para implementar um
+	método rudimentar de “machine learning” para diagnosticar câncer de
+	mama a partir de um conjunto de características fornecidas para cada
+	paciente. São dados dois arquivos: um arquivo para “treinamento”
+	(cancer\_train.csv) do modelo e um arquivo para “teste” (cancer\_test.csv).
+	O primeiro arquivo contém 300 registros e o segundo 260 registros, partes
+	do “Wiscosin Diagnostic Breast Cancer dataset”. Cada registro de cada
+	arquivo contém 11 valores: os 10 primeiros correspondem a valores reais
+	de 10 características dos núcleos celulares observados em imagens
+	digitalizadas de uma fina camada de massa mamária coletada de cada
+	paciente. O décimo primeiro valor é +1 se a paciente tem câncer de mama
+	e -1, caso contrário.
+	Sendo x o vetor das 10 características de cada paciente (variáveis
+	independentes) e y o valor (+1 ou -1) que indica o diagnóstico (variável
+	dependente), a ideia é, usando o arquivo de treinamento, obter o hiperplano
+	y = h(x) que “melhor se ajuste aos dados fornecidos” usando o método dos mínimos quadrados.
+	Uma vez obtido o hiperplano, o mesmo será usado para classificar cada
+	paciente da seguinte forma: se $h(x) \geq 0$, então o diagnóstico é +1 (tem
+	câncer), caso contrário, o diagnóstico é −1 (não tem câncer).
+	Use o seu classificador (hiperplano) e calcule a porcentagem de acertos
+	sobre o arquivo de treinamento (de certa forma é uma medida do ajuste do
+	seu modelo aos dados de treinamento) e sobre o arquivo de teste (de certa
+	forma é uma medida da capacidade de generalização do seu modelo).
+	Construa uma Matriz de Confusão (Confusion Matrix) (pesquise a respeito)
+	com o conjunto de teste e calcule as diversas medidas daí decorrentes, tais
+	como: acurácia, precisão, recall, probabilidade de falso alarme,
+	probabilidade de falsa omissão de alarme. Interprete essas medidas e
+	comente os resultados obtidos.
+\end{tcolorbox}	
+
+Para essa questão vamos precisar classificar os pacientes da tabela de testes através de previsões seguindo o classificador h(x). Ele provém do $alfa\_tr$ que será calculado pela tabela de treinamento.
+
+Para calcular $alfa\_tr$, criei uma função $[alfa\_barra]=Encontra\_alfa\_barra(x\_tr, y\_tr)$ que encontra uma solução aproximada resolvendo o sistema linear Ax = b pelo método dos mínimos quadrados, onde:
+
+$$A = x_tr' * x_tr$$
+
+$$b = x_tr' * y_tr$$
+
+Então para isso, precisamos encontrar $x\_tr$ e $y\_tr$ primeiro.\\
+Calculando todos os dados necessários, juntamente com o alfa: $y\_tr, y\_tt, x\_tr, x\_tt, alfa\_tr, h\_tr$:\\
+
+\begin{sol}
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+function [y_tr, y_tt, x_tr, x_tt, alfa_tr, h_tr]=dados(A_tr, A_tt)
+n = size(A_tr,2);
+
+y_tr = A_tr(:,n);
+y_tt = A_tt(:,n);
+
+x_tr = [ones(y_tr) A_tr(:,1:n - 1)];
+x_tt = [ones(y_tt) A_tt(:,1:n - 1)];
+
+alfa_tr =Encontra_alfa_barra(x_tr, y_tr);
+h_tr = x_tr * alfa_tr;
+endfunction
+
+function [alfa_barra]=Encontra_alfa_barra(x_tr, y_tr)
+alfa_barra = Gaussian_Elimination_4(x_tr' * x_tr, x_tr' * y_tr);
+endfunction
+\end{lstlisting}	
+
+Agora já obtemos $alfa\_tr$ e podemos encontrar as previsões para a tabela de testes (e treinamento, para comparação), que já teve seus $x\_tt$ e $y\_tt$ obtidos na função anterior $[y\_tr, y\_tt, x\_tr, x\_tt, alfa\_tr, h\_tr]=dados(A\_tr, A\_tt)$:
+
+Agora com outra função de encontrar o número de acertos, multiplicamos $x\_tr$ e $x\_tt$ pelo $alfa\_tr$ obtido.
+Para conferir essa previsão, basta multiplicar ela pelos resultados reais. Lembrando que se a previsão está certa, teremos
+pacientes doentes (+1) sendo classificados com um valor \textbf{positivo}, e pacientes não-doentes (-1) sendo classificados com um valor \textbf{negativo}. 
+
+Note que em ambos casos em que a previsão funciona os sinais são iguais, logo, o seu produto sempre será positivo. Ao multiplicar esses dois valores: $prev\_tr$ e $prev\_tt$ por $y\_tr$ e $y\_tt$, respectivamente, podemos conferir se a previsão está correta, checando quantos deles são positivos.
+
+A função seguinte calcula a previsão e o número de acertos da tabela de treinamento e da tabela de testes:
+\begin{lstlisting}[style=mystyle, language=Scilab]
+[prev_tr,prev_tt,acertos_tr, acertos_tt]=acertos(x_tr, x_tt, alfa_tr)
+prev_tr = x_tr*alfa_tr;
+prev_tt = x_tt*alfa_tr;
+
+conf_prev_tr = prev_tr .*y_tr;
+conf_prev_tt = prev_tt .*y_tt;
+
+acertos_tr = sum(conf_prev_tr > 0 | conf_prev_tr == 0);
+acertos_tt = sum(conf_prev_tt > 0 | conf_prev_tt == 0);
+endfunction
+\end{lstlisting}
+
+Testando ambas funções, primeiro encontramos os dados necessários e depois calculamos os acertos com a função acima:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{figures/2.1}
+\end{figure}
+
+Concluímos que com $alfa\_tr$ teve 289 acertos de 300 casos na tabela de treinamento, enquanto na tabela de testes teve apenas 185 acertos de 260 casos.
+
+Note que $y\_tt$, $y\_tr$, $prev\_tt$ e $prev\_tt$ não foram utilizados ainda, mas serão importantes para encontrar a matriz de confusão.
+
+	\item  \textbf{{\large MATRIZ DE CONFUSÃO}}\\
+	
+	Para encontrar a matriz de confusão, optei também por criar uma função que gerasse cada valor a partir das previsões do teste \textit{'prev\_tt'} e os resultados reais em \textit{'y\_tt'}
+	
+	Sabemos que cada caso na previsão mantém a ordem dos valores obtidos da planilha de dados, então basta usar cada índice para comparar se o seu valor em \textit{'prev\_tt'} é maior ou menor que 0, e checar se naquele índice de \textit{'y\_tt'} é igual a +1 ou -1.
+	
+	$\cdot$ VP: $h(x) > 0$ e y(i) = 1 \\
+	$\cdot$ VN: $h(x) < 0$ e y(i) = -1\\
+	$\cdot$ FN: $h(x) > 0$ e y(i) = -1\\
+	$\cdot$ FP: $h(x) < 0$ e y(i) = 1 \\
+\newpage
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+function [VP, VN, FN, FP]=check(prev_tt, y_tt)
+
+[VP]=check_pos(prev_tt, y_tt); //verdadeiro positivo: 1
+[VN]=check_neg(prev_tt, y_tt); //verdadeiro negativo: 2
+[FN]=check_neg_pos(prev_tt, y_tt); //falso negativo: 3
+[FP]=check_pos_neg(prev_tt, y_tt); //falso positivo: 4
+
+endfunction
+
+function [VP]=check_pos(prev_tt, y_tt) //1: diz que tem, e tem mesmo
+n = size(prev_tt, 1);
+VP = 0;
+for i = 1:n
+	if (prev_tt(i) > 0 & y_tt(i) == 1)
+		VP = VP + 1;
+	end
+end
+endfunction
+
+function [VN]=check_neg(prev_tt, y_tt) //2: diz que nao tem, e nao tem
+n = size(prev_tt, 1);
+VN = 0;
+for i = 1:n
+	if (prev_tt(i) < 0 & y_tt(i) == -1)
+		VN = VN + 1;
+	end
+end
+endfunction
+
+function [FN]=check_neg_pos(prev_tt, y_tt) //3: diz que tem, mas nao tem
+n = size(prev_tt, 1);
+FN = 0;
+for i = 1:n
+	if (prev_tt(i) > 0 & y_tt(i) == -1)
+		FN = FN + 1;
+	end
+end
+endfunction
+
+function [FP]=check_pos_neg(prev_tt, y_tt) //4: diz que nao tem, mas tem 
+n = size(prev_tt, 1);
+FP = 0;
+for i = 1:n
+	if (prev_tt(i) < 0 & y_tt(i) == 1)
+		FP = FP + 1;
+	end
+end
+endfunction
+	\end{lstlisting}	
+\end{sol}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/check}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/matriz_de_confusao}
+	\end{figure}
+
+	Com essa matriz, podemos calcular outras medidas e fazer algumas análises:
+	
+	$\cdot$ \textbf{{\large Acurácia:}}
+	O cálculo da acurácia se dá pela fórmula: $\frac{VP + VN}{total}$, ou seja, o total de acertos (soma da diagonal da matriz) dividido pelo total:
+	
+	$$\frac{185}{260} = 0.7115385 = 71.1\% $$
+	
+	$\cdot$ \textbf{{\large Precisão:}} 
+	O cálculo da precisão se dá pela fórmula: $\frac{VP}{VP + FP}$, ou seja, o total de acertos/alarmes de pessoas doentes pelo total de pessoas doentes esperadas pela previsão:
+	
+	$$\frac{60}{60 + 75} = 0.4444444 = 44.4\% $$
+	
+	Houve $44\%$, ou seja, de todas as pessoas esperadas doentes, um pouco mais da metade delas, na verdade não tinha câncer. A precisão na matriz de testes foi baixa.
+	
+	$\cdot$ \textbf{{\large Recall ou Revocação:}} 
+	O cálculo da recall se dá pela fórmula: $\frac{VP}{VP + FN}$, ou seja, o total de acertos/alarmes de pessoas doentes pelo total de pessoas que realmente estão doentes:
+	
+	$$\frac{60}{60 + 0} = 1 = 100\% $$
+	
+	Houve $100\%$ de precisão, isso significa que a previsão não deu negativo $NENHUMA$ vez para alguém que realmente tinha câncer. 
+	
+	$\cdot$ \textbf{{\large Falso Alarme:}}
+	O cálculo de falso alarme se dá pela fórmula: $\frac{FP}{VP + FP}$, ou seja, o total de pessoas que foram esperadas com câncer, mas na verdade não tinham, dividido pelo total de alarmes positivos.
+	
+	$$\frac{75}{75 + 60} = 0.5555556 = 55.5\% $$
+	
+	Houve $55\%$ de probabilidade de falsos alarmes, ou seja, cerca de metade das pessoas esperadas com câncer pela previsão, na verdade não tinham câncer. Note que a probabilidade de falso alarme é complementar à precisão.
+	
+	$\cdot$ \textbf{{\large Falsa Omissão de Alarme:}} 
+	O cálculo da falsa omissão de alarme se dá pela fórmula: $\frac{FN}{FN + VN}$, ou seja, o total de pessoas que tinham câncer mas foram esperadas que não tinham, dividido pelo total de alarmes negativos.
+	
+	$$\frac{0}{0 + 120} = 0 = 0\% $$
+	
+	Houve uma probabilidade de $0\%$ de falsas omissões de alarme, visto que houveram 0 casos de falsos-negativos.
+	
+---------------------------------------------------------------------------------------------------------------------------------------
+	
+	Bônus: Podemos criar uma função pra calcular essas medidas automaticamente: 
+	
+	\begin{lstlisting}[style=mystyle, language=Scilab]
+function [acuracia, precisao, recall, falsoalarme, falsaomisao]=medidas(VP, VN, FN, FP)
+
+total = (VP + VN + FN + FP);
+acuracia = (VP + VN)/ total;
+precisao = VP / (VP + FP);
+recall = VP / (VP + FN);
+falsoalarme = FP / (VP + FP);
+falsaomisao = FN / (FN + VN);
+
+endfunction
+	\end{lstlisting}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+	Testando a função para os dados de teste: (já calculado)
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/medidas1}
+	\end{figure}
+	
+---------------------------------------------------------------------------------------------------------------------------------------
+	Analogamente, podemos calcular os valores da matriz de confusão da tabela de treinamento:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{figures/check2}
+	\end{figure}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth]{figures/matriz_de_confusao2}
+	\end{figure}
+
+	Encontrando as medidas para os dados de treinamento:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\linewidth]{figures/medidas2}
+	\end{figure}
+
+	$\cdot$ \textbf{{\normalsize Acurácia:}} = 0.93 = $93\%$\\
+	$\cdot$ \textbf{{\normalsize Precisão:}} = 0.9310345 = $93.1\%$\\
+	$\cdot$ \textbf{{\normalsize Recall ou Revocação:}} = 0.9246575 = $92.4\%$\\
+	$\cdot$ \textbf{{\normalsize Falso Alarme:}} = 0.0689655 = $6.8\%$\\
+	$\cdot$ \textbf{{\normalsize Falsa Omissão de Alarme:}} = 0.0709677 = $7.09\%$\\
+	
+	Logo à primeira vista, nota-se uma diferença em relação às medidas da tabela de testes, apesar da probabilidade de falsa omissão de alarme ser maior, os resultados foram mais consistentes. Isso se dá especialmente pela boa precisão do $alfa\_tr$ nestes pacientes, onde conseguiu prever muito melhor quem realmente tinha câncer.
+\end{enumerate}
+\end{document}
