@@ -1,0 +1,598 @@
+\documentclass[leqno]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{float}
+\usepackage[brazil]{babel} %\usepackage[latin1]{inputenc}
+\usepackage{a4wide}
+\usepackage{mathtools}
+\usepackage{nccmath}
+\setlength{\oddsidemargin}{-0.2in}
+% % \setlength{\oddsidemargin}{0.2in}
+\setlength{\evensidemargin}{-0.2in}
+% % \setlength{\evensidemargin}{0.5in}
+% % \setlength{\textwidth}{5.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-1.2in}
+\setlength{\textheight}{10in}
+\usepackage[]{amsfonts} \usepackage[]{amsmath}
+\usepackage[]{amssymb} \usepackage[]{latexsym}
+\usepackage{graphicx,color} \usepackage{amsthm}
+\usepackage{mathrsfs} \usepackage{url}
+\usepackage{cancel} \usepackage{enumerate}
+\usepackage{xifthen} \usepackage{tikz}
+\usetikzlibrary{automata,arrows,positioning,calc}
+\usepackage{listings}
+\numberwithin{equation}{section}
+
+\setlength{\parindent}{12 pt}
+
+\begin{document}
+	
+	\newtheorem{teo}{Teorema}[section] \newtheorem*{teo*}{Teorema}
+	\newtheorem{prop}[teo]{Proposição} \newtheorem*{prop*}{Proposição}
+	\newtheorem{lema}[teo]{Lemma} \newtheorem*{lema*}{Lema}
+	\newtheorem{cor}[teo]{Corolário} \newtheorem*{cor*}{Corolário}
+	
+	\theoremstyle{definition}
+	\newtheorem{defi}[teo]{Definição} \newtheorem*{defi*}{Definição}
+	\newtheorem{exem}[teo]{Exemplo} \newtheorem*{exem*}{Exemplo}
+	\newtheorem{obs}[teo]{Observação} \newtheorem*{obs*}{Observação}
+	\newtheorem*{hipo}{Hipóteses}
+	\newtheorem*{nota}{Notação}
+	
+	\newcommand{\ds}{\displaystyle} \newcommand{\nl}{\newline}
+	\newcommand{\eps}{\varepsilon} \newcommand{\ssty}{\scriptstyle}
+	\newcommand{\bE}{\mathbb{E}}
+	\newcommand{\cB}{\mathcal{B}}
+	\newcommand{\cF}{\mathcal{F}}
+	\newcommand{\cA}{\mathcal{A}}
+	\newcommand{\cM}{\mathcal{M}}
+	\newcommand{\cD}{\mathcal{D}}
+	\newcommand{\cN}{\mathcal{N}}
+	\newcommand{\cL}{\mathcal{L}}
+	\newcommand{\cLN}{\mathcal{LN}}
+	\newcommand{\bP}{\mathbb{P}}
+	\newcommand{\bQ}{\mathbb{Q}}
+	\newcommand{\bN}{\mathbb{N}}
+	\newcommand{\bR}{\mathbb{R}}
+	\newcommand{\bZ}{\mathbb{Z}}
+	
+	\newcommand{\bfw}{\mathbf{w}}
+	\newcommand{\bfv}{\mathbf{v}}
+	\newcommand{\bfu}{\mathbf{u}}
+	\newcommand{\bfx}{\mathbf{x}}
+	\newcommand{\bfb}{\mathbf{b}}
+	
+	\newcommand{\bvecc}[2]{%
+		\begin{bmatrix} #1 \\ #2  \end{bmatrix}
+	}
+	\newcommand{\bveccc}[3]{%
+		\begin{bmatrix} #1 \\ #2 \\ #3  \end{bmatrix}
+	}
+	
+	\newenvironment{sol} 
+	{
+		\vspace{4mm}
+		\noindent\textbf{Resolução:}
+		\strut\newline
+		\smallskip
+		\hspace{-3.5mm} 
+	} 
+	% Objetos que aparecem *após* o ambiente. 
+	% (você pode, por exemplo, modificar, 
+	% ou remover, a barra horizontal} 
+	%{\noindent\rule{4cm}{.1mm}}
+	
+	
+	\title{Álgebra Linear - Aula Prática 2}
+	
+	\author{Iara Cristina Mescua Castro}
+	
+	\date{\today}
+	
+	\maketitle 
+	
+	{\normalsize \textbf{"Não use a função inv do Scilab, ao menos que seja pedido. -Branco, 2022"}}
+	
+	\begin{enumerate}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 1 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item  Implementar uma função Scilab resolvendo um sistema linear
+		$Ax = b$ usando o algoritmo iterativo de Jacobi.\\
+		A função deve ter como variáveis de entrada:\\
+		$\cdot$ a matriz $A$;\\
+		$\cdot$ o vetor $b$;\\
+		$\cdot$ uma aproximação inicial x0 da solução do sistema;\\
+		$\cdot$ uma tolerância E;\\
+		$\cdot$ um número máximo de iterações M;\\
+		$\cdot$ o tipo de norma a ser utilizada: $1$, $2$ ou $\inf$.\\
+		Como variáveis de saída:\\
+		$\cdot$ a solução $x_k$ do sistema encontrada pelo método;\\
+		$\cdot$ a norma da diferença entre as duas últimas aproximações
+		($||xk – xk-1||$);\\
+		$\cdot$ o número k de iterações efetuadas;\\
+		$\cdot$ a norma do resíduo ($||rk|| = ||b – Ax_k||$).\\
+		Critério de parada do algoritmo: use “$||xk – xk-1||<E$ ou $k>M$”.\\
+		
+		\begin{sol}
+			
+	Para a função Jacobi, primeiro vamos separar a matriz A em 3 matrizes: L, D e U. \\
+	L sendo a matriz inferior de A, D a matriz diagonal de A e U a matriz superior de A, sendo que A = L + D + U. Então, a partir de $Ax = b$, teremos:
+	
+	$$(L + U + D)x = b$$
+	$$Dx = b - (L + U)x$$
+	
+	Multiplicando a equação por $D^{-1}$:
+	
+	$$x = -D^{-1}(L+U)x + D^{-1}b$$
+	
+	Vamos definir $-D^{-1}(L+U)$ como a matriz de Jacobi Mj e $D^{-1}b$ como a constante de Jacobi Cj.
+	
+	Para as iterações: $x_k = -D^{-1}(L+U)x_k + D^{-1}b$. O processo se repetirá em um loop até que o número de iterações chegue ao máximo M, ou a norma da diferença entre as duas últimas aproximações seja menor que a tolerância E. Note que tratando-se de um método iterativo, nosso x* resultado nunca será exato, mas sendo extremamente próximo já será muito mais eficaz que a Eliminação Gaussiana para maiores matrizes.
+	
+		\begin{lstlisting}[language=Scilab]
+	function [x, k, normadif, normaresid] = Jacobi(A, b, x_old, M, E, p)
+				
+	L = tril(A, -1); //matriz L
+	D = diag(diag(A)); //matriz D
+	U = triu(A,1); //matriz U
+				
+	InvD = diag(1./diag(A)); //matriz inversa de D
+				
+	Mj = -InvD * (L + U);
+	Cj = InvD * b;
+				
+	//x_old = zeros(1,size(A,1));
+				
+	normadif = norm((A*x_old - b),p); 
+	N = size(A,1);
+	//itr = 0;
+				
+	for k = 1:M //criterio de parada 1: Num max de iteracoes M 
+		for i = 1:N
+			x = Mj*x_old + Cj; //Jacobi Formula
+			normadif = norm((x - x_old),p);
+			normaresid = norm((b - A*x),p)
+		end
+			
+		//itr = itr+1;
+				
+		if normadif < E //criterio de parada 2: 
+		//Norma da diff entre as duas ultimas aproximacoes
+			break
+		end
+		x_old = x;
+	end
+				
+		endfunction
+		\end{lstlisting}
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 2 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Implementar uma função Scilab resolvendo um sistema linear Ax
+		= b usando o algoritmo iterativo de Gauss-Seidel.\\
+		A função deve ter como variáveis de entrada:\\
+		$\cdot$ a matriz A;\\
+		$\cdot$ o vetor b;\\
+		$\cdot$ uma aproximação inicial x0 da solução do sistema;\\
+		$\cdot$ uma tolerância E;\\
+		$\cdot$ um número máximo de iterações M;\\
+		$\cdot$ o tipo de norma a ser utilizada: $1$, $2$ ou $\inf$. \\
+		Como variáveis de saída:\\
+		$\cdot$ a solução $x_k$ do sistema encontrada pelo método;\\
+		$\cdot$ a norma da diferença entre as duas últimas aproximações
+		($||xk – xk-1||$);\\
+		$\cdot$ o número k de iterações efetuadas;\\
+		$\cdot$ a norma do resíduo ($||rk|| = ||b – Ax_k||$).\\
+		$\cdot$ Critério de parada do algoritmo: use “$||x_k – x_(k-1)|| < E$ ou $k > M$”.\\
+		
+		Faça duas implementações diferentes: uma usando a função “inv”
+		do Scilab para calcular a inversa de L+D, obtendo assim a matriz
+		do método $M_G = -(L+D)^(-1) * U$ e o vetor $C_G = (L+D)^(-1) * b$ para fazer as
+		iterações $x_(k+1) = M_G*x_k + C_G$ e outra resolvendo o sistema linear
+		$(L+D) * x_k+1 = -U * x_k + b$ para fazer as iterações (a matriz L+D é
+		triangular inferior; escreva uma função para resolver sistemas em
+		que a matriz dos coeficientes é triangular inferior e use-a a cada
+		iteração).
+		
+		\begin{sol}
+			Primeira implementação:
+	
+	Para a primeira implementação, partiremos da mesma forma que na Jacobi, decompondo A em matrizes, L, D e U.
+	A partir de $Ax = b$, teremos:
+	
+	$$(L + U + D)x = b$$
+	$$(L + D)x = b - Ux$$
+	
+	Multiplicando a equação por $(L+D)^{-1}$
+	
+	$$x =  -(L+D)^{-1}Ux + (L+D)^{-1}b$$
+	
+	Vamos definir $-(L+D)^{-1}U$ como a matriz de Gauss Mg e $(L+D)^{-1}b$ como a constante de Gauss Cg.
+	Analogamente, para as iterações: $x_{k+1} = -(L+D)^{-1}Ux_k + (L+D)^{-1}b$. O processo se repetirá em um loop até que o número de iterações chegue ao máximo M, ou a norma da diferença entre as duas últimas aproximações seja menor que a tolerância E.
+	
+	
+		\begin{lstlisting}[language=Scilab]
+	function [x, k, normadif, normaresid] = Gauss_Seidel_1(A, b, x_old, M, E, p)
+				
+	//x_old: uma aproximacao inicial x0 da solucao do sistema
+	//E: Tolerancia
+	//n: Numero maximo de iteracoes M 
+				
+	L = tril(A, -1); //matriz L
+	D = diag(diag(A)); //matriz D
+	U = triu(A,1); //matriz U
+				
+	InvLD = inv(L+D); //matriz inversa de L + D
+				
+	Mg = -InvLD*U;
+	Cg = InvLD*b;
+				
+	//x_old = zeros(1,size(A,1));
+				
+	normadif = %inf; //Norma da diff entre Ax e b.
+	//N = size(A,1);
+	//itr = 0;
+				
+	x(:,1) = x_old;
+				
+	for k = 1:M //criterio de parada 1: Num maximo de iteracoes M
+		x = Mg*x_old + Cg; // Gauss-Seidel formula
+		normadif = norm((x - x_old),p); // 
+		normaresid = norm((b - A*x),p) // finding residue
+				
+		if normadif < E //criterio de parada 2: 
+			//Norma da diff entre as duas ultimas aproximacoes
+			break
+		end
+		x_old = x;
+	end
+				
+	endfunction
+			\end{lstlisting}
+			Segunda implementação:
+			
+	Para a segunda implementação, também vamos decompor A em matrizes, L, D e U.
+	A partir de $Ax = b$, teremos:
+	
+	$$(L + U + D)x = b$$
+	$$(L + D)x = b - Ux$$
+	
+	Mas dessa vez, não vamos calcular a inversa de $(L + D)$, e sim, resolver um novo sistema linear:
+	
+	$$(L+D)x_k = B$$
+	
+	Onde a solução x será $x_{k+1}$. Para isso, criamos outra função "ResolveL" no arquivo para resolver esse sistema linear a cada iteração, sabendo que $(L + D)$ uma matriz inferior.
+	
+	\begin{lstlisting}[language=Scilab]
+	function [x, k, normadif, normaresid] = Gauss_Seidel_2(A, b, x_old, M, E, p)
+	
+	//x_old: uma aprox. inicial x0 da solucao do sistema
+	//E: Tolerancia
+	//n: Num. max. de iteracoes M 
+	//p: tipo da norma (1, 2, 'inf')
+	
+	L = tril(A, -1); //matriz L
+	D = diag(diag(A)); //matriz D
+	U = triu(A,1); //matriz U
+	
+	LD = L + D;
+	
+	//x_old = zeros(1,size(A,1));
+	
+	N = size(A,1);
+	//itr = 0;
+	
+	//(L+D)x = -Ux_k-1 + b
+	//Ax = b
+	x = x_old;
+	normadif = %inf;
+	normaresid = %inf;
+	
+	for k = 1:M //criterio de parada 1: Num. max. de iteracoes M
+		B = -U*x_old + b;
+		x = resolveL(LD,B)
+	
+		normadif = norm((x - x_old),p); //norma da diff. entre as duas ultimas aprox.
+		normaresid = norm((b - A*x),p); //norma residuo
+	
+		if normadif < E //criterio de parada 2: 
+		//Norma da diff entre as duas ultimas aprox.
+			break
+		end
+		x_old = x;
+	end
+	
+	endfunction
+	
+	
+	function x = resolveL(L,b)
+	n = size(L,1);
+	m = size(b,1);
+	x = zeros(m,1);
+	x(1) = b(1)/L(1,1);
+	for i=2:n
+		x(i) = (b(i) - L(i,1:i-1)*x(1:i-1))/L(i,i);
+	end
+	endfunction
+	\end{lstlisting}
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 3 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\item 
+	
+		Teste as funções implementadas para resolver o sistema:		
+		\begin{equation}
+			\left\{\begin{split}
+				x - 4y + 2z = 2 \\
+				2y + 4z = 1 \\
+				6x - y - 2z = 1 
+			\end{split}\right.
+		\end{equation}
+		Agora reordene as equações do sistema dado, de modo que a
+		matriz dos coeficientes seja estritamente diagonal dominante e
+		teste novamente as funções implementadas. Comente os
+		resultados.
+		\begin{sol}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-jacobi_errado}
+			\end{figure}
+		
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-gauss1_errado}
+			\end{figure}
+		
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-gauss2_errado}
+			\end{figure}
+			
+			Testando a função nesse sistema, além de obtermos uma solução extremamente grande, podemos observar que tanto a norma da diferença entre as duas últimas aproximações quanto a norma do resíduo estão longe de estarem menores que a tolerância. Vendo o número de iterações utilizado, concluímos que ele foi o critério de parada e a solução está incorreta. Somado ao fato que a divisão direta do Scilab fornece outro resultado. 
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.4\linewidth]{../2/3-resultado}
+				
+			\end{figure}
+			
+			O motivo da solução estar incorreta é porque essa matriz não é convergente. Visto que a diagonal não é estritamente dominante.
+			
+			De modo que a matriz dos coeficientes seja estritamente diagonal dominante, podemos apenas permutar as linhas 1 e 3, e depois 2 e 3, de tal modo que:
+			
+			\begin{equation}
+				\left\{\begin{split}
+					6x - y - 2z = 1 \\
+					x - 4y + 2z = 2 \\
+					0x + 2y + 4z = 1 \\
+				\end{split}\right.
+			\end{equation}
+		
+			Agora temos uma matriz A convergente, e poderemos utilizar nossos métodos iterativos:
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-jacobi_certo}
+
+			\end{figure}			
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-gauss1_certo}
+			\end{figure}
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-gauss2_certo}
+			\end{figure}
+		
+			Podemos ainda observar que ao mudar E para $10^{-10}$, temos um resultado mais próximo. Isso acontece pois o algoritmo terá um maior número de interações até a norma da diferença entre $x_k$ e $x_{k-1}$ ser o novo E. Já que diminuindo ele drasticamente, estará mais próximo da solução, aumentando mais ainda a convergência.
+			
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.7\linewidth]{../2/3-gauss_prox}
+			\end{figure}
+			
+			
+		\end{sol}
+	
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 4 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item a) Para o sistema do exercício 3 da Lista de Exercícios 2, mostre
+		que o método de Jacobi com $x(0)=0$ falha em dar uma boa
+		aproximação após 25 iterações.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/4-jacobi}
+			
+		\end{figure}
+		
+		b) Use o método de Gauss-Seidel com x(0)=0 para obter uma
+		aproximação da solução do sistema linear com precisão de 10-5 na
+		norma-infinito.
+		
+		\begin{sol}
+			
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/4-gauss1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/4-gauss2}
+		\end{figure}
+			
+			
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 5 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item a) Utilize o método iterativo de Gauss-Seidel para obter uma
+		aproximação da solução do sistema linear do exercício 5 da Lista
+		de Exercícios 2, com tolerância de $10^{-2}$ e o máximo de 300
+		iterações.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/5.1-gauss1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/5.1-gauss2}
+		\end{figure}
+		
+		As 300 iterações não são necessárias. Em 14 iterações a norma da diferença entre os dois últimos resultados já é menor que $10^{-2}$. Podemos ver no x de saída que o vetor resultado está bem próximo de $[0.9; -0.7; 0.6]$
+		
+		b) O que acontece ao repetir o item a) quando o sistema é
+		alterado para:
+		
+		\begin{equation}
+			\left\{\begin{split}
+				1x- 2x_3 = 0,2 \\
+				-\frac{1}{2} + x_2  - \frac{1}{4}x_3 = -1,425 \\
+				1x_1 - \frac{1}{2}x_2 + x_3 = 2 \\
+			\end{split}\right.
+		\end{equation}
+		
+		\begin{sol}
+			
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/5.2-gauss1}
+		\end{figure}
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{../2/5.2-gauss2}
+		\end{figure}	
+		
+		Os resultados estão incorretos. Com essa pequena mudança, a diagonal deixa de ser estritamente dominante, visto que $|1| > |0| + |2|$. Consequentemente a matriz não é mais convergente, sendo impossível aplicar os métodos iterativos.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.4\linewidth]{../2/5.1-resposta}
+		\end{figure}
+		\end{sol}
+		
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%% Exercício 6 %%%%%%%%%%%%%%%%%%%%%%
+		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		
+		\item Agora gere matrizes $A_{nxn}$ com diagonal estritamente dominante
+		para n=10, n=100, n=1000, n=2000, ... bem como vetores b com
+		dimensões compatíveis e resolva esses sistemas Ax=b pelo
+		Método de Gauss-Seidel, usando as duas versões implementadas
+		no item 2. Use as funções $tic()$ e $toc()$ do Scilab para medir os
+		tempos de execução e compará-los.
+		
+		\begin{sol}
+			
+		Para essa questão, criei uma função chamada "$matriz\_converg\_aleat()$" que recebe a dimensão desejada para a matriz A e gera, uma matriz A aleatória com diagonal estritamente dominante, um vetor b com dimensão (n,1) e um vetor inicial nulo com dimensão (n,1).	
+		\begin{lstlisting}[language=Scilab]
+		function [A,b,v] = matriz_converg_aleat(n)
+		
+		// formula para gerar um num. aleat. entre [a,b]
+		//  r = a + (b-a)*rand();
+		
+		//matriz A com num. aleat. entre [1, n]
+		A = floor(1 + ((n-1)*rand(n,n,'uniform')))
+		
+		//soma de cada linha de A
+		soma_linhas = sum(A,2);
+		
+		for i = 1:n
+		//soma da linha i de A
+		soma_linha = soma_linhas(i);
+		//diagonal de A com num maiores que a soma de cada linha de A.
+			A(i,i) = soma_linha + floor(1 + ((n-1)*rand(1,1,'uniform')));
+		end
+		
+		b = floor(1 + ((n-1)*rand(n,1,'uniform')))
+		v = zeros(n,1);
+		endfunction	
+		\end{lstlisting}
+	
+		Ao fazer alguns testes com as funções em matriz 10 por 10, observamos que a $Gauss\_Seidel\_1$ é geralmente mais rápida.
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.88\linewidth]{../2/6-dez}
+		\end{figure}
+	
+		Ao fazer alguns testes com as funções em matriz 100 por 100, observamos que a $Gauss\_Seidel\_1$ é geralmente mais rápida.
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{../2/6-cem}
+		\end{figure}
+	
+		Ao fazer alguns testes com as funções em matriz 1000 por 1000, observamos que a $Gauss\_Seidel\_1$ é geralmente mais rápida.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{../2/6-mil}
+		\end{figure}
+		
+		Então podemos cogitar que a $Gauss\_Seidel\_1$ sempre seja mais rápida que a $Gauss\_Seidel\_2$, algo poderá mudar ao continuar com matrizes maiores?
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{../2/6-doismil}
+		\end{figure}
+		
+		
+		Fazendo testes com matrizes 2000 por 2000, note que a diferença de tempo entre elas já diminui. Um tempo que antes da $Gauss\_Seidel\_2$ era cerca de 10 vezes maior, agora é apenas o dobro maior que a $Gauss\_Seidel\_1$.
+		
+		Ao continuar os testes 5000 por 5000, concluímos que SIM, a função $Gauss\_Seidel_2$ passa a ser mais eficiente que a $Gauss\_Seidel\_1$. E agora seu tempo de execução cerca de metade da $Gauss\_Seidel_1$.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\linewidth]{../2/6-cincomil}
+		\end{figure}
+	
+		Bônus:
+		
+		Sabemos que apesar de $Gauss\_Seidel_1$ e $Gauss\_Seidel_2$ terem tempos de execução diferentes, ambos levam o mesmo número de iterações para alcançar uma condição de parada. Mas o tipo de norma também influencia?
+		
+		Testando os 3 tipos de norma para matrizes 100 por 100.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{norma-cem}
+		\end{figure}
+		
+		Testando os 3 tipos de norma para matrizes 1000 por 1000.
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{norma-mil}
+		\end{figure}
+		
+		Testando os 3 tipos de norma para matrizes 2000 por 2000.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{norma-doismil}
+		\end{figure}
+		
+		Pelo visto, a norma infinita requer um menor número de iterações, enquanto a norma 1 requer um maior número de iterações para chegar na mesma aproximação.
+		 
+		\end{sol}
+		
+		
+	\end{enumerate}
+\end{document}
