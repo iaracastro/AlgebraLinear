@@ -94,7 +94,7 @@ Materiais diversos como pdfs, livros, códigos e imagens.
 
 # Resumos
 
-- 4 Subespaços Fundamentais
+- Espaços Vetoriais e os 4 Subespaços Fundamentais
 - Autovalores e Autovetores
 - Base e Dimensão
 - Decomposição SVD
