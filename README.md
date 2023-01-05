@@ -95,8 +95,8 @@ Materiais diversos como pdfs, livros, códigos e imagens.
 # Resumos
 
 - Espaços Vetoriais e os 4 Subespaços Fundamentais
-- Autovalores e Autovetores
 - Base e Dimensão
+- Autovalores e Autovetores
 - Decomposição SVD
 - Determinantes
 - Diagonalização
